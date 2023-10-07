@@ -1,0 +1,34 @@
+@import '../constant.scss';
+
+.layout {
+    width: 100%;
+    height: 100vh;
+}
+
+.mat-drawer-content {
+    padding-bottom: 5rem;
+}
+
+.layout-sidebar {
+    height: calc(100vh - 64px);
+    margin-top: 64px;
+    width: 220px;
+
+    @media (max-width: $small) {
+        width: 218px;
+    }
+
+}
+
+
+
+.layout-content {
+
+    margin-top: 64px;
+    height: -webkit-fill-available;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    @media (max-width: $small) {
+        width: 100%;
+    }
+}

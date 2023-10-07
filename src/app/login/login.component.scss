@@ -1,0 +1,27 @@
+@import '../constant.scss';
+
+.container {
+    min-height: 100vh;
+    background-color: $black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .form {
+        width: 350px;
+        height: 300px;
+
+        .login_header {
+            color: white;
+            text-align: center;
+        }
+
+        .input-full-width {
+            width: 100%;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+        }
+    }
+}
