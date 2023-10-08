@@ -1,0 +1,30 @@
+<div class="page-container centered-content">
+    <form #f="ngForm" class="form" (submit)="onSubmit(f)">
+        <h1 class="header">Create New Item</h1>
+
+        <mat-form-field class="input-full-width" appearance="outline">
+            <mat-label>Choose Brand</mat-label>
+            <mat-select name="brand" ngModel required>
+                <mat-option *ngFor="let brand of brands" [value]="brand.brand_id">{{brand.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="input-full-width" appearance="outline">
+            <mat-label>Choose Category</mat-label>
+            <mat-select name="category" ngModel required>
+                <mat-option *ngFor="let category of categories" [value]="category.category_id" >{{category.category_name}} </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="input-full-width" appearance="outline">
+            <mat-label>Enter Item Name</mat-label>
+            <input matInput type="text" name="itemName" value="" ngModel required>
+        </mat-form-field>
+        <mat-form-field class="input-full-width" appearance="outline">
+            <mat-label>Enter Barcode</mat-label>
+            <input matInput type="text" name="barcode" value="" ngModel>
+        </mat-form-field>
+        <button mat-raised-button type="submit" [disabled]="f.invalid" color="primary">Submit</button>
+
+    </form>
+</div>

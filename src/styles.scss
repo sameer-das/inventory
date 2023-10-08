@@ -38,3 +38,18 @@ body {
     background: #666; 
   }
 }
+
+
+.page-container {
+  min-height: calc(100vh - 80px);
+}
+
+.full-page-container {
+  min-height: 100vh;
+}
+
+.centered-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

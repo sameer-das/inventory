@@ -10,8 +10,30 @@
             [routerLinkActiveOptions]="{exact: true}">
             <mat-icon>add_shopping_cart</mat-icon> Purchase
         </a></li>
-    <li><a class="main_menu_link" routerLink="/stock" routerLinkActive="activelink"
+    <li>
+        <a class="main_menu_link" haveSubmenu routerLink="/stock" routerLinkActive="activelink"
             [routerLinkActiveOptions]="{exact: true}">
             <mat-icon>inventory</mat-icon> Stock
-        </a></li>
+            <mat-icon class="carret">arrow_right</mat-icon>
+        </a>
+        <ul class="sub_menu">
+            <li>
+                <a class="sub_menu_link" routerLink="/stock" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">All Stock</a>
+            </li>
+            <li>
+                <a class="sub_menu_link" routerLink="/stock/newbrand" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">Create Brand</a>
+            </li>
+            <li>
+                <a class="sub_menu_link" routerLink="/stock/newcategory" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">Create Category</a>
+            </li>
+            <li>
+                <a class="sub_menu_link" routerLink="/stock/newitem" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">Create Item</a>
+            </li>            
+        </ul>
+
+    </li>
 </ul>

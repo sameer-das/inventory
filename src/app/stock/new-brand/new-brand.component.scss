@@ -1,13 +1,11 @@
-@import '../constant.scss';
+@import '../../constant.scss';
 
-.dark-bg {
-    background-color: $black;
-}
+
 .form {
-    width: 350px;
+    width: 450px;
     height: 300px;
 
-    .login_header {
+    .header {
         color: white;
         text-align: center;
     }

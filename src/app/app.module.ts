@@ -9,7 +9,9 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material.module';
 import { HeaderComponent } from './layout/header/header.component';
-import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { HaveSubmenuDirective, SidebarComponent } from './layout/sidebar/sidebar.component';
+import { LoaderComponent } from './loader/loader.component';
+import { AlertComponent } from './popups/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,10 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     LayoutComponent,
     LoginComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    HaveSubmenuDirective,
+    LoaderComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
