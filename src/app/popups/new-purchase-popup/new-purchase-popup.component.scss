@@ -1,0 +1,118 @@
+@import '../../constant.scss';
+
+.dialog-container {
+    height: 100%;
+}
+
+
+.dialog-content{
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.date-picker {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    margin-left: 3px;
+
+    button {
+        width: 36px;
+        height: 36px;
+        top: 9px;
+        margin-left: 0.5rem;
+    }
+}
+
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    
+    color: white;
+    align-items: center;
+
+    > * {
+        padding: 0;
+        margin: 0;
+    }
+}
+.gst-dropdown {
+    border: 1px solid $grey;
+    padding: 5px;
+    border-radius: 4px;
+
+    &:focus {
+        border: 2px solid $purple;
+    }
+}
+.dialog-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-button {
+    width: 160px;
+}
+
+
+.section {
+    h4 {
+        margin: 0;
+        padding: 0;
+        color: $purple;
+    }
+    margin-bottom: 0.5rem;
+}
+.mrp_row, .quantity_row, .price_row {
+    display: flex;
+}
+
+.ml-32 {
+    margin-left: 32px;
+}
+
+.details_section {
+    padding-top: 1rem;
+    &_heading {
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    .details_section_heading {
+        color: white;
+    }
+    table {
+        border-collapse: collapse;
+        border: 1px solid white;
+        th {
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid white;
+        }
+
+        td {
+            padding: 0.25rem 0.5rem;
+            font-size: 1rem;
+            color: $grey;
+            &.highlight {
+                color: white;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .per_piece_purprice {
+        color: white;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+}

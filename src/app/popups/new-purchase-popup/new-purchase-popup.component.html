@@ -1,0 +1,132 @@
+<div class="dialog-container">
+    <div class="dialog-content">
+        <div>
+            <div class="dialog-header">
+                <h2>New Purchase | Item : {{item.item_name}} </h2>
+                <h3>Available Quantity - ({{item.total_quantity}})</h3>
+            </div>
+
+            <div class="dialog-body">
+                <form>
+                    <div class="section">
+                        <!-- <h4></h4> -->
+                        <div class="mrp_row">
+                            <div class="custom-input-container">
+                                <label>MRP</label>
+                                <input type="text" name="mrp" required tabindex="1">
+                            </div>
+
+                            <div class="date-picker ml-32">
+
+                                <div>
+                                    <div class="custom-input-container">
+                                        <label>Bill Date</label>
+                                        <input tabindex="-1" [matDatepicker]="picker" readonly >
+                                    </div>    
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </div>
+
+                                <button type="button" mat-mini-fab (click)="picker.open()" tabindex="2">
+                                    <mat-icon>calendar_month</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="section">
+                        <!-- <h4>Quantity</h4> -->
+                        <div class="quantity_row">
+                            <div class="custom-input-container">
+                                <label>Box/Carton</label>
+                                <input type="text" name="quantiyBox" required tabindex="3">
+                            </div>
+                            <div class="custom-input-container ml-32">
+                                <label>Piece/Pack Per Carton</label>
+                                <input type="text" name="piecePerCarton" required tabindex="4">
+                            </div>
+
+                            <div class="custom-input-container ml-32">
+                                <label>Piece/Pack</label>
+                                <input type="text" name="quantityPiece" required tabindex="5">
+                            </div>
+
+                            <div class="custom-input-container ml-32">
+                                <label>Free</label>
+                                <input type="text" name="quantityFree" required tabindex="6">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <!-- <h4>Price</h4> -->
+                        <div class="price_row">
+                            <div class="custom-input-container">
+                                <label>Total Purchase Price</label>
+                                <input type="text" name="totalPrice" required tabindex="7">
+                            </div>
+                            <div class="custom-input-container ml-32">
+                                <label>Total Discount</label>
+                                <input type="text" name="discount" required tabindex="8">
+                            </div>
+                            <div class="custom-input-container ml-32">
+                                <label>Rate of GST</label>
+                                <mat-select class="gst-dropdown" name="GST" tabindex="9">
+                                    <mat-option value="5">5</mat-option>
+                                    <mat-option value="12">12</mat-option>
+                                    <mat-option value="18">18</mat-option>
+                                    <mat-option value="28">28</mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="details_section">
+                    <h3 class="details_section_heading">Details</h3>
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Carton/Box</th>
+                                    <th>Piece/Pack Per Carton/Box</th>
+                                    <th>Piece/Pack</th>
+                                    <th>Free</th>
+                                    <th>Total Piece/Pack</th>
+                                    <th>Amount Before GST</th>
+                                    <th>Discount</th>
+                                    <th>GST</th>
+                                    <th>Tax Amount</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>40</td>
+                                    <td>20</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td class="highlight">800</td>
+                                    <td>37449.15</td>
+                                    <td>454.85</td>
+                                    <td>18</td>
+                                    <td>6740.84</td>
+                                    <td class="highlight">44189.99</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="per_piece_purprice">Purchase Price Per Piece: 55.23</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="dialog-footer">
+            <button mat-flat-button color="warn" mat-dialog-close tabindex="-1">Cancel</button>
+            <button mat-flat-button color="primary" class="add-button" tabindex="10">Add</button>
+        </div>
+    </div>
+</div>
