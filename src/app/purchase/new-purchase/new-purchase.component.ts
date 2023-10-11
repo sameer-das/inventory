@@ -13,6 +13,22 @@ export class NewPurchaseComponent implements OnInit {
 
   constructor(private _matdialog: MatDialog) { }
 
+  purchasedIetms: any[] = [{
+    "mrp": "65",
+    "quantityBox": "40",
+    "piecePerCarton": "20",
+    "quantityPiece": "0",
+    "quantityFree": "0",
+    "purchasePriceBeforeDiscount": "37904.00",
+    "discountPrice": "454.85",
+    "purchasePriceAfterDiscount": "37449.15",
+    "gst": "18",
+    "totalQuantityPiece": 800,
+    "taxAmount": "6740.85",
+    "totalPrice": "44190.00",
+    "purchasePricePerPiece": "55.24",
+    "item_name": "Kitkat Rs.20",
+}]
   item = {
     "category_id": 1,
     "brand_id": 1,
@@ -36,6 +52,7 @@ export class NewPurchaseComponent implements OnInit {
     }).afterClosed().subscribe((data: any) => {
       if (data.shouldAdd) {
         console.log(data.item);
+        this.purchasedIetms.push(data.item);
       }
     })
   }

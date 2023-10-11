@@ -3,3 +3,43 @@
 
     <button mat-flat-button color="accent" (click)="onItemSelection(item)">Click</button>
 </div>
+
+<div *ngIf="purchasedIetms.length > 0">
+    <table>
+        <thead>
+            <tr>
+                <th>Sl.</th>
+                <th>Item Name</th>
+                <th>Box/Carton</th>
+                <th>Piece Per Carton</th>
+                <th>Piece</th>
+                <th>Free</th>
+                <th>Total Piece</th>
+                <th>Price per Piece</th>
+                <th>Total b/f Discount</th>
+                <th>Total Discount</th>
+                <th>Total a/f Discount</th>
+                <th>GST</th>
+                <th>Total</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of purchasedIetms; let i = index">
+                <td>{{i + 1}}</td>
+                <td class="td_item_name">{{item.item_name}}</td>
+                <td>{{item.quantityBox}}</td>
+                <td>{{item.piecePerCarton}}</td>
+                <td>{{item.quantityPiece}}</td>
+                <td>{{item.quantityFree}}</td>
+                <td>{{item.totalQuantityPiece}}</td>
+                <td>{{item.purchasePricePerPiece}}</td>
+                <td>{{item.purchasePriceBeforeDiscount}}</td>
+                <td>{{item.discountPrice}}</td>
+                <td>{{item.purchasePriceAfterDiscount}}</td>
+                <td>{{item.gst}}</td>
+                <td class="highlight">{{item.totalPrice}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

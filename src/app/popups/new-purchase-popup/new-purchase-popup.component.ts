@@ -64,6 +64,9 @@ export class NewPurchasePopupComponent implements OnInit {
   ppad: string = '0';
   discountPrice: string = '0';
 
+  purchasePriceBeforeDiscount: string = ''
+  purchasePriceAfterDiscount: string = ''
+
   ngOnInit(): void {
     this.newItemPurchaseFormGroup.valueChanges
       .pipe(filter(() => this.newItemPurchaseFormGroup.valid), debounceTime(500))
@@ -84,10 +87,12 @@ export class NewPurchasePopupComponent implements OnInit {
   calculateDiscount(val: any) {
     if (!this.enable) {
       const ppad = (+val.purchasePriceBeforeDiscount - +val.discountPrice).toFixed(2);
-      this.newItemPurchaseFormGroup.get('purchasePriceAfterDiscount')?.setValue(ppad, { onlySelf: true })
+      this.newItemPurchaseFormGroup.get('purchasePriceAfterDiscount')?.setValue(ppad, { onlySelf: true });
+      this.purchasePriceAfterDiscount = ppad;
     } else {
       const ppbd = (+val.purchasePriceAfterDiscount + +val.discountPrice).toFixed(2);
-      this.newItemPurchaseFormGroup.get('purchasePriceBeforeDiscount')?.setValue(ppbd, { onlySelf: true })
+      this.newItemPurchaseFormGroup.get('purchasePriceBeforeDiscount')?.setValue(ppbd, { onlySelf: true });
+      this.purchasePriceBeforeDiscount = ppbd;
     }
   }
 
