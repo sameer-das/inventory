@@ -7,16 +7,17 @@
             </div>
 
             <div class="dialog-body">
-                <form>
+                <form [formGroup]="newItemPurchaseFormGroup">
                     <div class="section">
                         <!-- <h4></h4> -->
                         <div class="mrp_row">
                             <div class="custom-input-container">
                                 <label>MRP</label>
-                                <input type="text" name="mrp" required tabindex="1">
+                                <input type="text" name="mrp" required tabindex="1" formControlName="mrp">
+                                <small class="error-message">{{getErrorMessage('mrp')}}</small>
                             </div>
 
-                            <div class="date-picker ml-32">
+                            <!-- <div class="date-picker ml-32">
 
                                 <div>
                                     <div class="custom-input-container">
@@ -29,7 +30,7 @@
                                 <button type="button" mat-mini-fab (click)="picker.open()" tabindex="2">
                                     <mat-icon>calendar_month</mat-icon>
                                 </button>
-                            </div>
+                            </div> -->
                         </div>
 
 
@@ -40,21 +41,25 @@
                         <div class="quantity_row">
                             <div class="custom-input-container">
                                 <label>Box/Carton</label>
-                                <input type="text" name="quantiyBox" required tabindex="3">
+                                <input type="text" name="quantityBox" formControlName="quantityBox" required tabindex="2">
+                                <small class="error-message">{{getErrorMessage('quantityBox')}}</small>
                             </div>
                             <div class="custom-input-container ml-32">
                                 <label>Piece/Pack Per Carton</label>
-                                <input type="text" name="piecePerCarton" required tabindex="4">
+                                <input type="text" name="piecePerCarton" formControlName="piecePerCarton" required tabindex="3">
+                                <small class="error-message">{{getErrorMessage('piecePerCarton')}}</small>
                             </div>
 
                             <div class="custom-input-container ml-32">
                                 <label>Piece/Pack</label>
-                                <input type="text" name="quantityPiece" required tabindex="5">
+                                <input type="text" name="quantityPiece" formControlName="quantityPiece" required tabindex="4">
+                                <small class="error-message">{{getErrorMessage('quantityPiece')}}</small>
                             </div>
 
                             <div class="custom-input-container ml-32">
                                 <label>Free</label>
-                                <input type="text" name="quantityFree" required tabindex="6">
+                                <input type="text" name="quantityFree" formControlName="quantityFree" required tabindex="5">
+                                <small class="error-message">{{getErrorMessage('quantityFree')}}</small>
                             </div>
                         </div>
                     </div>
@@ -63,21 +68,29 @@
                         <!-- <h4>Price</h4> -->
                         <div class="price_row">
                             <div class="custom-input-container">
-                                <label>Total Purchase Price</label>
-                                <input type="text" name="totalPrice" required tabindex="7">
+                                <label>Purchase Price bef. Disc</label>
+                                <input type="text" name="purchasePriceBeforeDiscount" formControlName="purchasePriceBeforeDiscount" required tabindex="6">
+                                <small class="error-message">{{getErrorMessage('purchasePriceBeforeDiscount')}}</small>
                             </div>
                             <div class="custom-input-container ml-32">
                                 <label>Total Discount</label>
-                                <input type="text" name="discount" required tabindex="8">
+                                <input type="text" name="discountPrice" formControlName="discountPrice" required tabindex="7">
+                                <small class="error-message">{{getErrorMessage('discountPrice')}}</small>
+                            </div>
+                            <div class="custom-input-container ml-32">
+                                <label>Purchase Price after Disc</label>
+                                <input type="text" name="purchasePriceAfterDiscount" formControlName="purchasePriceAfterDiscount" required tabindex="7">
+                                <small class="error-message">{{getErrorMessage('purchasePriceAfterDiscount')}}</small>
                             </div>
                             <div class="custom-input-container ml-32">
                                 <label>Rate of GST</label>
-                                <mat-select class="gst-dropdown" name="GST" tabindex="9">
+                                <mat-select class="gst-dropdown" name="GST" formControlName="gst" tabindex="8">
                                     <mat-option value="5">5</mat-option>
                                     <mat-option value="12">12</mat-option>
                                     <mat-option value="18">18</mat-option>
                                     <mat-option value="28">28</mat-option>
                                 </mat-select>
+                                <small class="error-message">{{getErrorMessage('gst')}}</small>
                             </div>
                         </div>
                     </div>
@@ -103,21 +116,21 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>40</td>
-                                    <td>20</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td class="highlight">800</td>
-                                    <td>37449.15</td>
-                                    <td>454.85</td>
-                                    <td>18</td>
-                                    <td>6740.84</td>
-                                    <td class="highlight">44189.99</td>
+                                    <td>{{getValue('quantityBox')}}</td>
+                                    <td>{{getValue('piecePerCarton')}}</td>
+                                    <td>{{getValue('quantityPiece')}}</td>
+                                    <td>{{getValue('quantityFree')}}</td>
+                                    <td class="highlight">{{totalQuantityPiece}}</td>
+                                    <td>{{getValue('purchasePriceBeforeDiscount')}}</td>
+                                    <td>{{getValue('discountPrice')}}</td>
+                                    <td>{{getValue('gst')}}</td>
+                                    <td>{{taxAmount}}</td>
+                                    <td class="highlight">{{totalPrice}}</td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <p class="per_piece_purprice">Purchase Price Per Piece: 55.23</p>
+                        <p class="per_piece_purprice">Purchase Price Per Piece: {{purchasePricePerPiece}}</p>
                     </div>
                 </div>
             </div>
@@ -125,8 +138,8 @@
         </div>
 
         <div class="dialog-footer">
-            <button mat-flat-button color="warn" mat-dialog-close tabindex="-1">Cancel</button>
-            <button mat-flat-button color="primary" class="add-button" tabindex="10">Add</button>
+            <button mat-flat-button color="warn" mat-dialog-close tabindex="-1" (click)="onCancel()">Cancel</button>
+            <button mat-flat-button color="primary" class="add-button" tabindex="9"  (click)="onAdd()">Add</button>
         </div>
     </div>
 </div>

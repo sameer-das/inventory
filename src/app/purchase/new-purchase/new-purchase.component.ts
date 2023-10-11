@@ -29,11 +29,15 @@ export class NewPurchaseComponent implements OnInit {
   onItemSelection(item: any) {
     this._matdialog.open(NewPurchasePopupComponent, {
       width: '1000px',
-      height: '500px',
+      height: '550px',
       disableClose: true,
       panelClass: 'new-purchase-popup',
       data: item,
-    });
+    }).afterClosed().subscribe((data: any) => {
+      if (data.shouldAdd) {
+        console.log(data.item);
+      }
+    })
   }
 
 }

@@ -77,7 +77,7 @@ body {
       border: 1px solid $grey;
       border-radius: 4px;
       background-color: transparent;
-      padding: 0.5rem 0.25rem;
+      padding: 0.25rem;
       font-size: 1rem;
       color: white;
       width: 100%;
@@ -87,10 +87,15 @@ body {
       }
   }
 
-  option {
-    background-color: $deep-purple;
-    color: white;
-    padding: 0.5rem 0.25rem;
+  input.ng-invalid {
+    border-color: $red
+  }
+
+
+  .error-message {
+    color: $red;
+    font-size: 0.75rem;
+    font-weight: 500;
   }
 
 }
