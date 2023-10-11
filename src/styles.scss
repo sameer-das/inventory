@@ -1,8 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import './app/constant.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 
 *,
@@ -21,22 +28,22 @@ body {
     width: 4px;
     height: 4px;
   }
-  
+
   /* Track */
   ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px grey;
     border-radius: 2px;
   }
-   
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #aaa; 
+    background: #aaa;
     border-radius: 4px;
   }
-  
+
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #666; 
+    background: #666;
   }
 }
 
@@ -63,28 +70,39 @@ body {
 
 //  custom input
 
-.custom-input-container{
+.custom-input-container {
   width: 150px;
 
   label {
-      display: inline-block;
-      font-size: 0.8rem;
-      color: $grey;
+    display: inline-block;
+    font-size: 0.8rem;
+    color: $grey;
   }
-  input, select {
-      display: inline-block;
-      outline: none;
-      border: 1px solid $grey;
-      border-radius: 4px;
-      background-color: transparent;
-      padding: 0.25rem;
-      font-size: 1rem;
-      color: white;
-      width: 100%;
 
-      &:focus {
-          border: 2px solid $green;
-      }
+  input[type="text"],
+  select {
+    display: inline-block;
+    outline: none;
+    border: 1px solid $grey;
+    border-radius: 4px;
+    background-color: transparent;
+    padding: 0.25rem;
+    font-size: 1rem;
+    color: white;
+    width: 100%;
+
+    &:focus {
+      border: 2px solid $green;
+    }
+
+    &:disabled {
+      border-color: $grey;
+      color: $grey;
+    }
+  }
+
+  .mat-mdc-radio-button .mdc-radio {
+    padding: 0;
   }
 
   input.ng-invalid {

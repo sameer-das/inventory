@@ -71,10 +71,12 @@
 }
 .mrp_row, .quantity_row, .price_row {
     display: flex;
+    align-items: center;
+    gap: 2rem
 }
 
 .ml-32 {
-    margin-left: 32px;
+    // margin-left: 32px;
 }
 
 .details_section {
@@ -91,6 +93,7 @@
     table {
         border-collapse: collapse;
         border: 1px solid white;
+  
         th {
             color: white;
             font-size: 1rem;

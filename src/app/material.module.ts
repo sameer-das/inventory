@@ -21,6 +21,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 const MATERIAL = [
   MatDialogModule,
   MatTabsModule,
@@ -42,7 +44,9 @@ const MATERIAL = [
   MatSnackBarModule,
   MatProgressSpinnerModule,
   MatExpansionModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatRadioModule,
+  MatSlideToggleModule
 ];
 
 @NgModule({

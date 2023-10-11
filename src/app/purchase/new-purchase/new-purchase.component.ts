@@ -28,8 +28,8 @@ export class NewPurchaseComponent implements OnInit {
 
   onItemSelection(item: any) {
     this._matdialog.open(NewPurchasePopupComponent, {
-      width: '1000px',
-      height: '550px',
+      minWidth: '85vw',
+      height: '95vh',
       disableClose: true,
       panelClass: 'new-purchase-popup',
       data: item,
