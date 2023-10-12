@@ -1,10 +1,10 @@
 <div class="searchbar">
     <app-search-item (onItemSelection)="onItemSelection($event)"></app-search-item>
 
-    <button mat-flat-button color="accent" (click)="onItemSelection(item)">Click</button>
+    <!-- <button mat-flat-button color="accent" (click)="onItemSelection(item)">Click</button> -->
 </div>
 
-<div *ngIf="purchasedIetms.length > 0">
+<div *ngIf="purchasedItems.length > 0">
     <table>
         <thead>
             <tr>
@@ -16,17 +16,18 @@
                 <th>Free</th>
                 <th>Total Piece</th>
                 <th>Price per Piece</th>
-                <th>Total b/f Discount</th>
-                <th>Total Discount</th>
-                <th>Total a/f Discount</th>
+                <th>Amt. b/f Disc.</th>
+                <th>Total Disc.</th>
+                <th>Amt. a/f Disc.</th>
                 <th>GST</th>
+                <th>Tax</th>
                 <th>Total</th>
 
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of purchasedIetms; let i = index">
-                <td>{{i + 1}}</td>
+            <tr *ngFor="let item of purchasedItems; let i = index" (contextmenu)="onContextMenu($event, item, i)"  (dblclick)="onEdit(item, i)">
+                <td>{{i + 1}}.</td>
                 <td class="td_item_name">{{item.item_name}}</td>
                 <td>{{item.quantityBox}}</td>
                 <td>{{item.piecePerCarton}}</td>
@@ -38,8 +39,30 @@
                 <td>{{item.discountPrice}}</td>
                 <td>{{item.purchasePriceAfterDiscount}}</td>
                 <td>{{item.gst}}</td>
+                <td>{{item.taxAmount}}</td>
                 <td class="highlight">{{item.totalPrice}}</td>
+
+                <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+                    [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+                </div>
+
+                <mat-menu #contextMenu="matMenu" >
+                    <ng-template matMenuContent let-item="item" let-i="i">
+                        <button mat-menu-item (click)="onEdit(item, i)">Edit</button>
+                        <button mat-menu-item (click)="onDelete(item, i)">Delete</button>
+                    </ng-template>
+                </mat-menu>
+
+            </tr>
+            <tr>
+                <td colspan="9" class="summary">Total</td>
+                <td colspan="1" class="summary">{{totalDiscount}}</td>
+                <td colspan="2" class="summary"></td>
+                <td class="summary">{{totalGst}}</td>
+                <td class="summary">{{totalAmount}}</td>
             </tr>
         </tbody>
     </table>
+
+
 </div>

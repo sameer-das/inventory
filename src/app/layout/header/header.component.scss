@@ -1,7 +1,20 @@
+@import '../../constant.scss';
+
 .header {
     display: flex;
     justify-content: space-between;
     position: fixed;
     z-index: 2;
     height: 64px;
+
+    .header__title {
+        display: flex;
+        align-items: center;
+        .header__title-text {
+            margin: 0;
+            margin-left: 1rem;
+            font-size: 1.4rem;
+            color: white;
+        }
+    }
 }

@@ -19,7 +19,7 @@ export class NewPurchasePopupComponent implements OnInit {
   enable: boolean = false;
 
   newItemPurchaseFormGroup: FormGroup = new FormGroup({
-    mrp: new FormControl('0.00', {
+    mrp: new FormControl('0', {
       updateOn: 'blur',
       validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)]
     }),
@@ -39,15 +39,15 @@ export class NewPurchasePopupComponent implements OnInit {
       updateOn: 'blur',
       validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbers)]
     }),
-    purchasePriceBeforeDiscount: new FormControl('0.00', {
+    purchasePriceBeforeDiscount: new FormControl('0', {
       updateOn: 'blur',
       validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)]
     }),
-    discountPrice: new FormControl('0.00', {
+    discountPrice: new FormControl('0', {
       updateOn: 'blur',
       validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)]
     }),
-    purchasePriceAfterDiscount: new FormControl({ value: '0.00', disabled: true }, {
+    purchasePriceAfterDiscount: new FormControl({ value: '0', disabled: true }, {
       updateOn: 'blur',
       validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)]
     }),
@@ -56,18 +56,37 @@ export class NewPurchasePopupComponent implements OnInit {
 
 
   totalQuantityPiece = 0;
-  taxAmount = '0';
-  totalPrice = '0';
-  purchasePricePerPiece = '0';
+  taxAmount: number = 0;
+  totalPrice: number = 0;
+  purchasePricePerPiece: number = 0;
 
-  ppbd: string = '0';
-  ppad: string = '0';
-  discountPrice: string = '0';
 
-  purchasePriceBeforeDiscount: string = ''
-  purchasePriceAfterDiscount: string = ''
+  purchasePriceBeforeDiscount: number = 0
+  purchasePriceAfterDiscount: number = 0
 
   ngOnInit(): void {
+    if (this.item.isEdit) {
+      this.newItemPurchaseFormGroup.setValue({
+        mrp: this.item.item.mrp,
+        quantityBox: this.item.item.quantityBox,
+        piecePerCarton: this.item.item.piecePerCarton,
+        quantityPiece: this.item.item.quantityPiece,
+        quantityFree: this.item.item.quantityFree,
+        purchasePriceBeforeDiscount: this.item.item.purchasePriceBeforeDiscount,
+        discountPrice: this.item.item.discountPrice,
+        purchasePriceAfterDiscount: this.item.item.purchasePriceAfterDiscount,
+        gst: this.item.item.gst,
+      });
+
+      this.purchasePriceAfterDiscount = this.item.item.purchasePriceAfterDiscount;
+      this.purchasePriceBeforeDiscount = this.item.item.purchasePriceBeforeDiscount;
+      this.totalQuantityPiece = this.item.item.totalQuantityPiece;
+      this.taxAmount = this.item.item.taxAmount;
+      this.totalPrice = this.item.item.totalPrice;
+      this.purchasePricePerPiece = +this.item.item.purchasePricePerPiece.toFixed(2);
+    }
+
+
     this.newItemPurchaseFormGroup.valueChanges
       .pipe(filter(() => this.newItemPurchaseFormGroup.valid), debounceTime(500))
       .subscribe({
@@ -76,9 +95,9 @@ export class NewPurchasePopupComponent implements OnInit {
           const val = this.newItemPurchaseFormGroup.getRawValue();
           this.calculateDiscount(val);
           this.totalQuantityPiece = (+val.quantityBox * +val.piecePerCarton) + +val.quantityPiece + +val.quantityFree;
-          this.taxAmount = (+val.purchasePriceAfterDiscount * (+val.gst / 100)).toFixed(2);
-          this.totalPrice = (+val.purchasePriceAfterDiscount + +this.taxAmount).toFixed(2);
-          this.purchasePricePerPiece = (+this.totalPrice / +this.totalQuantityPiece).toFixed(2);
+          this.taxAmount = +this.purchasePriceAfterDiscount * (+val.gst / 100);
+          this.totalPrice = +this.purchasePriceAfterDiscount + +this.taxAmount;
+          this.purchasePricePerPiece = +(+this.totalPrice / +this.totalQuantityPiece).toFixed(2);
         }
       })
   }
@@ -86,12 +105,14 @@ export class NewPurchasePopupComponent implements OnInit {
 
   calculateDiscount(val: any) {
     if (!this.enable) {
-      const ppad = (+val.purchasePriceBeforeDiscount - +val.discountPrice).toFixed(2);
-      this.newItemPurchaseFormGroup.get('purchasePriceAfterDiscount')?.setValue(ppad, { onlySelf: true });
+      const ppad = +val.purchasePriceBeforeDiscount - +val.discountPrice;
+      // this.newItemPurchaseFormGroup.get('purchasePriceAfterDiscount')?.setValue(ppad, { onlySelf: true, emitEvents:false });
+      this.purchasePriceBeforeDiscount = +val.purchasePriceBeforeDiscount;
       this.purchasePriceAfterDiscount = ppad;
     } else {
-      const ppbd = (+val.purchasePriceAfterDiscount + +val.discountPrice).toFixed(2);
-      this.newItemPurchaseFormGroup.get('purchasePriceBeforeDiscount')?.setValue(ppbd, { onlySelf: true });
+      const ppbd = +val.purchasePriceAfterDiscount + +val.discountPrice;
+      this.purchasePriceAfterDiscount = +val.purchasePriceAfterDiscount;
+      // this.newItemPurchaseFormGroup.get('purchasePriceBeforeDiscount')?.setValue(ppbd, { onlySelf: true, emitEvents: false });
       this.purchasePriceBeforeDiscount = ppbd;
     }
   }
@@ -103,21 +124,24 @@ export class NewPurchasePopupComponent implements OnInit {
     // console.log(this.newItemPurchaseFormGroup.value);
     // console.log(this.newItemPurchaseFormGroup);
     this._dialogRef.close({
+      isEdit: this.item.isEdit,
       shouldAdd: true,
       item: {
+        item_id: this.item.item.item_id,
+        item_name: this.item.item.item_name,
         mrp: this.newItemPurchaseFormGroup.getRawValue().mrp,
         quantityBox: this.newItemPurchaseFormGroup.getRawValue().quantityBox,
         piecePerCarton: this.newItemPurchaseFormGroup.getRawValue().piecePerCarton,
         quantityPiece: this.newItemPurchaseFormGroup.getRawValue().quantityPiece,
         quantityFree: this.newItemPurchaseFormGroup.getRawValue().quantityFree,
-        purchasePriceBeforeDiscount: this.newItemPurchaseFormGroup.getRawValue().purchasePriceBeforeDiscount,
+        purchasePriceBeforeDiscount: this.purchasePriceBeforeDiscount,
         discountPrice: this.newItemPurchaseFormGroup.getRawValue().discountPrice,
-        purchasePriceAfterDiscount: this.newItemPurchaseFormGroup.getRawValue().purchasePriceAfterDiscount,
+        purchasePriceAfterDiscount: this.purchasePriceAfterDiscount,
         gst: this.newItemPurchaseFormGroup.getRawValue().gst,
         totalQuantityPiece: this.totalQuantityPiece,
         taxAmount: this.taxAmount,
         totalPrice: this.totalPrice,
-        purchasePricePerPiece: this.purchasePricePerPiece
+        purchasePricePerPiece: this.purchasePricePerPiece,
       }
     })
   }

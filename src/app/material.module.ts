@@ -46,7 +46,7 @@ const MATERIAL = [
   MatExpansionModule,
   MatAutocompleteModule,
   MatRadioModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
 ];
 
 @NgModule({

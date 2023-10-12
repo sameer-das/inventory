@@ -1,4 +1,4 @@
-
+@import '../../constant.scss';
 
 .form {
     width: 450px;
@@ -6,5 +6,27 @@
 
     .input-full-width {
         width: 100%;
+    }
+
+    input.search-input {
+        width: 100%;
+        outline: none;
+        border: 1px solid $grey;
+        padding: 0.5rem;
+        background-color: transparent;
+        color: white;
+        font-size: 1rem;
+        border-radius: 4px;
+
+        &:focus {
+            border-color: $green;
+        }
+    }
+
+    .mat-option {
+        > span {
+            width: 100%;
+            display: block;
+        }
     }
 }

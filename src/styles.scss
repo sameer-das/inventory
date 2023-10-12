@@ -117,3 +117,31 @@ body {
   }
 
 }
+
+
+.search-item-mat-option:not(:last-child) {
+  border-bottom: 0.7px solid $green;
+}
+
+.search-item-mat-option.mdc-list-item--selected .mdc-list-item__primary-text, 
+.search-item-mat-option.mdc-list-item--activated .mdc-list-item__primary-text{
+  color: $green;
+}
+
+.search-item-mat-option.mat-mdc-option .mdc-list-item__primary-text {
+  display: block;
+  width: 100%;
+  >p {
+    margin: 0;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      font-size: 0.7rem;
+      color: $green;
+    }
+  }
+}

@@ -9,14 +9,23 @@ table {
     border-collapse: collapse;
     border: 1px solid white;
     width: 100%;
+    margin-top: 2rem;
     tbody tr{
         cursor: pointer;
-        &:hover {
+        &:not(:last-child):hover {
             background-color: $deep-purple;
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #444;
+        }
+
+        &:nth-last-child(2) {
+            border-bottom: 1px solid white;
         }
     }
     th {
-        color: white;
+        color: $green;
         font-size: 0.8rem;
         font-weight: 500;
         padding: 0.2rem 0.2rem;
@@ -24,9 +33,9 @@ table {
     }
 
     td {
-        padding: 0.2rem 0.2rem;
-        font-size: 0.7rem;
-        color: $grey;
+        padding: 0.1rem 0.2rem;
+        font-size: 0.75rem;
+        color: white;
         &.highlight {
             color: white;
             font-weight: 500;
@@ -34,6 +43,12 @@ table {
 
         &.td_item_name {
             width: 200px;
+        }
+
+        &.summary {
+            font-size: 0.8rem;
+            color: $green;
+            font-weight: 400;
         }
     }
 }

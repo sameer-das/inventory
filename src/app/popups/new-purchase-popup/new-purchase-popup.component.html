@@ -2,8 +2,8 @@
     <div class="dialog-content">
         <div>
             <div class="dialog-header">
-                <h2>New Purchase | Item : {{item.item_name}} </h2>
-                <h3>Available Quantity - ({{item.total_quantity}})</h3>
+                <h2>New Purchase | Item : <span class="item-name">{{item.item.item_name}}</span> </h2>
+                <!-- <h3>Available Quantity - ({{item.item.total_quantity}})</h3> -->
             </div>
 
             <div class="dialog-body">
@@ -73,13 +73,20 @@
                         <div class="price_row">
                             <div class="custom-input-container">
                                 <label>Enable Pur Price Aft Disc</label>
-                                <mat-slide-toggle tabindex="6" [checked]="enable" (change)="onDiscountTypeChange($event)"></mat-slide-toggle>
+                                <mat-slide-toggle tabindex="6" [checked]="enable"
+                                    (change)="onDiscountTypeChange($event)"></mat-slide-toggle>
                             </div>
                             <div class="custom-input-container">
                                 <label>Purchase Price bef. Disc</label>
-                                <input type="text" name="purchasePriceBeforeDiscount"
-                                    formControlName="purchasePriceBeforeDiscount" required tabindex="7">
-                                <small class="error-message">{{getErrorMessage('purchasePriceBeforeDiscount')}}</small>
+                                <ng-container *ngIf="this.enable">
+                                    <p class="pur-price-aftter-disc">{{purchasePriceBeforeDiscount}}</p>
+                                </ng-container>
+                                <ng-container *ngIf="!this.enable">
+                                    <input type="text" name="purchasePriceBeforeDiscount"
+                                        formControlName="purchasePriceBeforeDiscount" required tabindex="7">
+                                    <small
+                                        class="error-message">{{getErrorMessage('purchasePriceBeforeDiscount')}}</small>
+                                </ng-container>
                             </div>
                             <div class="custom-input-container ml-32">
                                 <label>Total Discount</label>
@@ -89,9 +96,16 @@
                             </div>
                             <div class="custom-input-container ml-32">
                                 <label>Purchase Price after Disc</label>
-                                <input type="text" name="purchasePriceAfterDiscount"
-                                    formControlName="purchasePriceAfterDiscount" required tabindex="9">
-                                <small class="error-message">{{getErrorMessage('purchasePriceAfterDiscount')}}</small>
+                                <ng-container *ngIf="!this.enable">
+                                    <p class="pur-price-aftter-disc">{{purchasePriceAfterDiscount}}</p>
+                                </ng-container>
+                                <ng-container *ngIf="this.enable">
+                                    <input type="text" name="purchasePriceAfterDiscount"
+                                        formControlName="purchasePriceAfterDiscount" required tabindex="9">
+                                    <small
+                                        class="error-message">{{getErrorMessage('purchasePriceAfterDiscount')}}</small>
+                                </ng-container>
+
                             </div>
                             <div class="custom-input-container ml-32">
                                 <label>Rate of GST</label>
@@ -150,7 +164,7 @@
 
         <div class="dialog-footer">
             <button mat-flat-button color="warn" mat-dialog-close tabindex="-1" (click)="onCancel()">Cancel</button>
-            <button mat-flat-button color="accent" class="add-button" tabindex="11" (click)="onAdd()">Add</button>
+            <button mat-flat-button color="accent" class="add-button" [disabled]="newItemPurchaseFormGroup.invalid" tabindex="11" (click)="onAdd()">Add</button>
         </div>
     </div>
 </div>

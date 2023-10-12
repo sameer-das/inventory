@@ -40,6 +40,10 @@
         padding: 0;
         margin: 0;
     }
+
+    .item-name {
+        color: $green;
+    }
 }
 .gst-dropdown {
     border: 1px solid $grey;
@@ -77,6 +81,15 @@
 
 .ml-32 {
     // margin-left: 32px;
+}
+
+
+.pur-price-aftter-disc {
+    color: $grey;
+    padding: 4px;
+    margin: 0;
+    border: 1px solid $grey;
+    border-radius: 4px;
 }
 
 .details_section {

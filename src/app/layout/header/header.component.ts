@@ -1,16 +1,40 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Output, Input, OnInit, OnDestroy } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subject, filter, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   @Output() toggleSideBar = new EventEmitter<boolean>();
   @Input() isMenuOpened: boolean = false;
 
-  constructor(private _router:Router){
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  constructor(private _router: Router) {
+
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+  }
+  currentUrl!: string;
+  currentMenuName!: string | null | undefined;
+  urlMenuMapping: any = {
+    '/purchase': 'Add Stock',
+    '/sale': 'Sale',
+    '/stock': 'All Stock',
+  }
+
+  ngOnInit(): void {
+    this.currentUrl = this._router.url;
+    this.currentMenuName = this.urlMenuMapping[this.currentUrl];
+    this._router.events.pipe(takeUntil(this.destroy$), filter(x => x instanceof NavigationEnd)).subscribe({
+      next: (resp: any) => {
+        this.currentUrl = resp.url || this.currentUrl;
+        this.currentMenuName = this.urlMenuMapping[this.currentUrl];
+      }
+    })
 
   }
   openMenu() {
@@ -21,7 +45,7 @@ export class HeaderComponent {
   logout() {
 
     const confirm = window.confirm('Are you sure to logout?');
-    if(confirm) {
+    if (confirm) {
       this._router.navigate(['login'])
     }
   }
