@@ -1,7 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { NewPurchasePopupComponent } from 'src/app/popups/new-purchase-popup/new-purchase-popup.component';
+import { PurchaseService } from '../purchase.service';
+import { SearchItemService } from 'src/app/search-item/search-item.service';
+import { FormControl } from '@angular/forms';
+import { LoaderService } from 'src/app/loader.service';
+import { PopupService } from 'src/app/popups/popup.service';
+import { Subject, finalize, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -9,16 +15,29 @@ import { NewPurchasePopupComponent } from 'src/app/popups/new-purchase-popup/new
   templateUrl: './new-purchase.component.html',
   styleUrls: ['./new-purchase.component.scss']
 })
-export class NewPurchaseComponent implements OnInit {
+export class NewPurchaseComponent implements OnInit, OnDestroy {
 
 
-  constructor(private _matdialog: MatDialog) { }
+  constructor(private _matdialog: MatDialog,
+    private _purchaseService: PurchaseService,
+    private _searchItemService: SearchItemService,
+    private _loaderService: LoaderService,
+    private _popupService: PopupService) { }
+
+
+
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   purchasedItems: any[] = [];
 
   totalGst: number = 0.00;
   totalDiscount: number = 0.00;
   totalAmount: number = 0.00;
+
+
+  purchaseDate: string = '';
+  billerName: string = '';
+  billerGSTN: string = '';
 
   item = {
     "category_id": 1,
@@ -30,7 +49,6 @@ export class NewPurchaseComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   onItemSelection(item: any) {
@@ -39,12 +57,13 @@ export class NewPurchaseComponent implements OnInit {
       height: '95vh',
       disableClose: true,
       panelClass: 'new-purchase-popup',
-      data: {isEdit: false, item},
+      data: { isEdit: false, item },
     }).afterClosed().subscribe((data: any) => {
       if (data.shouldAdd) {
         // console.log(data.item);
         this.purchasedItems.push(data.item);
         this.calculateTotal();
+        this.clearSearch()
       }
     })
   }
@@ -74,7 +93,7 @@ export class NewPurchaseComponent implements OnInit {
     console.log(item)
     this.contextMenuPosition.x = e.clientX + 'px';
     this.contextMenuPosition.y = e.clientY + 'px';
-    this.contextMenu.menuData = { 'item': item , i: i};
+    this.contextMenu.menuData = { 'item': item, i: i };
     // this.contextMenu.menu.focusFirstItem('mouse');
     this.contextMenu.openMenu();
   }
@@ -86,9 +105,9 @@ export class NewPurchaseComponent implements OnInit {
       height: '95vh',
       disableClose: true,
       panelClass: 'new-purchase-popup',
-      data: {isEdit: true, item},
-    }).afterClosed().subscribe((editData:any) => {
-      if(editData.isEdit) {
+      data: { isEdit: true, item },
+    }).afterClosed().subscribe((editData: any) => {
+      if (editData.isEdit) {
         this.purchasedItems[i] = editData.item;
         this.calculateTotal();
       }
@@ -101,4 +120,95 @@ export class NewPurchaseComponent implements OnInit {
     this.calculateTotal();
   }
 
+
+  onSaveBill() {
+    // console.log(this.purchasedItems);
+    if(this.purchasedItems.length === 0) {
+      this._popupService.openAlert({
+        header:'Alert',
+        message:'Please add items.'
+      })
+      return;
+    }
+    if (!this.purchaseDate) {
+      this._popupService.openAlert({
+        header:'Alert',
+        message:'Please choose purchase/bill date.'
+      })
+      return;
+    }
+
+    const pdate = new Date(this.purchaseDate)
+      .toLocaleDateString().split('/').reverse().join('-')
+
+    this.purchasedItems = this.purchasedItems.
+      map(curr => {
+        return {
+          ...curr,
+          purchase_date: pdate,
+          biller_name: this.billerName,
+          biller_gstn: this.billerGSTN
+        }
+      })
+
+
+
+    // console.log(this.purchaseDate);
+    // console.log(this.billerName);
+    // console.log(this.billerGSTN);
+
+
+    this._loaderService.showLoader();
+    this._purchaseService.addPurchase(this.purchasedItems)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (resp) => {
+          this._loaderService.hideLoader()
+          if (resp.status === 200) {
+            this._popupService.openAlert({
+              header: 'Success',
+              message: 'Purchase Added Successfully!'
+            });
+            this.clearBillData();
+          } else {
+            this._popupService.openAlert({
+              header: 'Fail',
+              message: 'Failed while adding purchase!'
+            });
+          }
+        },
+        error: (error: any) => {
+          this._loaderService.hideLoader()
+          this._popupService.openAlert({
+            header: 'Error',
+            message: 'Error while adding purchase!'
+          });
+        }
+      })
+  }
+
+  onCancelBill() {
+
+  }
+
+
+  clearSearch() {
+    this._searchItemService.clearItemSearch();
+  }
+
+  clearBillData() {
+    this.billerGSTN = '';
+    this.billerName = '';
+    this.purchaseDate = '';
+    this.totalGst = 0.00;
+    this.totalDiscount = 0.00;
+    this.totalAmount = 0.00;
+    this.purchasedItems = [];
+  }
+
+
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true)
+  }
 }

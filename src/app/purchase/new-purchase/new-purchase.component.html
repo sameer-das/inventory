@@ -1,10 +1,38 @@
 <div class="searchbar">
-    <app-search-item (onItemSelection)="onItemSelection($event)"></app-search-item>
+    <app-search-item  (onItemSelection)="onItemSelection($event)"></app-search-item>
 
-    <!-- <button mat-flat-button color="accent" (click)="onItemSelection(item)">Click</button> -->
+    <!-- <button mat-flat-button color="accent" (click)="onItemSelection(item)">Click</button>  *ngIf="purchasedItems.length > 0" -->
 </div>
 
-<div *ngIf="purchasedItems.length > 0">
+<div class="table-container">
+    <div class="bill-inputs">
+        <div class="date-picker">
+            <div>
+                <label for="bill-date">Bill Date</label>
+                <input matInput id="bill-date" [matDatepicker]="picker" class="date-picker-input" [(ngModel)]="purchaseDate" disabled>
+                <mat-datepicker #picker disabled="false"></mat-datepicker>
+            </div>
+                
+            <button class="date-picker-button" (click)="picker.open()">
+                <mat-icon>calendar_month</mat-icon>
+            </button>
+        </div>
+
+        <div class="biller-details">
+
+            <div class="custom-input-container">
+                <label for="biller-name">Biller Name (Optional)</label>
+                <input id="biller-name" type="text" name="biller-name" [(ngModel)]="billerName">
+            </div>
+    
+            <div class="custom-input-container">
+                <label for="biller-gstn">Biller GSTN (Optional)</label>
+                <input id="biller-gstn" type="text" name="biller-gstn" [(ngModel)]="billerGSTN" >
+            </div>
+        </div>
+
+    </div>
+
     <table>
         <thead>
             <tr>
@@ -64,5 +92,9 @@
         </tbody>
     </table>
 
+    <div class="cta-container">
+        <button mat-flat-button color="warn" (click)="onCancelBill()">Cancel</button>
+        <button mat-flat-button color="accent" (click)="onSaveBill()">Save</button>
+    </div>
 
 </div>

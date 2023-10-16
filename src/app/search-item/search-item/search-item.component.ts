@@ -9,7 +9,7 @@ import { SearchItemService } from '../search-item.service';
   styleUrls: ['./search-item.component.scss']
 })
 export class SearchItemComponent implements OnInit, OnDestroy {
-  searchedItems: any[] = ['Sameer', 'Atin', 'Jyoti', 'Ankita'];
+
   control = new FormControl('');
 
   filteredOptions!: Observable<any[]>;
@@ -33,6 +33,11 @@ export class SearchItemComponent implements OnInit, OnDestroy {
         tap((x) => console.log(x)),
       ))
     );
+
+    // to clear
+    this._searchItemService.clearSearch.subscribe({
+      next: () => this.clear()
+    })
   }
 
   ngOnDestroy(): void {
@@ -48,6 +53,10 @@ export class SearchItemComponent implements OnInit, OnDestroy {
 
   displayWith(option: any) {
     return option.item_name;
+  }
+
+  clear(){
+    this.control.setValue('');
   }
 
 }

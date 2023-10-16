@@ -127,8 +127,7 @@ export class NewPurchasePopupComponent implements OnInit {
       isEdit: this.item.isEdit,
       shouldAdd: true,
       item: {
-        item_id: this.item.item.item_id,
-        item_name: this.item.item.item_name,
+        ...this.item.item,
         mrp: this.newItemPurchaseFormGroup.getRawValue().mrp,
         quantityBox: this.newItemPurchaseFormGroup.getRawValue().quantityBox,
         piecePerCarton: this.newItemPurchaseFormGroup.getRawValue().piecePerCarton,
