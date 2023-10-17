@@ -39,7 +39,8 @@
 }
 
 .table-container {
-    height: 350px;
+    min-height: 110px;
+    max-height: 350px;
     border: 1px solid white;
     overflow-y: scroll;
     table {
@@ -90,8 +91,32 @@
 }
 
 .custom-input-container {
-    width: 60px;
+    width: 70px;
     input {
         font-size: 0.8rem;
     }
+}
+
+
+.summary-container {
+    border: 1px solid white;
+    display: flex;
+    justify-content: space-between;
+    >p {
+        margin: 0;
+        padding: 0.2rem ;
+        color: $green;
+        font-size: 0.8rem;
+        font-weight: 400;
+    }
+    // table{
+    //     width: 100%;
+    //     border-collapse: collapse;
+    //     td {
+    //         padding: 0.1rem 0.2rem;
+    //         font-size: 0.8rem;
+    //         color: white;
+    //         border: 1px solid white;
+    //     }
+    // }
 }

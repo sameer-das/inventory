@@ -7,64 +7,91 @@
             </div>
             <div class="dialog-body">
                 <div class="table-container">
-                    <table class="table">
-                        <thead class="table-header">
-                            <tr>
-                                <th>Purchase Date</th>
-                                <th>Piece Per Caton</th>
-                                <th>GST(%)</th>
-                                <th>In Stock(Pcs)</th>
-                                <th>Pur. Price</th>
-                                <th>Caton/Box</th>
-                                <th>Piece</th>
-                                <th>Free</th>
-                                <th>Sale Price</th>
-                                <th>GST Amount</th>
-                                <th>Profit </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let a of arr">
-                                <td>30-08-2023</td>
-                                <td>20</td>
-                                <td>5</td>
-                                <td>400</td>
-                                <td>18.50</td>
-                                <td>
-                                    <div class="custom-input-container">
-                                        <!-- <label>MRP</label> -->
-                                        <input type="text" name="mrp" required tabindex="">
-                                        <!-- <small class="error-message"></small>    -->
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="custom-input-container">
-                                        <!-- <label>MRP</label> -->
-                                        <input type="text" name="mrp" required tabindex="">
-                                        <!-- <small class="error-message"></small>                -->
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="custom-input-container">
-                                        <!-- <label>MRP</label> -->
-                                        <input type="text" name="mrp" required tabindex="">
-                                        <!-- <small class="error-message"></small> -->
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="custom-input-container">
-                                        <!-- <label>MRP</label> -->
-                                        <input type="text" name="mrp" required tabindex="">
-                                        <!-- <small class="error-message"></small> -->
-                                    </div>
-                                </td>
-                                <td>89</td>
-                
-                            </tr>
-                        </tbody>
-    
-                    </table>
+                    <form [formGroup]="itemLinesGroup">
+                        <table class="table">
+                            <thead class="table-header">
+                                <tr>
+                                    <th>Pur. Date</th>
+                                    <th>Pcs per Box</th>
+                                    <th>GST(%)</th>
+                                    <th>In Stock(Pcs)</th>
+                                    <th>Pur. Price(Pc)</th>
+                                    <th>Qty Box</th>
+                                    <th>Price per Box</th>
+                                    <th>Qty Piece</th>
+                                    <!-- <th>Free</th> -->
+                                    <th>Price per Price</th>
+                                    <th>Total Qty(Pcs)</th>
+                                    <th>Total Amt.</th>
+                                    <!-- <th>Profit </th> -->
+                                </tr>
+                            </thead>
 
+                            <tbody>
+                                <ng-container formArrayName="lines" *ngFor="let line of getItemsArray; let i = index">
+                                    <tr [formGroupName]="i">
+                                        <td>{{line?.get('itemDetails')?.value.purchaseDate}}</td>
+                                        <td>{{line?.get('itemDetails')?.value.piecePerCarton}}</td>
+                                        <td>{{line?.get('itemDetails')?.value.gst}}</td>
+                                        <td>
+                                            {{line?.get('itemDetails')?.value.totalQuantity}} |
+                                            {{line?.get('itemDetails')?.value.totalQuantity /
+                                            line?.get('itemDetails')?.value.piecePerCarton}}
+                                        </td>                                
+                                        <td>
+                                            {{line?.get('itemDetails')?.value.purchasePricePerPiece}} |
+                                            {{line?.get('itemDetails')?.value.purchasePricePerPiece *
+                                            line?.get('itemDetails')?.value.piecePerCarton}}
+
+                                        </td>
+                                        <td>
+                                            <div class="custom-input-container">
+                                                <!-- <label>MRP</label> -->
+                                                <input type="text" name="quantityBox" formControlName="quantityBox"
+                                                    required tabindex="">
+                                                <!-- <small class="error-message"></small>    -->
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="custom-input-container">
+                                                <!-- <label>MRP</label> -->
+                                                <input type="text" name="pricePerBox" formControlName="pricePerBox"
+                                                    required tabindex="">
+                                                <!-- <small class="error-message"></small>    -->
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="custom-input-container">
+                                                <!-- <label>MRP</label> -->
+                                                <input type="text" name="quantityPiece" formControlName="quantityPiece"
+                                                    required tabindex="">
+                                                <!-- <small class="error-message"></small>                -->
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="custom-input-container">
+                                                <!-- <label>MRP</label> -->
+                                                <input type="text" name="pricePerPiece" formControlName="pricePerPiece"
+                                                    required tabindex="">
+                                                <!-- <small class="error-message"></small> -->
+                                            </div>
+                                        </td>
+                                        <td>{{line?.get('itemDetails')?.value.totalSaleQuantity}}</td>
+                                        <td>{{line?.get('itemDetails')?.value.totalAmount}}</td>
+
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+
+
+                        </table>
+                    </form>
+                </div>
+                <div class="summary-container">
+                    <p>Total Box Qty. : {{totalBoxQuantity}}</p>
+                    <p>Total Piece Qty. : {{totalPieceQuantity}}</p>
+                    <p>Total Qty. : {{totalQuantity}}</p>
+                    <p>Total Price : {{totalAmount}}</p>
                 </div>
             </div>
 
@@ -72,7 +99,7 @@
 
         <div class="dialog-footer">
             <button mat-flat-button color="warn" mat-dialog-close tabindex="-1">Cancel</button>
-            <button mat-flat-button color="accent" class="add-button"  tabindex="" >Add</button>
+            <button mat-flat-button color="accent" class="add-button" tabindex="" (click)="addRows()">Add</button>
         </div>
     </div>
 </div>
