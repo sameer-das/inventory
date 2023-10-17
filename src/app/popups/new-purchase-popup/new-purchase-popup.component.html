@@ -13,7 +13,7 @@
                         <div class="mrp_row">
                             <div class="custom-input-container">
                                 <label>MRP</label>
-                                <input type="text" name="mrp" required tabindex="1" formControlName="mrp">
+                                <input type="text" name="mrp" required tabindex="" formControlName="mrp">
                                 <small class="error-message">{{getErrorMessage('mrp')}}</small>
                             </div>
 
@@ -42,27 +42,27 @@
                             <div class="custom-input-container">
                                 <label>Box/Carton</label>
                                 <input type="text" name="quantityBox" formControlName="quantityBox" required
-                                    tabindex="2">
+                                    tabindex="">
                                 <small class="error-message">{{getErrorMessage('quantityBox')}}</small>
                             </div>
                             <div class="custom-input-container ml-32">
                                 <label>Piece/Pack Per Carton</label>
                                 <input type="text" name="piecePerCarton" formControlName="piecePerCarton" required
-                                    tabindex="3">
+                                    tabindex="">
                                 <small class="error-message">{{getErrorMessage('piecePerCarton')}}</small>
                             </div>
 
                             <div class="custom-input-container ml-32">
                                 <label>Piece/Pack</label>
                                 <input type="text" name="quantityPiece" formControlName="quantityPiece" required
-                                    tabindex="4">
+                                    tabindex="">
                                 <small class="error-message">{{getErrorMessage('quantityPiece')}}</small>
                             </div>
 
                             <div class="custom-input-container ml-32">
                                 <label>Free</label>
                                 <input type="text" name="quantityFree" formControlName="quantityFree" required
-                                    tabindex="5">
+                                    tabindex="">
                                 <small class="error-message">{{getErrorMessage('quantityFree')}}</small>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                         <div class="price_row">
                             <div class="custom-input-container">
                                 <label>Enable Pur Price Aft Disc</label>
-                                <mat-slide-toggle tabindex="6" [checked]="enable"
+                                <mat-slide-toggle tabindex="" [checked]="enable"
                                     (change)="onDiscountTypeChange($event)"></mat-slide-toggle>
                             </div>
                             <div class="custom-input-container">
@@ -83,7 +83,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="!this.enable">
                                     <input type="text" name="purchasePriceBeforeDiscount"
-                                        formControlName="purchasePriceBeforeDiscount" required tabindex="7">
+                                        formControlName="purchasePriceBeforeDiscount" required tabindex="">
                                     <small
                                         class="error-message">{{getErrorMessage('purchasePriceBeforeDiscount')}}</small>
                                 </ng-container>
@@ -91,7 +91,7 @@
                             <div class="custom-input-container ml-32">
                                 <label>Total Discount</label>
                                 <input type="text" name="discountPrice" formControlName="discountPrice" required
-                                    tabindex="8">
+                                    tabindex="">
                                 <small class="error-message">{{getErrorMessage('discountPrice')}}</small>
                             </div>
                             <div class="custom-input-container ml-32">
@@ -101,7 +101,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="this.enable">
                                     <input type="text" name="purchasePriceAfterDiscount"
-                                        formControlName="purchasePriceAfterDiscount" required tabindex="9">
+                                        formControlName="purchasePriceAfterDiscount" required tabindex="">
                                     <small
                                         class="error-message">{{getErrorMessage('purchasePriceAfterDiscount')}}</small>
                                 </ng-container>
@@ -109,7 +109,7 @@
                             </div>
                             <div class="custom-input-container ml-32">
                                 <label>Rate of GST</label>
-                                <mat-select class="gst-dropdown" name="GST" formControlName="gst" tabindex="10">
+                                <mat-select class="gst-dropdown" name="GST" formControlName="gst" tabindex="">
                                     <mat-option value="5">5</mat-option>
                                     <mat-option value="12">12</mat-option>
                                     <mat-option value="18">18</mat-option>
@@ -164,7 +164,7 @@
 
         <div class="dialog-footer">
             <button mat-flat-button color="warn" mat-dialog-close tabindex="-1" (click)="onCancel()">Cancel</button>
-            <button mat-flat-button color="accent" class="add-button" [disabled]="newItemPurchaseFormGroup.invalid" tabindex="11" (click)="onAdd()">Add</button>
+            <button mat-flat-button color="accent" class="add-button" [disabled]="newItemPurchaseFormGroup.invalid" tabindex="" (click)="onAdd()">Add</button>
         </div>
     </div>
 </div>
