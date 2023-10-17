@@ -1,0 +1,97 @@
+@import '../../constant.scss';
+
+.dialog-container {
+    height: 100%;
+}
+
+
+.dialog-content{
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    
+    color: white;
+    align-items: center;
+
+    > * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .item-name {
+        color: $green;
+    }
+}
+
+
+.dialog-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.table-container {
+    height: 350px;
+    border: 1px solid white;
+    overflow-y: scroll;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        thead tr {
+            position: sticky;
+            top: 0;
+
+            th {
+                color: $green;
+                font-size: 0.8rem;
+                font-weight: 500;
+                padding: 0.2rem 0.2rem;
+                border-bottom: 1px solid white;
+                background-color: $black;
+                text-align: left;
+            }
+        }
+
+        tbody tr {
+           
+            margin-bottom: 0.2rem;
+        }
+
+        td {
+            padding: 0.1rem 0.2rem;
+            font-size: 0.8rem;
+            color: white;
+    
+            &.highlight {
+                color: white;
+                font-weight: 500;
+            }
+    
+            &.td_item_name {
+                width: 200px;
+            }
+    
+            &.summary {
+                font-size: 0.8rem;
+                color: $green;
+                font-weight: 400;
+            }
+        }
+    };
+}
+
+.custom-input-container {
+    width: 60px;
+    input {
+        font-size: 0.8rem;
+    }
+}

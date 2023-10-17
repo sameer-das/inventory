@@ -25,7 +25,7 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
     private _popupService: PopupService) { }
 
 
-
+  today: Date = new Date();
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   purchasedItems: any[] = [];

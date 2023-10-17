@@ -72,6 +72,9 @@ table {
 
     .custom-input-container {
         width: 300px;
+        input {
+            border-width: 1px;
+        }
     }
 
     .biller-details {

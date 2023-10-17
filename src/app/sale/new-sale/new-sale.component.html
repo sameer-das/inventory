@@ -1,1 +1,82 @@
-<p>new-sale works!</p>
+<div class="searchbar">
+    <app-search-item  (onItemSelection)="onItemSelection($event)"></app-search-item>
+
+    <button mat-flat-button color="accent" (click)="onItemSelection()">Click</button>
+</div>
+
+<div class="bill-inputs">
+    <div class="date-picker">
+        <div>
+            <label for="bill-date">Bill Date</label>
+            <input matInput id="bill-date" [max]="today" [matDatepicker]="picker" class="date-picker-input" [(ngModel)]="saleDate" disabled>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+        </div>
+            
+        <button class="date-picker-button" (click)="picker.open()">
+            <mat-icon>calendar_month</mat-icon>
+        </button>
+    </div>
+
+    <div class="biller-details">
+
+        <div class="custom-input-container">
+            <label for="customer-name">Customer Name (Optional)</label>
+            <input id="customer-name" type="text" name="customer-name" [(ngModel)]="customerName">
+        </div>
+
+        <div class="custom-input-container">
+            <label for="customer-gstn">Customer GSTN (Optional)</label>
+            <input id="customer-gstn" type="text" name="customer-gstn" [(ngModel)]="customerGSTN" >
+        </div>
+    </div>
+
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Sl.</th>
+                <th>Item Name</th>
+                <th>MRP</th>
+                <th>Box/Carton</th>
+                <th>Piece/Pack</th>
+                <th>Free</th>
+                <th>Total Piece</th>
+                <th>Price Per Piece</th>
+
+                <th>Sale Price</th>
+                <!-- <th>Disc.</th> -->
+                <th>GST(%)</th>
+                <th>GST Amount</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let a of arr; let i =index">
+                <td>{{i + 1}}.</td>
+                <td>Item Name Item Name Item Name Item Name Item Name Item Name</td>
+                <td>Value 3</td>
+                <td>Value 4</td>
+                <td>Value 5</td>
+                <td>Value 6</td>
+                <td>Value 7</td>
+                <td>Value 8</td>
+                <td>Value 9</td>
+                <td>Value 10</td>
+                <td>Value 11</td>
+                <td>Value 12</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="bill-summary">
+    <p>Total Amount: 5000</p>
+    <p>Total GST : 500</p>
+</div>
+
+<div class="cta-container">
+    <button mat-flat-button color="warn">Cancel</button>
+    <button mat-flat-button color="accent">Submit</button>
+</div>

@@ -9,7 +9,7 @@
         <div class="date-picker">
             <div>
                 <label for="bill-date">Bill Date</label>
-                <input matInput id="bill-date" [matDatepicker]="picker" class="date-picker-input" [(ngModel)]="purchaseDate" disabled>
+                <input matInput id="bill-date" [max]="today" [matDatepicker]="picker" class="date-picker-input" [(ngModel)]="purchaseDate" disabled>
                 <mat-datepicker #picker disabled="false"></mat-datepicker>
             </div>
                 
@@ -91,7 +91,6 @@
             </tr>
         </tbody>
     </table>
-
     <div class="cta-container">
         <button mat-flat-button color="warn" (click)="onCancelBill()">Cancel</button>
         <button mat-flat-button color="accent" (click)="onSaveBill()">Save</button>

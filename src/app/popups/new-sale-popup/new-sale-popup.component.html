@@ -1,0 +1,78 @@
+<div class="dialog-container">
+    <div class="dialog-content">
+        <div>
+            <div class="dialog-header">
+                <h2>New Sale | Item : <span class="item-name">Kitkat Rs. 20</span> </h2>
+                <!-- <h3>Available Quantity - ({{item.item.total_quantity}})</h3> -->
+            </div>
+            <div class="dialog-body">
+                <div class="table-container">
+                    <table class="table">
+                        <thead class="table-header">
+                            <tr>
+                                <th>Purchase Date</th>
+                                <th>Piece Per Caton</th>
+                                <th>GST(%)</th>
+                                <th>In Stock(Pcs)</th>
+                                <th>Pur. Price</th>
+                                <th>Caton/Box</th>
+                                <th>Piece</th>
+                                <th>Free</th>
+                                <th>Sale Price</th>
+                                <th>GST Amount</th>
+                                <th>Profit </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let a of arr">
+                                <td>30-08-2023</td>
+                                <td>20</td>
+                                <td>5</td>
+                                <td>400</td>
+                                <td>18.50</td>
+                                <td>
+                                    <div class="custom-input-container">
+                                        <!-- <label>MRP</label> -->
+                                        <input type="text" name="mrp" required tabindex="">
+                                        <!-- <small class="error-message"></small>    -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="custom-input-container">
+                                        <!-- <label>MRP</label> -->
+                                        <input type="text" name="mrp" required tabindex="">
+                                        <!-- <small class="error-message"></small>                -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="custom-input-container">
+                                        <!-- <label>MRP</label> -->
+                                        <input type="text" name="mrp" required tabindex="">
+                                        <!-- <small class="error-message"></small> -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="custom-input-container">
+                                        <!-- <label>MRP</label> -->
+                                        <input type="text" name="mrp" required tabindex="">
+                                        <!-- <small class="error-message"></small> -->
+                                    </div>
+                                </td>
+                                <td>89</td>
+                
+                            </tr>
+                        </tbody>
+    
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="dialog-footer">
+            <button mat-flat-button color="warn" mat-dialog-close tabindex="-1">Cancel</button>
+            <button mat-flat-button color="accent" class="add-button"  tabindex="" >Add</button>
+        </div>
+    </div>
+</div>

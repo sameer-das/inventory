@@ -21,8 +21,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUrl!: string;
   currentMenuName!: string | null | undefined;
   urlMenuMapping: any = {
-    '/purchase': 'Add Stock',
-    '/sale': 'Sale',
+    '/purchase': 'Add Stock/New Purchase',
+    '/sale': 'New Sale',
     '/stock': 'All Stock',
   }
 
