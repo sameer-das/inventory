@@ -2,7 +2,7 @@
     <div class="dialog-content">
         <div>
             <div class="dialog-header">
-                <h2>New Sale | Item : <span class="item-name">Kitkat Rs. 20</span> </h2>
+                <h2>New Sale | Item : <span class="item-name">{{this.item.item.item_name}}</span> </h2>
                 <!-- <h3>Available Quantity - ({{item.item.total_quantity}})</h3> -->
             </div>
             <div class="dialog-body">
@@ -37,7 +37,7 @@
                             <tbody>
                                 <ng-container formArrayName="lines" *ngFor="let line of getItemsArray; let i = index">
                                     <tr [formGroupName]="i">
-                                        <td>{{line?.get('itemDetails')?.value.purchaseDate}}</td>
+                                        <td>{{line?.get('itemDetails')?.value.purchaseDate | date:'dd-MMM-yyyy'}}</td>
                                         <td>{{line?.get('itemDetails')?.value.piecePerCarton}}</td>
                                         <td>{{line?.get('itemDetails')?.value.gst}}</td>
                                         <td>

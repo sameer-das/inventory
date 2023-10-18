@@ -19,6 +19,10 @@ export class SearchItemService {
     return this._http.get<any[]>(`${this.API_BASE_URL}/item/item-search?search=${search}`);
   }
 
+  searchItemWithStock(search: string) {
+    return this._http.get<any[]>(`${this.API_BASE_URL}/item/item-search-stock?search=${search}`);
+  }
+
   clearItemSearch(val?: string) {
     this.clearItemSearch$.next(val || '');
   }

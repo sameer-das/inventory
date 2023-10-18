@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -8,58 +9,38 @@ import { Subject } from 'rxjs';
   styleUrls: ['./new-sale-popup.component.scss']
 })
 export class NewSalePopupComponent implements OnInit, OnDestroy {
-  constructor() {
-
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) public item: any) { }
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private AllowOnlyNumbersAndTwoDecimalPoint = /^[0-9][0-9]*[.]?[0-9]{0,2}$/;
   private AllowOnlyNumbers = /^[0-9]+$/;
 
-  arr: any[] = [
-    {
-      item_name: 'Kitkat Rs.20',
-      piecePerCarton: 20,
-      gst: 5,
-      totalQuantity: 500,
-      purchasePricePerPiece: 18.50,
-      purchaseDate: '20-08-2023',
-      totalSaleQuantity: 0,
-      totalAmount: 0,
-    },
-    {
-      item_name: 'Kitkat Rs.20',
-      piecePerCarton: 20,
-      gst: 5,
-      totalQuantity: 200,
-      purchasePricePerPiece: 19,
-      purchaseDate: '10-07-2023',
-      totalSaleQuantity: 0,
-      totalAmount: 0,
-
-    },
-    {
-      item_name: 'Kitkat Rs.20',
-      piecePerCarton: 20,
-      gst: 5,
-      totalQuantity: 300,
-      purchasePricePerPiece: 18.00,
-      purchaseDate: '15-06-2023',
-      totalSaleQuantity: 0,
-      totalAmount: 0,
-    }
-  ]
+  stockArray: any[] = [];
 
   itemLinesGroup!: FormGroup;
 
   ngOnInit(): void {
-    this.itemLinesGroup = new FormGroup({
-      lines: new FormArray(this.arr.map(curr => this.getFormArrayElement(curr)))
-    });
-    this.itemLinesGroup.valueChanges.subscribe((val) => {
-      this.calculate(val)
+    console.log(this.item);
+
+    this.item.item.stock = this.item.item.stock.map((item: any) => {
+      return {
+        ...item,
+        totalSaleQuantity: 0,
+        totalAmount: 0
+      }
     })
-    // console.log(this.getItemsArray[0].get('itemDetails'))
+    
+    this.stockArray = this.item.item.stock;
+
+
+    if (this.stockArray.length > 0) {
+      this.itemLinesGroup = new FormGroup({
+        lines: new FormArray(this.stockArray.map(curr => this.getFormArrayElement(curr)))
+      });
+      this.itemLinesGroup.valueChanges.subscribe((val) => {
+        this.calculate(val)
+      })
+    }
   }
   ngOnDestroy(): void {
 
@@ -69,11 +50,11 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
     return new FormGroup({
       itemDetails: new FormControl({
         item_name: item.item_name,
-        piecePerCarton: item.piecePerCarton,
-        gst: item.gst,
-        totalQuantity: item.totalQuantity,
-        purchasePricePerPiece: item.purchasePricePerPiece,
-        purchaseDate: item.purchaseDate,
+        piecePerCarton: item.piece_per_carton,
+        gst: 5,
+        totalQuantity: item.total_quantity_piece,
+        purchasePricePerPiece: item.purchase_price_per_piece,
+        purchaseDate: item.purchase_date,
         totalSaleQuantity: item.totalSaleQuantity,
         totalAmount: item.totalAmount,
       }),
@@ -120,16 +101,16 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
       const pieceFromBox = (+line.quantityBox * +line.itemDetails.piecePerCarton);
       const priceForBox = +line.quantityBox * +line.pricePerBox;
 
-      line.itemDetails.totalSaleQuantity =  pieceFromBox + +line.quantityPiece;
+      line.itemDetails.totalSaleQuantity = pieceFromBox + +line.quantityPiece;
 
       line.itemDetails.totalAmount = priceForBox + (+line.quantityPiece * +line.pricePerPiece)
 
-     
+
 
       this.totalBoxQuantity += +line.quantityBox;
       this.totalPieceQuantity += +line.quantityPiece;
       this.totalQuantity += (pieceFromBox + +line.quantityPiece);
-      this.totalAmount +=  line.itemDetails.totalAmount;
+      this.totalAmount += line.itemDetails.totalAmount;
 
       qtyBox_X_boxPrice += +line.quantityBox * +line.pricePerBox;
       total_box_qty += +line.quantityBox;
@@ -139,7 +120,7 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
     });
 
     this.averageBoxPrice = isNaN(+((qtyBox_X_boxPrice / total_box_qty).toFixed(2))) ? 0 : +((qtyBox_X_boxPrice / total_box_qty).toFixed(2));
-    this.averagePiecePrice = isNaN(+((qtyPiece_X_piecePrice / total_piece_qty).toFixed(2))) ? 0: +((qtyPiece_X_piecePrice / total_piece_qty).toFixed(2));
+    this.averagePiecePrice = isNaN(+((qtyPiece_X_piecePrice / total_piece_qty).toFixed(2))) ? 0 : +((qtyPiece_X_piecePrice / total_piece_qty).toFixed(2));
 
   }
 }

@@ -34,7 +34,54 @@ export class NewSaleComponent implements  OnInit, OnDestroy{
       height: '95vh',
       disableClose: true,
       panelClass: 'new-sale-popup',
-      // data: { isEdit: false, item },
+      data: { isEdit: false, item: {
+        "item_name": "Munch Rs.10",
+        "category_name": "Chocolates",
+        "brand_name": "Nestle",
+        "uid": "991d19ca-1b0c-441b-8e63-ee3e9c1f8f33",
+        "item_id": 7,
+        "category_id": 1,
+        "brand_id": 1,
+        "stock": [
+          {
+            "item_id": 7,
+            "category_id": 1,
+            "brand_id": 1,
+            "item_name": "Munch Rs.10",
+            "category_name": "Chocolates",
+            "brand_name": "Nestle",
+            "total_quantity": 800,
+            "barcode": null,
+            "purchase_id": 13,
+            "uid": "991d19ca-1b0c-441b-8e63-ee3e9c1f8f33",
+            "mrp": "10.00",
+            "total_quantity_piece": 400,
+            "piece_per_carton": 20,
+            "purchase_price_per_piece": "7.88",
+            "gst": 5,
+            "purchase_date": "2023-10-16T18:30:00.000Z"
+          },
+          {
+            "item_id": 7,
+            "category_id": 1,
+            "brand_id": 1,
+            "item_name": "Munch Rs.10",
+            "category_name": "Chocolates",
+            "brand_name": "Nestle",
+            "total_quantity": 800,
+            "barcode": null,
+            "purchase_id": 16,
+            "uid": "16005751-6fd6-48fe-b2de-bf59f4eeb789",
+            "mrp": "10.00",
+            "total_quantity_piece": 400,
+            "piece_per_carton": 20,
+            "purchase_price_per_piece": "8.14",
+            "gst": 5,
+            "purchase_date": "2023-10-15T18:30:00.000Z"
+          }
+        ]
+    }}
+    
     }).afterClosed().subscribe((data: any) => {
       if (data.shouldAdd) {
         // console.log(data.item);

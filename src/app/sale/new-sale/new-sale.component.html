@@ -1,5 +1,5 @@
 <div class="searchbar">
-    <app-search-item  (onItemSelection)="onItemSelection($event)"></app-search-item>
+    <app-search-item  (onItemSelection)="onItemSelection($event)" [withStock]="true"></app-search-item>
 
     <button mat-flat-button color="accent" (click)="onItemSelection()">Click</button>
 </div>

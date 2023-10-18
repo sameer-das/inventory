@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, Subject, debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil, tap } from 'rxjs';
@@ -19,7 +19,7 @@ export class SearchItemComponent implements OnInit, OnDestroy {
 
   constructor(private _searchItemService: SearchItemService) { }
 
-
+  @Input('withStock') withStock!: boolean;
   @Output() onItemSelection: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit() {
@@ -29,9 +29,25 @@ export class SearchItemComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       debounceTime(300),
       map(x => x ? x : ''),
-      switchMap(search => this._searchItemService.searchItem(search).pipe(
-        tap((x) => console.log(x)),
-      ))
+      switchMap(search => {
+        if (!this.withStock)
+          return this._searchItemService.searchItem(search)
+        else
+          return this._searchItemService.searchItemWithStock(search).pipe(
+            filter(items => items.length > 0),
+            map(curr => {
+              return [{
+                "item_name": curr[0].item_name,
+                "category_name": curr[0].category_name,
+                "brand_name": curr[0].brand_name,
+                "uid": curr[0].uid,
+                "item_id": curr[0].item_id,
+                "category_id": curr[0].category_id,
+                "brand_id": curr[0].brand_id,
+                "stock": curr
+              }]
+            }))
+      })
     );
 
     // to clear
@@ -55,7 +71,7 @@ export class SearchItemComponent implements OnInit, OnDestroy {
     return option.item_name;
   }
 
-  clear(){
+  clear() {
     this.control.setValue('');
   }
 

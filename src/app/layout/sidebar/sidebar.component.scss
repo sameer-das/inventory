@@ -13,11 +13,11 @@
             text-decoration: none;
             color: white;
             display: block;
-            font-size: 1rem;
-            padding: 0.4rem 0.9rem;
-            line-height: 1.5rem;
+            font-size: 0.9rem;
+            padding: 0.2rem 0.9rem;
+            line-height: 2rem;
             &:hover, &.active {
-              background: $purple;  /* fallback for old browsers */
+              background: $purple;
               transition: 0.3s ease;      
             }
       
@@ -31,7 +31,7 @@
             mat-icon.carret {
               position: absolute;
               right: 4px;
-              top: 1rem;
+              top: 0.6rem;
               transition: 0.3s ease;
             }
           }

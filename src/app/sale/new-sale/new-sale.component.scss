@@ -92,14 +92,6 @@
             &:hover {
                 background-color: $deep-purple;
             }
-    
-            // &:not(:last-child) {
-            //     border: 1px solid #444;
-            // }
-    
-            // &:nth-last-child(2) {
-            //     border-bottom: 1px solid white;
-            // }
 
             
             &.summary-row {
@@ -125,7 +117,7 @@
             padding: 0.1rem 0.2rem;
             font-size: 0.75rem;
             color: white;
-    
+            border: 1px solid #444;
             &.highlight {
                 color: white;
                 font-weight: 500;
