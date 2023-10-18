@@ -11,20 +11,27 @@
                         <table class="table">
                             <thead class="table-header">
                                 <tr>
-                                    <th>Pur. Date</th>
-                                    <th>Pcs per Box</th>
-                                    <th>GST(%)</th>
-                                    <th>In Stock(Pcs)</th>
-                                    <th>Pur. Price(Pc)</th>
-                                    <th>Qty Box</th>
-                                    <th>Price per Box</th>
-                                    <th>Qty Piece</th>
+                                    <th rowspan="2">Pur. Date</th>
+                                    <th rowspan="2">Pcs per Box</th>
+                                    <th rowspan="2">GST(%)</th>
+                                    <th colspan="2">Stock</th>
+                                    <th colspan="2">Pur. Price</th>
+                                    <th rowspan="2">Box Qty</th>
+                                    <th rowspan="2">Price per Box</th>
+                                    <th rowspan="2">Piece Qty</th>
                                     <!-- <th>Free</th> -->
-                                    <th>Price per Price</th>
-                                    <th>Total Qty(Pcs)</th>
-                                    <th>Total Amt.</th>
+                                    <th rowspan="2">Price per Price</th>
+                                    <th rowspan="2">Total Qty(Pcs)</th>
+                                    <th rowspan="2">Total Amt.</th>
                                     <!-- <th>Profit </th> -->
                                 </tr>
+                                <tr>
+                                    <th>Pcs</th>
+                                    <th>Box</th>
+                                    <th>Pcs</th>
+                                    <th>Box</th>
+                                </tr>
+
                             </thead>
 
                             <tbody>
@@ -34,12 +41,16 @@
                                         <td>{{line?.get('itemDetails')?.value.piecePerCarton}}</td>
                                         <td>{{line?.get('itemDetails')?.value.gst}}</td>
                                         <td>
-                                            {{line?.get('itemDetails')?.value.totalQuantity}} |
+                                            {{line?.get('itemDetails')?.value.totalQuantity}}
+                                        </td>
+                                        <td>
                                             {{line?.get('itemDetails')?.value.totalQuantity /
                                             line?.get('itemDetails')?.value.piecePerCarton}}
-                                        </td>                                
+                                        </td>
                                         <td>
-                                            {{line?.get('itemDetails')?.value.purchasePricePerPiece}} |
+                                            {{line?.get('itemDetails')?.value.purchasePricePerPiece}}
+                                        </td>
+                                        <td>
                                             {{line?.get('itemDetails')?.value.purchasePricePerPiece *
                                             line?.get('itemDetails')?.value.piecePerCarton}}
 
@@ -81,18 +92,28 @@
 
                                     </tr>
                                 </ng-container>
+                                <tr class="summary-row">
+                                    <td colspan="7">Total</td>
+                                    <td colspan="1">{{totalBoxQuantity}}</td>
+                                    <td colspan="1">{{averageBoxPrice}} (Avg.)</td>
+                                    <td colspan="1">{{totalPieceQuantity}}</td>
+                                    <td colspan="1">{{averagePiecePrice}} (Avg.)</td>
+                                    <td colspan="1" class="align-center">{{totalQuantity}}</td>
+                                    <td colspan="2" class="align-center">{{totalAmount}}</td>
+
+                                </tr>
                             </tbody>
 
 
                         </table>
                     </form>
                 </div>
-                <div class="summary-container">
+                <!-- <div class="summary-container">
                     <p>Total Box Qty. : {{totalBoxQuantity}}</p>
                     <p>Total Piece Qty. : {{totalPieceQuantity}}</p>
                     <p>Total Qty. : {{totalQuantity}}</p>
                     <p>Total Price : {{totalAmount}}</p>
-                </div>
+                </div> -->
             </div>
 
         </div>

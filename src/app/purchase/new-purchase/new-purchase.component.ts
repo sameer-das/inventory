@@ -24,7 +24,7 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
     private _loaderService: LoaderService,
     private _popupService: PopupService) { }
 
-
+  arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
   today: Date = new Date();
   private destroy$: Subject<boolean> = new Subject<boolean>();
 

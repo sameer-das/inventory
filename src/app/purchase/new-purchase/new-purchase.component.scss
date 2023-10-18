@@ -5,35 +5,60 @@
     justify-content: center;
 }
 
+.table-container {
+    margin-top: 0.5rem;
+    max-height: 55vh;
+    overflow-y: auto;
+    border: 1px solid white;
+}
 
 table {
-    border-collapse: collapse;
-    border: 1px solid white;
+    border-collapse: separate;
+    border-spacing: 0;
+    // border: 1px solid white;
     width: 100%;
-    margin-top: 1rem;
+
+    thead tr {
+        position: sticky;
+        top: 0;
+
+        th {
+            color: $green;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.2rem 0.2rem;
+            border: 1px solid white;
+            background-color: $black;
+            text-align: left;
+        }
+    }
 
     tbody tr {
         cursor: pointer;
 
-        &:not(:last-child):hover {
+        &:hover {
             background-color: $deep-purple;
         }
 
-        &:not(:last-child) {
-            border-bottom: 1px solid #444;
+        &.summary-row {
+            position: sticky;
+            bottom: 0;
+            background-color: $black;
+            td {
+                color: $green;
+                font-size: 0.8rem;
+                font-weight: 500;
+                padding: 0.2rem 0.2rem;
+                border: 1px solid white;
+                text-align: left;
+
+                &.align-center {
+                    text-align: center;
+                }
+            }
         }
 
-        &:nth-last-child(2) {
-            border-bottom: 1px solid white;
-        }
-    }
 
-    th {
-        color: $green;
-        font-size: 0.8rem;
-        font-weight: 500;
-        padding: 0.2rem 0.2rem;
-        border: 1px solid white;
     }
 
     td {
@@ -60,10 +85,11 @@ table {
 
 
 .cta-container {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     display: flex;
     justify-content: space-between;
 }
+
 .bill-inputs {
     display: flex;
     justify-content: space-between;
@@ -72,6 +98,7 @@ table {
 
     .custom-input-container {
         width: 300px;
+
         input {
             border-width: 1px;
         }
@@ -84,12 +111,14 @@ table {
 
     }
 }
+
 .date-picker {
     width: 180px;
     display: flex;
     align-items: flex-end;
     // border: 1px solid red;
     justify-content: space-between;
+
     &-input {
         // display: inline-block;
         outline: none;

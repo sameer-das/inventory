@@ -1,38 +1,39 @@
 <div class="searchbar">
-    <app-search-item  (onItemSelection)="onItemSelection($event)"></app-search-item>
+    <app-search-item (onItemSelection)="onItemSelection($event)"></app-search-item>
 
     <!-- <button mat-flat-button color="accent" (click)="onItemSelection(item)">Click</button>  *ngIf="purchasedItems.length > 0" -->
 </div>
 
-<div class="table-container">
-    <div class="bill-inputs">
-        <div class="date-picker">
-            <div>
-                <label for="bill-date">Bill Date</label>
-                <input matInput id="bill-date" [max]="today" [matDatepicker]="picker" class="date-picker-input" [(ngModel)]="purchaseDate" disabled>
-                <mat-datepicker #picker disabled="false"></mat-datepicker>
-            </div>
-                
-            <button class="date-picker-button" (click)="picker.open()">
-                <mat-icon>calendar_month</mat-icon>
-            </button>
+
+<div class="bill-inputs">
+    <div class="date-picker">
+        <div>
+            <label for="bill-date">Bill Date</label>
+            <input matInput id="bill-date" [max]="today" [matDatepicker]="picker" class="date-picker-input"
+                [(ngModel)]="purchaseDate" disabled>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
         </div>
 
-        <div class="biller-details">
-
-            <div class="custom-input-container">
-                <label for="biller-name">Biller Name (Optional)</label>
-                <input id="biller-name" type="text" name="biller-name" [(ngModel)]="billerName">
-            </div>
-    
-            <div class="custom-input-container">
-                <label for="biller-gstn">Biller GSTN (Optional)</label>
-                <input id="biller-gstn" type="text" name="biller-gstn" [(ngModel)]="billerGSTN" >
-            </div>
-        </div>
-
+        <button class="date-picker-button" (click)="picker.open()">
+            <mat-icon>calendar_month</mat-icon>
+        </button>
     </div>
 
+    <div class="biller-details">
+
+        <div class="custom-input-container">
+            <label for="biller-name">Biller Name (Optional)</label>
+            <input id="biller-name" type="text" name="biller-name" [(ngModel)]="billerName">
+        </div>
+
+        <div class="custom-input-container">
+            <label for="biller-gstn">Biller GSTN (Optional)</label>
+            <input id="biller-gstn" type="text" name="biller-gstn" [(ngModel)]="billerGSTN">
+        </div>
+    </div>
+
+</div>
+<div class="table-container">
     <table>
         <thead>
             <tr>
@@ -54,7 +55,25 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of purchasedItems; let i = index" (contextmenu)="onContextMenu($event, item, i)"  (dblclick)="onEdit(item, i)">
+            <!-- <tr *ngFor="let i of arr">
+                <td>{{i}}</td>
+                <td>Item Name Item Name Item Name Item Name Item Name Item Name </td>
+                <td>99.</td>
+                <td>9999.</td>
+                <td>9999.</td>
+                <td>9999.</td>
+                <td>9999.</td>
+                <td>9999.</td>
+                <td>9999.</td>
+                <td>9999.</td>
+                <td>999.</td>
+                <td>99.</td>
+                <td>9999.</td>
+                <td>9999.</td>
+            </tr> -->
+         
+            <tr *ngFor="let item of purchasedItems; let i = index" (contextmenu)="onContextMenu($event, item, i)"
+                (dblclick)="onEdit(item, i)">
                 <td>{{i + 1}}.</td>
                 <td class="td_item_name">{{item.item_name}}</td>
                 <td>{{item.quantityBox}}</td>
@@ -74,7 +93,7 @@
                     [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
                 </div>
 
-                <mat-menu #contextMenu="matMenu" >
+                <mat-menu #contextMenu="matMenu">
                     <ng-template matMenuContent let-item="item" let-i="i">
                         <button mat-menu-item (click)="onEdit(item, i)">Edit</button>
                         <button mat-menu-item (click)="onDelete(item, i)">Delete</button>
@@ -82,18 +101,18 @@
                 </mat-menu>
 
             </tr>
-            <tr>
-                <td colspan="9" class="summary">Total</td>
-                <td colspan="1" class="summary">{{totalDiscount}}</td>
-                <td colspan="2" class="summary"></td>
-                <td class="summary">{{totalGst}}</td>
-                <td class="summary">{{totalAmount}}</td>
+
+            <tr class="summary-row">
+                <td colspan="9"></td>
+                <td colspan="1">{{totalDiscount}}</td> 
+                <td colspan="2"></td>
+                <td colspan="1">{{totalGst}}</td>
+                <td colspan="1">{{totalAmount}}</td>
             </tr>
         </tbody>
     </table>
-    <div class="cta-container">
-        <button mat-flat-button color="warn" (click)="onCancelBill()">Cancel</button>
-        <button mat-flat-button color="accent" (click)="onSaveBill()">Save</button>
-    </div>
-
+</div>
+<div class="cta-container">
+    <button mat-flat-button color="warn" (click)="onCancelBill()">Cancel</button>
+    <button mat-flat-button color="accent" (click)="onSaveBill()">Save</button>
 </div>

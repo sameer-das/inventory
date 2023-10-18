@@ -5,7 +5,7 @@
 }
 
 
-.dialog-content{
+.dialog-content {
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -17,11 +17,11 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
-    
+
     color: white;
     align-items: center;
 
-    > * {
+    >* {
         padding: 0;
         margin: 0;
     }
@@ -40,12 +40,20 @@
 
 .table-container {
     min-height: 110px;
-    max-height: 350px;
+    max-height: 400px;
     border: 1px solid white;
-    overflow-y: scroll;
+    overflow-y: auto;
+
     table {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
+
+        tr,
+        th,
+        td {
+            text-align: center;
+        }
 
         thead tr {
             position: sticky;
@@ -56,42 +64,69 @@
                 font-size: 0.8rem;
                 font-weight: 500;
                 padding: 0.2rem 0.2rem;
-                border-bottom: 1px solid white;
+                border: 1px solid white;
                 background-color: $black;
-                text-align: left;
+
+            }
+
+            &:nth-child(2) {
+                top: 28px;
             }
         }
 
+
+
         tbody tr {
-           
-            margin-bottom: 0.2rem;
+            // margin-bottom: 0.2rem;
+
+            &.summary-row {
+                position: sticky;
+                bottom: 0;
+                background-color: $black;
+                td {
+                    color: white;
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                    padding: 0.2rem 0.2rem;
+                    // border: 1px solid white;
+                    text-align: left;
+
+                    &.align-center {
+                        text-align: center;
+                    }
+                }
+            }
         }
 
         td {
             padding: 0.1rem 0.2rem;
             font-size: 0.8rem;
             color: white;
-    
+            border: 1px solid #444;
+
             &.highlight {
                 color: white;
                 font-weight: 500;
             }
-    
+
             &.td_item_name {
                 width: 200px;
             }
-    
+
             &.summary {
                 font-size: 0.8rem;
                 color: $green;
                 font-weight: 400;
             }
         }
-    };
+    }
+
+    ;
 }
 
 .custom-input-container {
-    width: 70px;
+    width: 80px;
+
     input {
         font-size: 0.8rem;
     }
@@ -102,21 +137,12 @@
     border: 1px solid white;
     display: flex;
     justify-content: space-between;
+
     >p {
         margin: 0;
-        padding: 0.2rem ;
+        padding: 0.2rem;
         color: $green;
         font-size: 0.8rem;
         font-weight: 400;
     }
-    // table{
-    //     width: 100%;
-    //     border-collapse: collapse;
-    //     td {
-    //         padding: 0.1rem 0.2rem;
-    //         font-size: 0.8rem;
-    //         color: white;
-    //         border: 1px solid white;
-    //     }
-    // }
 }

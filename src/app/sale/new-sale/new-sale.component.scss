@@ -65,12 +65,13 @@
 .table-container {
     margin-top: 0.5rem;
     max-height: 55vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     border: 1px solid white;
     table {
         
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         thead tr {
             position: sticky;
             top: 0;
@@ -80,7 +81,7 @@
                 font-size: 0.8rem;
                 font-weight: 500;
                 padding: 0.2rem 0.2rem;
-                border-bottom: 1px solid white;
+                border: 1px solid white;
                 background-color: $black;
                 text-align: left;
             }
@@ -88,18 +89,36 @@
 
         tbody tr {
             cursor: pointer;
-    
             &:hover {
                 background-color: $deep-purple;
             }
     
-            &:not(:last-child) {
-                border-bottom: 1px solid #444;
-            }
+            // &:not(:last-child) {
+            //     border: 1px solid #444;
+            // }
     
             // &:nth-last-child(2) {
             //     border-bottom: 1px solid white;
             // }
+
+            
+            &.summary-row {
+                position: sticky;
+                bottom: 0;
+                background-color: $black;
+                td {
+                    color: $green;
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                    padding: 0.2rem 0.2rem;
+                    border: 1px solid white;
+                    text-align: left;
+
+                    &.align-center {
+                        text-align: center;
+                    }
+                }
+            }
         }
 
         td {

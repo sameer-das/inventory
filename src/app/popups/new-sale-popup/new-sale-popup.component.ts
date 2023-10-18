@@ -100,6 +100,8 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
   totalPieceQuantity: number = 0;
   totalQuantity: number = 0;
   totalAmount: number = 0;
+  averageBoxPrice: number = 0;
+  averagePiecePrice: number = 0;
 
   calculate(val: any) {
     console.log(val);
@@ -107,11 +109,18 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
     this.totalPieceQuantity = 0;
     this.totalQuantity = 0;
     this.totalAmount = 0;
+    this.averageBoxPrice = 0;
+    this.averagePiecePrice = 0;
+
+    let qtyBox_X_boxPrice = 0;
+    let total_box_qty = 0;
+    let qtyPiece_X_piecePrice = 0;
+    let total_piece_qty = 0;
     val.lines.forEach((line: any) => {
       const pieceFromBox = (+line.quantityBox * +line.itemDetails.piecePerCarton);
       const priceForBox = +line.quantityBox * +line.pricePerBox;
 
-      line.itemDetails.totalQuantity =  pieceFromBox + +line.quantityPiece;
+      line.itemDetails.totalSaleQuantity =  pieceFromBox + +line.quantityPiece;
 
       line.itemDetails.totalAmount = priceForBox + (+line.quantityPiece * +line.pricePerPiece)
 
@@ -121,6 +130,16 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
       this.totalPieceQuantity += +line.quantityPiece;
       this.totalQuantity += (pieceFromBox + +line.quantityPiece);
       this.totalAmount +=  line.itemDetails.totalAmount;
+
+      qtyBox_X_boxPrice += +line.quantityBox * +line.pricePerBox;
+      total_box_qty += +line.quantityBox;
+
+      qtyPiece_X_piecePrice += +line.quantityPiece * +line.pricePerPiece;
+      total_piece_qty += +line.quantityPiece
     });
+
+    this.averageBoxPrice = isNaN(+((qtyBox_X_boxPrice / total_box_qty).toFixed(2))) ? 0 : +((qtyBox_X_boxPrice / total_box_qty).toFixed(2));
+    this.averagePiecePrice = isNaN(+((qtyPiece_X_piecePrice / total_piece_qty).toFixed(2))) ? 0: +((qtyPiece_X_piecePrice / total_piece_qty).toFixed(2));
+
   }
 }
