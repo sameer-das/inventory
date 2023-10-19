@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -9,7 +9,8 @@ import { Subject } from 'rxjs';
   styleUrls: ['./new-sale-popup.component.scss']
 })
 export class NewSalePopupComponent implements OnInit, OnDestroy {
-  constructor(@Inject(MAT_DIALOG_DATA) public item: any) { }
+
+  constructor(@Inject(MAT_DIALOG_DATA) public item: any, private _dialogRef: MatDialogRef<NewSalePopupComponent>) { }
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private AllowOnlyNumbersAndTwoDecimalPoint = /^[0-9][0-9]*[.]?[0-9]{0,2}$/;
@@ -29,7 +30,7 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
         totalAmount: 0
       }
     })
-    
+
     this.stockArray = this.item.item.stock;
 
 
@@ -59,9 +60,9 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
         totalAmount: item.totalAmount,
       }),
       quantityBox: new FormControl(0, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbers)] }),
-      pricePerBox: new FormControl(0, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbers)] }),
+      pricePerBox: new FormControl(0, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)] }),
       quantityPiece: new FormControl(0, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbers)] }),
-      pricePerPiece: new FormControl(0, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbers)] }),
+      pricePerPiece: new FormControl(0, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)] }),
       quantityFree: new FormControl(0, { updateOn: 'blur' }),
       // salePrice: new FormControl(0, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)] }),
     })
@@ -73,8 +74,19 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
     return (<FormArray>this.itemLinesGroup.get('lines')).controls;
   }
 
-  addRows() {
-    this.getItemsArray.push(this.getFormArrayElement())
+  add() {
+    this._dialogRef.close({
+      isAdd: true,
+      item: {
+        item_name: this.item.item.item_name,
+        mrp: this.item.item.mrp,
+        qtyBox: this.totalBoxQuantity,
+        qtyPiece: this.totalPieceQuantity,
+        qtyTotalPiece: this.totalQuantity,
+        totalAmount: this.totalAmount,
+        stocks: this.itemLinesGroup.value
+      }
+    })
   }
 
   totalBoxQuantity: number = 0;

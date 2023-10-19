@@ -18,6 +18,7 @@ export class NewSaleComponent implements  OnInit, OnDestroy{
   customerGSTN: string = '';
   today: Date = new Date();
 
+  saleItems:any[] = [];
 
   arr: number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 
@@ -42,6 +43,7 @@ export class NewSaleComponent implements  OnInit, OnDestroy{
         "item_id": 7,
         "category_id": 1,
         "brand_id": 1,
+        "mrp":50,
         "stock": [
           {
             "item_id": 7,
@@ -83,11 +85,9 @@ export class NewSaleComponent implements  OnInit, OnDestroy{
     }}
     
     }).afterClosed().subscribe((data: any) => {
-      if (data.shouldAdd) {
-        // console.log(data.item);
-        // this.purchasedItems.push(data.item);
-        // this.calculateTotal();
-        // this.clearSearch()
+      console.log(data);
+      if(data.isAdd) {
+        this.saleItems.push(data.item)
       }
     })
   }

@@ -1,5 +1,5 @@
 <div class="searchbar">
-    <app-search-item  (onItemSelection)="onItemSelection($event)" [withStock]="true"></app-search-item>
+    <app-search-item (onItemSelection)="onItemSelection($event)" [withStock]="true"></app-search-item>
 
     <button mat-flat-button color="accent" (click)="onItemSelection()">Click</button>
 </div>
@@ -8,10 +8,11 @@
     <div class="date-picker">
         <div>
             <label for="bill-date">Bill Date</label>
-            <input matInput id="bill-date" [max]="today" [matDatepicker]="picker" class="date-picker-input" [(ngModel)]="saleDate" disabled>
+            <input matInput id="bill-date" [max]="today" [matDatepicker]="picker" class="date-picker-input"
+                [(ngModel)]="saleDate" disabled>
             <mat-datepicker #picker disabled="false"></mat-datepicker>
         </div>
-            
+
         <button class="date-picker-button" (click)="picker.open()">
             <mat-icon>calendar_month</mat-icon>
         </button>
@@ -26,7 +27,7 @@
 
         <div class="custom-input-container">
             <label for="customer-gstn">Customer GSTN (Optional)</label>
-            <input id="customer-gstn" type="text" name="customer-gstn" [(ngModel)]="customerGSTN" >
+            <input id="customer-gstn" type="text" name="customer-gstn" [(ngModel)]="customerGSTN">
         </div>
     </div>
 
@@ -40,36 +41,25 @@
                 <th>Item Name</th>
                 <th>MRP</th>
                 <th>Box/Carton</th>
-                <th>Piece/Pack</th>
-                <th>Free</th>
+                <th>Piece</th>
                 <th>Total Piece</th>
-                <th>Price Per Piece</th>
-
                 <th>Sale Price</th>
-                <!-- <th>Disc.</th> -->
-                <th>GST(%)</th>
-                <th>GST Amount</th>
                 <th>Total Amount</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let a of arr; let i =index">
+            <tr *ngFor="let a of saleItems; let i =index">
                 <td>{{i + 1}}.</td>
-                <td>Item Name Item Name Item Name Item Name Item Name Item Name</td>
-                <td>Value 3</td>
-                <td>Value 4</td>
-                <td>Value 5</td>
-                <td>Value 6</td>
-                <td>Value 7</td>
-                <td>Value 8</td>
-                <td>Value 9</td>
-                <td>Value 10</td>
-                <td>Value 11</td>
-                <td>Value 12</td>
+                <td>{{a.item_name}}</td>
+                <td>{{a.mrp}}</td>
+                <td>{{a.qtyBox}}</td>
+                <td>{{a.qtyPiece}}</td>
+                <td>{{a.qtyTotalPiece}}</td>
+                <td>{{(a.totalAmount / a.qtyTotalPiece).toFixed(2)}}</td>
+                <td>{{a.totalAmount}}</td>
             </tr>
             <tr class="summary-row">
-                <td colspan="10"></td>
-                <td colspan="1">12345</td>
+                <td colspan="7"></td>
                 <td colspan="1">12345678</td>
             </tr>
         </tbody>
