@@ -15,14 +15,14 @@
                                     <th rowspan="2">Pcs per Box</th>
                                     <th rowspan="2">GST(%)</th>
                                     <th colspan="2">Stock</th>
-                                    <th colspan="2">Pur. Price</th>
+                                    <th colspan="2">Pur. Price(₹)</th>
                                     <th rowspan="2">Box Qty</th>
-                                    <th rowspan="2">Price per Box</th>
+                                    <th rowspan="2">Price per Box(₹)</th>
                                     <th rowspan="2">Piece Qty</th>
                                     <!-- <th>Free</th> -->
-                                    <th rowspan="2">Price per Price</th>
+                                    <th rowspan="2">Price per Price(₹)</th>
                                     <th rowspan="2">Total Qty(Pcs)</th>
-                                    <th rowspan="2">Total Amt.</th>
+                                    <th rowspan="2">Total Amt.(₹)</th>
                                     <!-- <th>Profit </th> -->
                                 </tr>
                                 <tr>
@@ -41,10 +41,10 @@
                                         <td>{{line?.get('itemDetails')?.value.piecePerCarton}}</td>
                                         <td>{{line?.get('itemDetails')?.value.gst}}</td>
                                         <td>
-                                            {{line?.get('itemDetails')?.value.totalQuantity}}
+                                            {{line?.get('itemDetails')?.value.totalStockQuantity}}
                                         </td>
                                         <td>
-                                            {{line?.get('itemDetails')?.value.totalQuantity /
+                                            {{line?.get('itemDetails')?.value.totalStockQuantity /
                                             line?.get('itemDetails')?.value.piecePerCarton}}
                                         </td>
                                         <td>

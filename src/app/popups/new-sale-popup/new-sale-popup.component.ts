@@ -51,13 +51,28 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
     return new FormGroup({
       itemDetails: new FormControl({
         item_name: item.item_name,
+        item_id: item.item_id,
+        category_id: item.category_id,
+        brand_id: item.brand_id,
+        category_name: item.category_name,
+        brand_name: item.brand_name,
+        barcode: item.barcode,
+        purchase_id: item.purchase_id,
+        purchaseStockUid: item.uid,
         piecePerCarton: item.piece_per_carton,
-        gst: 5,
-        totalQuantity: item.total_quantity_piece,
+        gst: item.gst,
+        totalStockQuantity: item.total_quantity_piece,
         purchasePricePerPiece: item.purchase_price_per_piece,
         purchaseDate: item.purchase_date,
-        totalSaleQuantity: item.totalSaleQuantity,
-        totalAmount: item.totalAmount,
+
+
+        // to be calculated
+        totalSaleQuantity: 0,
+        averageSalePricePerPiece: 0,
+        totalAmount: 0,
+        profitEarned: 0,
+        gstEarned: 0,
+
       }),
       quantityBox: new FormControl(0, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbers)] }),
       pricePerBox: new FormControl(0, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)] }),
@@ -117,8 +132,6 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
 
       line.itemDetails.totalAmount = priceForBox + (+line.quantityPiece * +line.pricePerPiece)
 
-
-
       this.totalBoxQuantity += +line.quantityBox;
       this.totalPieceQuantity += +line.quantityPiece;
       this.totalQuantity += (pieceFromBox + +line.quantityPiece);
@@ -128,7 +141,11 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
       total_box_qty += +line.quantityBox;
 
       qtyPiece_X_piecePrice += +line.quantityPiece * +line.pricePerPiece;
-      total_piece_qty += +line.quantityPiece
+      total_piece_qty += +line.quantityPiece;
+
+      line.itemDetails.profitEarned = +(line.itemDetails.totalAmount - (+line.itemDetails.purchasePricePerPiece * + line.itemDetails.totalSaleQuantity)).toFixed(2);
+      line.itemDetails.gstEarned = +(line.itemDetails.totalAmount - (line.itemDetails.totalAmount / (1 + (line.itemDetails.gst * 0.01)))).toFixed(2);
+      line.itemDetails.averageSalePricePerPiece = +(line.itemDetails.totalAmount / line.itemDetails.totalSaleQuantity).toFixed(2);
     });
 
     this.averageBoxPrice = isNaN(+((qtyBox_X_boxPrice / total_box_qty).toFixed(2))) ? 0 : +((qtyBox_X_boxPrice / total_box_qty).toFixed(2));

@@ -20,6 +20,8 @@ export class NewSaleComponent implements  OnInit, OnDestroy{
 
   saleItems:any[] = [];
 
+  totalSaleAmount: number = 0;
+
   arr: number[] = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class NewSaleComponent implements  OnInit, OnDestroy{
         "item_id": 7,
         "category_id": 1,
         "brand_id": 1,
-        "mrp":50,
+        "mrp":10,
         "stock": [
           {
             "item_id": 7,
@@ -87,9 +89,22 @@ export class NewSaleComponent implements  OnInit, OnDestroy{
     }).afterClosed().subscribe((data: any) => {
       console.log(data);
       if(data.isAdd) {
-        this.saleItems.push(data.item)
+        this.saleItems.push(data.item);
+        this.calculateSummary();
       }
     })
+  }
+
+  calculateSummary(){
+    this.totalSaleAmount = 0;
+    this.saleItems.forEach((item: any) => {
+      this.totalSaleAmount += item.totalAmount;
+    })
+  }
+
+
+  onSubmit() {
+    console.log(this.saleItems);
   }
 
 }

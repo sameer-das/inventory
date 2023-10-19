@@ -39,12 +39,12 @@
             <tr>
                 <th>Sl.</th>
                 <th>Item Name</th>
-                <th>MRP</th>
+                <th>MRP(₹)</th>
                 <th>Box/Carton</th>
                 <th>Piece</th>
                 <th>Total Piece</th>
-                <th>Sale Price</th>
-                <th>Total Amount</th>
+                <th>S. Price per Piece(₹)</th>
+                <th>Total Amount(₹)</th>
             </tr>
         </thead>
         <tbody>
@@ -60,7 +60,7 @@
             </tr>
             <tr class="summary-row">
                 <td colspan="7"></td>
-                <td colspan="1">12345678</td>
+                <td colspan="1">₹ {{totalSaleAmount}}</td>
             </tr>
         </tbody>
     </table>
@@ -68,5 +68,5 @@
 
 <div class="cta-container">
     <button mat-flat-button color="warn">Cancel</button>
-    <button mat-flat-button color="accent">Submit</button>
+    <button mat-flat-button color="accent" (click)="onSubmit()">Submit</button>
 </div>
