@@ -21,26 +21,44 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
   itemLinesGroup!: FormGroup;
 
   ngOnInit(): void {
-    console.log(this.item);
+    // console.log(this.item);
 
-    this.item.item.stock = this.item.item.stock.map((item: any) => {
-      return {
-        ...item,
-        totalSaleQuantity: 0,
-        totalAmount: 0
-      }
-    })
-
-    this.stockArray = this.item.item.stock;
-
-
-    if (this.stockArray.length > 0) {
-      this.itemLinesGroup = new FormGroup({
-        lines: new FormArray(this.stockArray.map(curr => this.getFormArrayElement(curr)))
-      });
-      this.itemLinesGroup.valueChanges.subscribe((val) => {
-        this.calculate(val)
+    if (!this.item.isEdit) {
+      // New Add
+      this.item.item.stock = this.item.item.stock.map((item: any) => {
+        return {
+          ...item,
+          totalSaleQuantity: 0,
+          totalAmount: 0
+        }
       })
+
+      this.stockArray = this.item.item.stock;
+
+
+      if (this.stockArray.length > 0) {
+        this.itemLinesGroup = new FormGroup({
+          lines: new FormArray(this.stockArray.map(curr => this.getFormArrayElement(curr)))
+        });
+
+        this.itemLinesGroup.valueChanges.subscribe((val) => {
+          this.calculate(val)
+        })
+      }
+    } else {
+      // edit item
+
+      this.stockArray = this.item.item.stocks.lines;
+
+      if (this.stockArray.length > 0) {
+        this.itemLinesGroup = new FormGroup({
+          lines: new FormArray(this.stockArray.map(curr => this.getFormArrayElementForEdit(curr)))
+        });
+        this.calculate(this.itemLinesGroup.value);
+        this.itemLinesGroup.valueChanges.subscribe((val) => {
+          this.calculate(val)
+        })
+      }
     }
   }
   ngOnDestroy(): void {
@@ -48,6 +66,7 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
   }
 
   getFormArrayElement(item?: any) {
+    // console.log(item)
     return new FormGroup({
       itemDetails: new FormControl({
         item_name: item.item_name,
@@ -64,7 +83,7 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
         totalStockQuantity: item.total_quantity_piece,
         purchasePricePerPiece: item.purchase_price_per_piece,
         purchaseDate: item.purchase_date,
-
+        mrp: item.mrp,
 
         // to be calculated
         totalSaleQuantity: 0,
@@ -84,6 +103,19 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
   }
 
 
+  getFormArrayElementForEdit(item: any) {
+    console.log(item)
+    return new FormGroup({
+      itemDetails: new FormControl({ ...item.itemDetails }),
+      quantityBox: new FormControl(item.quantityBox, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbers)] }),
+      pricePerBox: new FormControl(item.pricePerBox, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)] }),
+      quantityPiece: new FormControl(item.quantityPiece, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbers)] }),
+      pricePerPiece: new FormControl(item.pricePerPiece, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)] }),
+      quantityFree: new FormControl(item.quantityFree, { updateOn: 'blur' }),
+      // salePrice: new FormControl(0, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbersAndTwoDecimalPoint)] }),
+    })
+  }
+
   get getItemsArray(): AbstractControl[] {
     // array of formgroups
     return (<FormArray>this.itemLinesGroup.get('lines')).controls;
@@ -91,9 +123,14 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
 
   add() {
     this._dialogRef.close({
-      isAdd: true,
+      isEdit: this.item.isEdit,
       item: {
         item_name: this.item.item.item_name,
+        brand_id: this.item.item.brand_id,
+        brand_name: this.item.item.brand_name,
+        category_id: this.item.item.category_id,
+        category_name: this.item.item.category_name,
+        item_id: this.item.item.item_id,
         mrp: this.item.item.mrp,
         qtyBox: this.totalBoxQuantity,
         qtyPiece: this.totalPieceQuantity,
@@ -112,7 +149,7 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
   averagePiecePrice: number = 0;
 
   calculate(val: any) {
-    console.log(val);
+    // console.log(val);
     this.totalBoxQuantity = 0;
     this.totalPieceQuantity = 0;
     this.totalQuantity = 0;

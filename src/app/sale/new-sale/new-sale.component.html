@@ -1,7 +1,7 @@
 <div class="searchbar">
     <app-search-item (onItemSelection)="onItemSelection($event)" [withStock]="true"></app-search-item>
 
-    <button mat-flat-button color="accent" (click)="onItemSelection()">Click</button>
+    <!-- <button mat-flat-button color="accent" (click)="onItemSelection()">Click</button> -->
 </div>
 
 <div class="bill-inputs">
@@ -39,7 +39,7 @@
             <tr>
                 <th>Sl.</th>
                 <th>Item Name</th>
-                <th>MRP(₹)</th>
+                <!-- <th>MRP(₹)</th> -->
                 <th>Box/Carton</th>
                 <th>Piece</th>
                 <th>Total Piece</th>
@@ -48,10 +48,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let a of saleItems; let i =index">
+            <tr *ngFor="let a of saleItems; let i =index" (dblclick)="onDoubleClick(a,i)">
                 <td>{{i + 1}}.</td>
                 <td>{{a.item_name}}</td>
-                <td>{{a.mrp}}</td>
+                <!-- <td>{{a.mrp}}</td> -->
                 <td>{{a.qtyBox}}</td>
                 <td>{{a.qtyPiece}}</td>
                 <td>{{a.qtyTotalPiece}}</td>
@@ -59,7 +59,7 @@
                 <td>{{a.totalAmount}}</td>
             </tr>
             <tr class="summary-row">
-                <td colspan="7"></td>
+                <td colspan="6"></td>
                 <td colspan="1">₹ {{totalSaleAmount}}</td>
             </tr>
         </tbody>

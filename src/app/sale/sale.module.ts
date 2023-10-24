@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewSaleComponent } from './new-sale/new-sale.component';
 import { MaterialModule } from '../material.module';
 import { NewSalePopupComponent } from '../popups/new-sale-popup/new-sale-popup.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SaleService } from './sale.service';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { NewSalePopupComponent } from '../popups/new-sale-popup/new-sale-popup.c
     SearchItemModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MaterialModule
-  ]
+  ],
+  providers: [SaleService]
 })
 export class SaleModule { }

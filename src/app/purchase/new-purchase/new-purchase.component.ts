@@ -1,13 +1,12 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { NewPurchasePopupComponent } from 'src/app/popups/new-purchase-popup/new-purchase-popup.component';
-import { PurchaseService } from '../purchase.service';
-import { SearchItemService } from 'src/app/search-item/search-item.service';
-import { FormControl } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { LoaderService } from 'src/app/loader.service';
+import { NewPurchasePopupComponent } from 'src/app/popups/new-purchase-popup/new-purchase-popup.component';
 import { PopupService } from 'src/app/popups/popup.service';
-import { Subject, finalize, takeUntil } from 'rxjs';
+import { SearchItemService } from 'src/app/search-item/search-item.service';
+import { PurchaseService } from '../purchase.service';
 
 
 @Component({
