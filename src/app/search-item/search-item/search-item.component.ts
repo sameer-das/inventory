@@ -35,18 +35,8 @@ export class SearchItemComponent implements OnInit, OnDestroy {
         else
           return this._searchItemService.searchItemWithStock(search).pipe(
             filter(items => items.length > 0),
-            map(curr => {
-              return [{
-                "item_name": curr[0].item_name,
-                "category_name": curr[0].category_name,
-                "brand_name": curr[0].brand_name,
-                "uid": curr[0].uid,
-                "item_id": curr[0].item_id,
-                "category_id": curr[0].category_id,
-                "brand_id": curr[0].brand_id,
-                "stock": curr
-              }]
-            }))
+            map(curr => this.formatItemsForWithStockSearch(curr)),
+            tap(item => console.log(item)))
       })
     );
 
@@ -56,6 +46,30 @@ export class SearchItemComponent implements OnInit, OnDestroy {
     })
   }
 
+  formatItemsForWithStockSearch(items: any) {
+    const result: any[] = []
+    items.forEach((curr: any) => {
+      const ind = result.findIndex((r: any) => r.item_id === curr.item_id);
+      if (ind < 0) {
+        // not yet present 
+        result.push({
+          "item_name": curr.item_name,
+          "category_name": curr.category_name,
+          "brand_name": curr.brand_name,
+          "uid": curr.uid,
+          "item_id": curr.item_id,
+          "category_id": curr.category_id,
+          "brand_id": curr.brand_id,
+          "stock": [curr]
+        })
+      } else {
+        // present, so push to stock array
+        result[ind].stock.push(curr);
+      }
+    });
+    return result;
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
   }
@@ -63,8 +77,6 @@ export class SearchItemComponent implements OnInit, OnDestroy {
   onSelection(e: MatAutocompleteSelectedEvent) {
     console.log(this.control.value)
     this.onItemSelection.emit(this.control.value);
-
-
   }
 
   displayWith(option: any) {

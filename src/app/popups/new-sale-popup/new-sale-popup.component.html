@@ -44,15 +44,15 @@
                                             {{line?.get('itemDetails')?.value.totalStockQuantity}}
                                         </td>
                                         <td>
-                                            {{line?.get('itemDetails')?.value.totalStockQuantity /
-                                            line?.get('itemDetails')?.value.piecePerCarton}}
+                                            {{(line?.get('itemDetails')?.value.totalStockQuantity /
+                                            line?.get('itemDetails')?.value.piecePerCarton) | getRemainder}}
                                         </td>
                                         <td>
                                             {{line?.get('itemDetails')?.value.purchasePricePerPiece}}
                                         </td>
                                         <td>
-                                            {{line?.get('itemDetails')?.value.purchasePricePerPiece *
-                                            line?.get('itemDetails')?.value.piecePerCarton}}
+                                            {{(line?.get('itemDetails')?.value.purchasePricePerPiece *
+                                            line?.get('itemDetails')?.value.piecePerCarton).toFixed(2)}}
 
                                         </td>
                                         <td>
@@ -120,7 +120,7 @@
 
         <div class="dialog-footer">
             <button mat-flat-button color="warn" mat-dialog-close tabindex="-1">Cancel</button>
-            <button mat-flat-button color="accent" class="add-button" tabindex="" (click)="add()">Ok</button>
+            <button mat-flat-button color="accent" class="add-button" tabindex="" [disabled]="itemLinesGroup.invalid" (click)="add()">Ok</button>
         </div>
     </div>
 </div>

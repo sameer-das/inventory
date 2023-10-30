@@ -18,11 +18,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { GetRemainderPipe } from './pipes/get-remainder.pipe';
+
 const MATERIAL = [
   MatDialogModule,
   MatTabsModule,
@@ -47,11 +51,14 @@ const MATERIAL = [
   MatAutocompleteModule,
   MatRadioModule,
   MatSlideToggleModule,
+  MatProgressBarModule,
+  MatPaginatorModule
+
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [GetRemainderPipe],
   imports: MATERIAL,
-  exports: MATERIAL,
+  exports: [...MATERIAL, GetRemainderPipe],
 })
-export class MaterialModule {}
+export class MaterialModule { }

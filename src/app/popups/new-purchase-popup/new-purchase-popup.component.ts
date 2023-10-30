@@ -66,6 +66,7 @@ export class NewPurchasePopupComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.item.isEdit) {
+      // if in edit mode
       this.newItemPurchaseFormGroup.setValue({
         mrp: this.item.item.mrp,
         quantityBox: this.item.item.quantityBox,
@@ -95,8 +96,8 @@ export class NewPurchasePopupComponent implements OnInit {
           const val = this.newItemPurchaseFormGroup.getRawValue();
           this.calculateDiscount(val);
           this.totalQuantityPiece = (+val.quantityBox * +val.piecePerCarton) + +val.quantityPiece + +val.quantityFree;
-          this.taxAmount = +this.purchasePriceAfterDiscount * (+val.gst / 100);
-          this.totalPrice = +this.purchasePriceAfterDiscount + +this.taxAmount;
+          this.taxAmount = +(+this.purchasePriceAfterDiscount * (+val.gst / 100)).toFixed(2);
+          this.totalPrice = +(+this.purchasePriceAfterDiscount + +this.taxAmount).toFixed(2);
           this.purchasePricePerPiece = +(+this.totalPrice / +this.totalQuantityPiece).toFixed(2);
         }
       })
@@ -108,7 +109,7 @@ export class NewPurchasePopupComponent implements OnInit {
       const ppad = +val.purchasePriceBeforeDiscount - +val.discountPrice;
       // this.newItemPurchaseFormGroup.get('purchasePriceAfterDiscount')?.setValue(ppad, { onlySelf: true, emitEvents:false });
       this.purchasePriceBeforeDiscount = +val.purchasePriceBeforeDiscount;
-      this.purchasePriceAfterDiscount = ppad;
+      this.purchasePriceAfterDiscount = +ppad.toFixed(2);
     } else {
       const ppbd = +val.purchasePriceAfterDiscount + +val.discountPrice;
       this.purchasePriceAfterDiscount = +val.purchasePriceAfterDiscount;

@@ -8,13 +8,17 @@ import { SearchItemModule } from '../search-item/search-item.module';
 import { NewPurchasePopupComponent } from '../popups/new-purchase-popup/new-purchase-popup.component';
 import { PurchaseService } from './purchase.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ListPurchasesComponent } from './list-purchases/list-purchases.component';
+import { PurchaseDetailsComponent } from './purchase-details/purchase-details.component';
 
 
 
 @NgModule({
   declarations: [
     NewPurchaseComponent,
-    NewPurchasePopupComponent
+    NewPurchasePopupComponent,
+    ListPurchasesComponent,
+    PurchaseDetailsComponent
   ],
   imports: [
     CommonModule,

@@ -24,6 +24,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     '/purchase': 'Add Stock/New Purchase',
     '/sale': 'New Sale',
     '/stock': 'All Stock',
+    '/sale/list-sales': 'Sale History',
+    '/purchase/list-purchases': 'Purchase History',
   }
 
   ngOnInit(): void {
@@ -31,6 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.currentMenuName = this.urlMenuMapping[this.currentUrl];
     this._router.events.pipe(takeUntil(this.destroy$), filter(x => x instanceof NavigationEnd)).subscribe({
       next: (resp: any) => {
+        // console.log(resp)
         this.currentUrl = resp.url || this.currentUrl;
         this.currentMenuName = this.urlMenuMapping[this.currentUrl];
       }

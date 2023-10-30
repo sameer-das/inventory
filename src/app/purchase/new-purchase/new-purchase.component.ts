@@ -23,7 +23,7 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
     private _loaderService: LoaderService,
     private _popupService: PopupService) { }
 
-  arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+  arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
   today: Date = new Date();
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -78,9 +78,9 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
       this.totalAmount = 0.00;
 
       this.purchasedItems.forEach((item) => {
-        this.totalAmount += +item.totalPrice;
-        this.totalGst += +item.taxAmount;
-        this.totalDiscount += +item.discountPrice;
+        this.totalAmount = +(this.totalAmount + +item.totalPrice).toFixed(2);
+        this.totalGst = +(this.totalGst + +item.taxAmount).toFixed(2);
+        this.totalDiscount = +(this.totalDiscount + +item.discountPrice).toFixed();
       })
     }
   }
@@ -122,17 +122,17 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
 
   onSaveBill() {
     // console.log(this.purchasedItems);
-    if(this.purchasedItems.length === 0) {
+    if (this.purchasedItems.length === 0) {
       this._popupService.openAlert({
-        header:'Alert',
-        message:'Please add items.'
+        header: 'Alert',
+        message: 'Please add items.'
       })
       return;
     }
     if (!this.purchaseDate) {
       this._popupService.openAlert({
-        header:'Alert',
-        message:'Please choose purchase/bill date.'
+        header: 'Alert',
+        message: 'Please choose purchase/bill date.'
       })
       return;
     }

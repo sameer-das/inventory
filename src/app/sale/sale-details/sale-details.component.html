@@ -1,0 +1,91 @@
+<div class="page-container">
+    <!-- <div class="header">
+        <h2>Mahalaxmi Agency</h2>
+        <h3>Olasingh, Khurda, Phone - 8908162643</h3>
+    </div> -->
+
+    <div *ngIf="saleDetails.length > 0" class="sale-details-header">
+        <div>
+            <p>Bill No : {{saleDetails[0]?.bill_no}}</p>
+            <p>Bill Date : {{saleDetails[0]?.sale_date | date: 'dd-MMM-yyyy'}}</p>
+        </div>
+        <div>
+            <p>Customer Name: {{saleDetails[0]?.sale_customer}}</p>
+            <p>Customer Phone :{{saleDetails[0]?.sale_customer_phone}}</p>
+            <p>Customer GSTN : {{saleDetails[0]?.sale_gstn}}</p>
+        </div>
+    </div>
+
+    <div *ngIf="saleDetails.length > 0" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2">Sl No.</th>
+                    <th rowspan="2">Item Name</th>
+                    <th colspan="2">Quantity</th>
+                    <th rowspan="2">Total Qty. (Piece)</th>
+                    <th rowspan="2">Sale Price</th>
+                    <th rowspan="2">Amount (₹)</th>
+                </tr>
+                <tr>
+                    <th>Box</th>
+                    <th>Piece</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lineItem of saleDetails; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{lineItem.item_name}}</td>
+                    <td>{{lineItem.sale_box_quantity }}</td>
+                    <td>{{lineItem.sale_piece_quantity}}</td>
+                    <td>{{lineItem.sale_total_piece}}</td>
+                    <td>₹ {{lineItem.average_sale_price }}</td>
+                    <td>₹ {{lineItem.total_amount}}</td>
+                </tr>
+                <tr class="summary-row">
+                    <td colspan="2">Total</td>
+                    <td colspan="1">{{totalQtyBox}}</td>
+                    <td colspan="1">{{totalPieceBox}}</td>
+                    <td colspan="2"></td>
+                    <td colspan="1">₹ {{totalAmount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sale-details-footer">
+        <div class="gst-details">
+            <mat-progress-bar *ngIf="!gstDetailsFetched && showGst" mode="indeterminate"></mat-progress-bar>
+            <table *ngIf="showGst">
+                <thead>
+                    <tr>
+                        <th>GST Rate</th>
+                        <th>5 (%)</th>
+                        <th>12 (%)</th>
+                        <th>18 (%)</th>
+                        <th>28 (%)</th>
+                        <th>Total (₹)</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <th>Amount (₹)</th>
+                        <td>{{gstDetails['5']}}</td>
+                        <td>{{gstDetails['12']}}</td>
+                        <td>{{gstDetails['18']}}</td>
+                        <td>{{gstDetails['28']}}</td>
+                        <td>{{gstDetails['total']}}</td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+        <div class="cta">
+            <button mat-flat-button color="primary" (click)="toggleShowGst()">{{showGst ? 'Hide' : 'Show'}} GST</button>
+            <!-- <button mat-flat-button color="primary">Print</button> -->
+            <a mat-flat-button color="accent" routerLink="/sale/list-sales">Go Back</a>
+        </div>
+    </div>
+</div>

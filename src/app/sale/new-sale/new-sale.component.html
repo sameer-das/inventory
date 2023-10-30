@@ -3,7 +3,7 @@
 
     <!-- <button mat-flat-button color="accent" (click)="onItemSelection()">Click</button> -->
 </div>
-
+<p class="bill-no">Bill No: {{billNo}}</p>
 <div class="bill-inputs">
     <div class="date-picker">
         <div>
@@ -23,6 +23,10 @@
         <div class="custom-input-container">
             <label for="customer-name">Customer Name (Optional)</label>
             <input id="customer-name" type="text" name="customer-name" [(ngModel)]="customerName">
+        </div>
+        <div class="custom-input-container">
+            <label for="customer-phone">Customer Phone (Optional)</label>
+            <input id="customer-phone" type="text" name="customer-phone" [(ngModel)]="customerPhone">
         </div>
 
         <div class="custom-input-container">

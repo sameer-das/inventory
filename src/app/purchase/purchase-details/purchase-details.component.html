@@ -1,0 +1,107 @@
+<div class="page-container">
+    <!-- <div class="header">
+        <h2>Mahalaxmi Agency</h2>
+        <h3>Olasingh, Khurda, Phone - 8908162643</h3>
+    </div> -->
+
+    <div *ngIf="purchaseDetails.length > 0" class="sale-details-header">
+        
+        <div>
+            <p>Biller Name: {{purchaseDetails[0]?.biller_name}}</p>
+            <p>Biller Phone :{{purchaseDetails[0]?.biller_phone}}</p>
+          
+        </div>
+        <div>
+            <!-- <p>Bill No : {{saleDetails[0]?.bill_no}}</p> -->
+            <p>Bill Date : {{purchaseDetails[0]?.purchase_date | date: 'dd-MM-yyyy'}}</p>
+            <p>Biller GSTN : {{purchaseDetails[0]?.biller_gstn}}</p>
+        </div>
+    </div>
+
+    <div *ngIf="purchaseDetails.length > 0" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2">Sl No.</th>
+                    <th rowspan="2">Item Name</th>
+                    <th rowspan="2">MRP (₹)</th>
+                    <th colspan="5">Quantity</th>
+                    <th rowspan="2">Pur Price Bef. Disc. (₹)</th>
+                    <th rowspan="2">Discount (₹)</th>
+                    <th rowspan="2">Pur Price Aft. Disc. (₹)</th>
+                    <th rowspan="2">GST(%)</th>
+                    <th rowspan="2">Tax Amt. (₹)</th>
+                    <th rowspan="2">Total Amt. (₹)</th>
+                </tr>
+                <tr>
+                    <th>Box</th>
+                    <th>Piece</th>
+                    <th>Free</th>
+                    <th>Piece Per Box</th>
+                    <th>Total Piece</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lineItem of purchaseDetails; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{lineItem.item_name}}</td>
+                    <td>{{lineItem.mrp }}</td>
+                    <td>{{lineItem.quantity_box}}</td>
+                    <td>{{lineItem.quantity_piece}}</td>
+                    <td>{{lineItem.quantity_free }}</td>
+                    <td>{{lineItem.piece_per_carton }}</td>
+                    <td>{{lineItem.total_quantity_piece}}</td>
+                    <td>{{lineItem.purchase_price_before_discount}}</td>
+                    <td>{{lineItem.discount_price}}</td>
+                    <td>{{lineItem.purchase_price_after_discount}}</td>
+                    <td>{{lineItem.gst}}</td>
+                    <td>{{lineItem.tax_amount}}</td>
+                    <td>{{lineItem.total_price}}</td>
+                </tr>
+                <tr class="summary-row">
+                    <td colspan="9">Total</td>
+                    <td colspan="1">₹ {{totalDiscount}}</td>
+                    <td colspan="2"></td>
+                    <td colspan="1">₹ {{gstDetails['total']}}</td>
+                    <td colspan="1">₹ {{totalAmount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sale-details-footer">
+        <div class="gst-details">
+            <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
+            <table *ngIf="showGst">
+                <thead>
+                    <tr>
+                        <th>GST Rate</th>
+                        <th>5 (%)</th>
+                        <th>12 (%)</th>
+                        <th>18 (%)</th>
+                        <th>28 (%)</th>
+                        <th>Total (₹)</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <th>Amount(₹)</th>
+                        <td>{{gstDetails['5']}}</td>
+                        <td>{{gstDetails['12']}}</td>
+                        <td>{{gstDetails['18']}}</td>
+                        <td>{{gstDetails['28']}}</td>
+                        <td>{{gstDetails['total']}}</td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+        <div class="cta">
+            <button mat-flat-button color="primary" (click)="toggleShowGst()">{{showGst ? 'Hide' : 'Show'}} GST</button>
+            <!-- <button mat-flat-button color="primary">Print</button> -->
+            <a mat-flat-button color="accent" routerLink="/purchase/list-purchases">Go Back</a>
+        </div>
+    </div>
+</div>

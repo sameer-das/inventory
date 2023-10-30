@@ -1,4 +1,24 @@
 <div class="page-container">
 
-    <p>list-stock works!</p>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Brand</th>
+                    <th>Category</th>
+                    <th>Stock Quantity (Piece)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items; let i = index" (click)="onItemClick(item.item_id)">
+                    <td>{{item.item_name}}</td>
+                    <!-- <td>{{a.mrp}}</td> -->
+                    <td>{{item.brand_name}}</td>
+                    <td>{{item.category_name}}</td>
+                    <td>{{item.total_quantity}}</td>
+                </tr>    
+            </tbody>
+        </table>
+    </div>
 </div>

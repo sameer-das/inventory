@@ -8,12 +8,17 @@ import { MaterialModule } from '../material.module';
 import { NewSalePopupComponent } from '../popups/new-sale-popup/new-sale-popup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SaleService } from './sale.service';
+import { ListSalesComponent } from './list-sales/list-sales.component';
+import { SaleDetailsComponent } from './sale-details/sale-details.component';
+
 
 
 @NgModule({
   declarations: [
     NewSaleComponent,
-    NewSalePopupComponent
+    NewSalePopupComponent,
+    ListSalesComponent,
+    SaleDetailsComponent
   ],
   imports: [
     CommonModule,

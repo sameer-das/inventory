@@ -1,17 +1,40 @@
 <ul class="menu">
     <!-- <h2 class="menu_label">Main Navigation</h2> -->
-    <li><a class="main_menu_link" routerLink="/sale" routerLinkActive="activelink"
-            [routerLinkActiveOptions]="{exact: true}">
-            <mat-icon>
-                shopping_cart_checkout
-            </mat-icon> Sale
-        </a></li>
-    <li><a class="main_menu_link" routerLink="/purchase" routerLinkActive="activelink"
-            [routerLinkActiveOptions]="{exact: true}">
-            <mat-icon>add_shopping_cart</mat-icon> Stock Entry
-        </a></li>
+    <li><a class="main_menu_link" haveSubmenu>
+            <mat-icon> shopping_cart_checkout </mat-icon> Sale
+            <mat-icon class="carret">arrow_right</mat-icon>
+        </a>
+        <ul class="sub_menu">
+            <li>
+                <a class="sub_menu_link" routerLink="/sale" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">New Sale</a>
+            </li>
+            <li>
+                <a class="sub_menu_link" routerLink="/sale/list-sales" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">Sale History</a>
+            </li>
+        </ul>
+    </li>
+
+    <li><a class="main_menu_link" haveSubmenu>
+            <mat-icon>add_shopping_cart</mat-icon> Purchase
+            <mat-icon class="carret">arrow_right</mat-icon>
+        </a>
+
+        <ul class="sub_menu">
+            <li>
+                <a class="sub_menu_link" routerLink="/purchase" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">Purchase Entry</a>
+            </li>
+            <li>
+                <a class="sub_menu_link" routerLink="/purchase/list-purchases" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">Purchase History</a>
+            </li>
+        </ul>
+
+    </li>
     <li>
-        <a class="main_menu_link" haveSubmenu >
+        <a class="main_menu_link" haveSubmenu>
             <mat-icon>inventory</mat-icon> Stock
             <mat-icon class="carret">arrow_right</mat-icon>
         </a>
@@ -31,7 +54,7 @@
             <li>
                 <a class="sub_menu_link" routerLink="/stock/newitem" routerLinkActive="activelink"
                     [routerLinkActiveOptions]="{exact:true}">Create Item</a>
-            </li>            
+            </li>
         </ul>
 
     </li>

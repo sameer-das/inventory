@@ -34,4 +34,8 @@ export class StockService {
   createItem(item: any) {
     return this._http.post<APIResponse>(`${this.API_BASE_URL}/item`, item);
   }
+
+  getItemStockDetails(itemId: any) {
+    return this._http.get<APIResponse>(`${this.API_BASE_URL}/item/item-stock-details?itemId=${itemId}`);
+  }
 }

@@ -22,7 +22,7 @@ import { AlertComponent } from './popups/alert/alert.component';
     SidebarComponent,
     HaveSubmenuDirective,
     LoaderComponent,
-    AlertComponent
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

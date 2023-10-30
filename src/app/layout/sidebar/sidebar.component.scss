@@ -41,7 +41,7 @@
           }
 
           ul.sub_menu {
-            background: $deep-purple;
+            background: $black;
             // display: none;
             overflow: hidden;
             max-height: 0;
@@ -49,11 +49,12 @@
             &.active {
               // display: block;
               max-height: 300px;
+              // border-left: 8px solid $purple;
             }
             li {
               a.sub_menu_link {
                 display: block;
-                padding: 0.7rem 0 0.5rem 0.5rem;
+                padding: 0.7rem 0 0.5rem 1rem;
                 text-decoration: none;
                 font-size: 0.8rem;
                 color: white;

@@ -9,6 +9,7 @@ import { NewCategoryComponent } from './new-category/new-category.component';
 import { ListStockComponent } from './list-stock/list-stock.component';
 import { StockService } from './stock.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ItemStockDetailsComponent } from '../popups/item-stock-details/item-stock-details.component';
 
 
 
@@ -17,7 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
     NewBrandComponent,
     NewItemComponent,
     NewCategoryComponent,
-    ListStockComponent
+    ListStockComponent,
+    ItemStockDetailsComponent,
+
   ],
   imports: [
     CommonModule,

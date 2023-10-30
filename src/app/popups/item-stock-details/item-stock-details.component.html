@@ -1,0 +1,65 @@
+<div class="dialog-container">
+    <mat-progress-bar *ngIf="showProgress" mode="indeterminate"></mat-progress-bar>
+
+    <div class="dialog-content">
+        <div>
+            <div class="dialog-header">
+                <h2>Stock Details: <span class="item-name">{{itemDetails[0]?.item_name}}</span> </h2>
+            </div>
+            <div class="dialog-body">
+                <div class="table-container">
+                    <div class="table-container">
+
+                        <table class="table">
+                            <thead class="table-header">
+                                <tr>
+                                    <th rowspan="2">Pur. Date</th>
+                                    <th rowspan="2">MRP</th>
+                                    <th colspan="2">Stock Quantity</th>
+                                    <th rowspan="2">Pcs per Box</th>
+                                    <th colspan="2">Purchase Price(₹)</th>
+                                </tr>
+                                <tr>
+                                    <th>Pieces</th>
+                                    <th>Box/Carton</th>
+                                    <th>Piece</th>
+                                    <th>Box/Carton</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr *ngFor="let stock of itemDetails; let i = index">
+                                    <td>{{stock.created_on | date:'dd-MMM-yyyy'}}</td>
+                                    <td>₹ {{stock.mrp}}</td>
+                                    <td>{{stock.total_quantity_piece}}</td>
+                                    <td> {{(stock.total_quantity_piece / stock.piece_per_carton).toFixed(2) | getRemainder}} </td>
+                                    <td>{{stock.piece_per_carton}} </td>
+                                    <td>₹ {{stock.purchase_price_per_piece}} </td>
+                                    <td>₹ {{(stock.purchase_price_per_piece * stock.piece_per_carton).toFixed(2) }} </td>
+                                </tr>
+
+                                <tr class="summary-row">
+                                    <td colspan="2">Total</td>
+                                    <td colspan="1">{{totalPieceQuantity}}</td>
+                                    <td colspan="1">{{totalBoxQuantity}}</td>
+                                    <td></td>
+                                    <td colspan="2">Stock Worth: {{totalStockWorth}}</td>
+                                </tr>
+                            </tbody>
+
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="dialog-footer">
+            <button mat-flat-button color="warn" mat-dialog-close>Close</button>
+        </div>
+
+    </div>
+</div>

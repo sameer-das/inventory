@@ -1,0 +1,157 @@
+@import '../../constant.scss';
+
+.table-container {
+    margin-top: 0.5rem;
+    border: 1px solid white;
+    table {
+        
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        thead tr {
+            position: sticky;
+            top: 0;
+
+            th {
+                color: $green;
+                font-size: 0.8rem;
+                font-weight: 500;
+                padding: 0.2rem 0.2rem;
+                border: 1px solid white;
+                background-color: $dark-black;
+                text-align: center;
+                border-top: none;
+            }
+        }
+
+        tbody tr {
+            cursor: pointer;
+            &:hover {
+                background-color: $deep-purple;
+            }
+
+            
+            &.summary-row {
+                // position: sticky;
+                // bottom: 0;
+                background-color: $black;
+                td {
+                    color: $green;
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                    padding: 0.2rem 0.2rem;
+                    border: 1px solid white;
+                    border-bottom: none;
+                    text-align: left;
+
+                    &.align-center {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        td {
+            padding: 0.1rem 0.2rem;
+            font-size: 0.75rem;
+            color: white;
+            border: 1px solid #444;
+            &.highlight {
+                color: white;
+                font-weight: 500;
+            }
+    
+            &.td_item_name {
+                width: 200px;
+            }
+    
+            &.summary {
+                font-size: 0.8rem;
+                color: $green;
+                font-weight: 400;
+            }
+        }
+
+    }
+}
+
+.header {
+    h2 {
+        font-size: 1.4rem;
+        color: white;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    h3 {
+        font-size: 1rem;
+        text-align: center;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.sale-details-header {
+    display: flex;
+    > div {
+        flex: 1;
+
+        p {
+            margin: 0;
+            padding: 0;
+            color: white;
+            font-size: 0.8rem;
+        }
+        &:nth-child(2) {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+    }
+}
+.sale-details-footer {
+    margin-top: 1rem;
+    display: flex;
+    > div {
+        flex: 1;
+        // &:nth-child(2) {
+        //     flex: 3;
+        // }
+    }
+}
+
+.gst-details {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #444;
+        
+        tr {
+            th {
+                color: $green;
+                font-size: 0.8rem;
+                font-weight: 500;
+                padding: 0.2rem 0.2rem;
+                border: 1px solid #444;
+                background-color: $dark-black;
+                text-align: center;
+                border-top: none;
+            }
+            td {
+                padding: 0.1rem 0.2rem;
+                font-size: 0.75rem;
+                color: white;
+                border: 1px solid #444;
+                text-align: center;
+            }
+        }
+    }
+}
+
+.cta {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
