@@ -1,0 +1,26 @@
+<div class="page-container">
+    <div class="header">
+        <button mat-flat-button color="accent" (click)="onAdd()">Add Customer</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl Id</th>
+                    <th>Customer Name</th>
+                    <th>Customer Phone</th>
+                    <th>Customer GSTN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let customer of customers; let i = index" >
+                    <td>{{i + 1}}</td>                  
+                    <td>{{customer.customer_name}}</td>
+                    <td>{{customer.customer_phone}}</td>
+                    <td>{{customer.customer_gstn}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

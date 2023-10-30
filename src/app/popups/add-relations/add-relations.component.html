@@ -1,0 +1,35 @@
+<div class="dialog-container">
+
+    <form class="dialog-content" [formGroup]="relationsFormGroup" (submit)="onSubmit()">
+        <div>
+            <div class="dialog-header">
+                <h2>{{data.name}} Details</h2>
+            </div>
+            <div class="dialog-body">
+                <div class="table-container">
+                    <div class="custom-input-container">
+                        <label>{{data.name}} Name</label>
+                        <input type="text" name="quantityBox" formControlName="name" required="">
+                        <!-- <small class="error-message"></small>    -->
+                    </div>
+                    <div class="custom-input-container">
+                        <label>{{data.name}} Phone</label>
+                        <input type="text" name="quantityBox" formControlName="phone">
+                        <!-- <small class="error-message"></small>    -->
+                    </div>
+                    <div class="custom-input-container">
+                        <label>{{data.name}} GSTN</label>
+                        <input type="text" name="quantityBox" formControlName="gstn">
+                        <!-- <small class="error-message"></small>    -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="dialog-footer">
+            <button mat-flat-button color="warn" (click)="onClose()">Close</button>
+            <button mat-flat-button color="accent" [disabled]="relationsFormGroup.invalid" type="submit">Add</button>
+        </div>
+    </form>
+</div>

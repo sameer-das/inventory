@@ -58,4 +58,21 @@
         </ul>
 
     </li>
+    <li>
+        <a class="main_menu_link" haveSubmenu>
+            <mat-icon>inventory</mat-icon> Biller & Customer
+            <mat-icon class="carret">arrow_right</mat-icon>
+        </a>
+        <ul class="sub_menu">
+            <li>
+                <a class="sub_menu_link" routerLink="/relations/my-billers" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">Biller</a>
+            </li>
+            <li>
+                <a class="sub_menu_link" routerLink="/relations/my-customers" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">Customer</a>
+            </li>
+        </ul>
+
+    </li>
 </ul>

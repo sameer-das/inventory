@@ -11,7 +11,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'sale', pathMatch:'full' }, // redirect to sale page if empty found
       { path: 'sale', loadChildren: () => import('./sale/sale.module').then((m) => m.SaleModule) },
       { path: 'purchase', loadChildren: () => import('./purchase/purchase.module').then((m) => m.PurchaseModule) },
-      { path: 'stock', loadChildren: () => import('./stock/stock.module').then((m) => m.StockModule) }
+      { path: 'stock', loadChildren: () => import('./stock/stock.module').then((m) => m.StockModule) },
+      { path: 'relations', loadChildren: () => import('./realations/relations.module').then((m) => m.RelationsModule) }
     ]
   },
 ];

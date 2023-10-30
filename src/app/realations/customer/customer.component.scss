@@ -1,0 +1,83 @@
+@import '../../constant.scss';
+
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.table-container {
+    margin-top: 0.5rem;
+    max-height: 55vh;
+    overflow-y: auto;
+    border: 1px solid white;
+    table {
+        
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        thead tr {
+            position: sticky;
+            top: 0;
+
+            th {
+                color: $green;
+                font-size: 0.8rem;
+                font-weight: 500;
+                padding: 0.2rem 0.2rem;
+                border: 1px solid white;
+                background-color: $black;
+                text-align: left;
+                border-top: none;
+            }
+        }
+
+        tbody tr {
+            cursor: pointer;
+            &:hover {
+                background-color: $deep-purple;
+            }
+
+            
+            &.summary-row {
+                position: sticky;
+                bottom: 0;
+                background-color: $black;
+                td {
+                    color: $green;
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                    padding: 0.2rem 0.2rem;
+                    border: 1px solid white;
+                    text-align: left;
+
+                    &.align-center {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        td {
+            padding: 0.1rem 0.2rem;
+            font-size: 0.75rem;
+            color: white;
+            border: 1px solid #444;
+            &.highlight {
+                color: white;
+                font-weight: 500;
+            }
+    
+            &.td_item_name {
+                width: 200px;
+            }
+    
+            &.summary {
+                font-size: 0.8rem;
+                color: $green;
+                font-weight: 400;
+            }
+        }
+
+    }
+}

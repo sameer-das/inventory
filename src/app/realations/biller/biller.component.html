@@ -1,0 +1,27 @@
+<div class="page-container">
+    <div class="header">
+        <button mat-flat-button color="accent" (click)="onAdd()">Add Biller</button>
+    </div>
+
+    
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl Id</th>
+                    <th>Biller Name</th>
+                    <th>Biller Phone</th>
+                    <th>Biller GSTN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let biller of billers; let i = index" >
+                    <td>{{i + 1}}</td>                  
+                    <td>{{biller.biller_name}}</td>
+                    <td>{{biller.biller_phone}}</td>
+                    <td>{{biller.biller_gstn}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

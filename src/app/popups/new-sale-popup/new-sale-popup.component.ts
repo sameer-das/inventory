@@ -238,7 +238,7 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
           header: 'Alert',
           message: `'Price per Piece' cannot be 0 (Zero).`
         });
-      } else if (+curr.quantityBox === 0 || +curr.pricePerBox === 0 || +curr.quantityPiece === 0 || +curr.pricePerPiece === 0) {
+      } else if (+curr.quantityBox === 0 && +curr.pricePerBox === 0 && +curr.quantityPiece === 0 && +curr.pricePerPiece === 0) {
         hasQuantityError = true;
         this._popupService.openAlert({
           header: 'Alert',
