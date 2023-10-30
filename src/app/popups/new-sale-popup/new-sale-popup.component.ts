@@ -2,6 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
+import { PopupService } from '../popup.service';
 
 @Component({
   selector: 'app-new-sale-popup',
@@ -10,7 +11,9 @@ import { Subject } from 'rxjs';
 })
 export class NewSalePopupComponent implements OnInit, OnDestroy {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public item: any, private _dialogRef: MatDialogRef<NewSalePopupComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public item: any,
+    private _dialogRef: MatDialogRef<NewSalePopupComponent>,
+    private _popupService: PopupService) { }
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private AllowOnlyNumbersAndTwoDecimalPoint = /^[0-9][0-9]*[.]?[0-9]{0,2}$/;
@@ -122,6 +125,14 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
   }
 
   add() {
+    // console.log(this.itemLinesGroup.value);
+
+    // validate stock and sale quantity
+    const hasQuantityError = this.validateQuantityAndPrice();
+
+    if (hasQuantityError)
+      return;
+
     this._dialogRef.close({
       isEdit: this.item.isEdit,
       item: {
@@ -188,5 +199,54 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
     this.averageBoxPrice = isNaN(+((qtyBox_X_boxPrice / total_box_qty).toFixed(2))) ? 0 : +((qtyBox_X_boxPrice / total_box_qty).toFixed(2));
     this.averagePiecePrice = isNaN(+((qtyPiece_X_piecePrice / total_piece_qty).toFixed(2))) ? 0 : +((qtyPiece_X_piecePrice / total_piece_qty).toFixed(2));
 
+  }
+
+
+
+  validateQuantityAndPrice(): boolean {
+    let hasQuantityError = false;
+
+    this.itemLinesGroup.value.lines.forEach((curr: any) => {
+      const availableBoxQuantity = Math.floor(+curr.itemDetails.totalStockQuantity / +curr.itemDetails.piecePerCarton);
+      if (+curr.quantityBox > availableBoxQuantity) {
+        //box quantity can not be greater than available box quantity 
+        hasQuantityError = true;
+        this._popupService.openAlert({
+          header: 'Alert',
+          message: 'Sale box quantity should not be more than available stock box quantity.'
+        });
+
+      } else if (+curr.itemDetails.totalSaleQuantity > +curr.itemDetails.totalStockQuantity) {
+        // total piece quantity can not be greater than available piece quantity
+        hasQuantityError = true;
+        this._popupService.openAlert({
+          header: 'Alert',
+          message: 'Total sale quantity should not be more than total available stock quantity.'
+        });
+
+      } else if (+curr.quantityBox !== 0 && +curr.pricePerBox === 0) {
+        // quantity box filled but price per box is 0
+        hasQuantityError = true;
+        this._popupService.openAlert({
+          header: 'Alert',
+          message: `'Price per Box' cannot be 0 (Zero).`
+        });
+      } else if (+curr.quantityPiece !== 0 && +curr.pricePerPiece === 0) {
+        // quantity piece filled but price per piece is 0
+        hasQuantityError = true;
+        this._popupService.openAlert({
+          header: 'Alert',
+          message: `'Price per Piece' cannot be 0 (Zero).`
+        });
+      } else if (+curr.quantityBox === 0 || +curr.pricePerBox === 0 || +curr.quantityPiece === 0 || +curr.pricePerPiece === 0) {
+        hasQuantityError = true;
+        this._popupService.openAlert({
+          header: 'Alert',
+          message: `You should enter quantity and sale price.`
+        });
+      }
+    })
+
+    return hasQuantityError;
   }
 }

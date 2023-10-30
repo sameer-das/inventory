@@ -85,6 +85,8 @@ export class PurchaseDetailsComponent implements OnInit, OnDestroy {
 
   totalDiscount = 0;
   totalAmount = 0;
+  totalPurchasePriceAfterDisc = 0;
+  totalPurchasePriceBeforeDisc = 0;
   calculateGst() {
     this.purchaseDetails.forEach((curr: any) => {
       this.gstDetails[curr.gst] = this.gstDetails[curr.gst] + +curr.tax_amount;
@@ -92,6 +94,8 @@ export class PurchaseDetailsComponent implements OnInit, OnDestroy {
       
       this.totalDiscount = +(this.totalDiscount + +curr.discount_price).toFixed(2);
       this.totalAmount = +(this.totalAmount + +curr.total_price).toFixed(2);
+      this.totalPurchasePriceBeforeDisc = +(this.totalPurchasePriceBeforeDisc + +curr.purchase_price_before_discount).toFixed(2);
+      this.totalPurchasePriceAfterDisc = +(this.totalPurchasePriceAfterDisc + +curr.purchase_price_after_discount).toFixed(2);
     })
     this.gstDetails['total'] = +this.gstDetails['total'].toFixed(2)
     console.log(this.gstDetails)
