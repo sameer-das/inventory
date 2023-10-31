@@ -12,6 +12,8 @@ import { HeaderComponent } from './layout/header/header.component';
 import { HaveSubmenuDirective, SidebarComponent } from './layout/sidebar/sidebar.component';
 import { LoaderComponent } from './loader/loader.component';
 import { AlertComponent } from './popups/alert/alert.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpInterceptorService } from './services/http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -29,9 +31,12 @@ import { AlertComponent } from './popups/alert/alert.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

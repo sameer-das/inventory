@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddRelationsComponent } from 'src/app/popups/add-relations/add-relations.component';
 import { RealtionsService } from '../realtions.service';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { PopupService } from 'src/app/popups/popup.service';
 import { Subject, takeUntil, finalize } from 'rxjs';
 import { APIResponse } from 'src/app/apiresponse';

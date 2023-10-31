@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, finalize, takeUntil } from 'rxjs';
 import { PurchaseService } from '../purchase.service';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { MatDialog } from '@angular/material/dialog';
 import { APIResponse } from 'src/app/apiresponse';
 import { Router } from '@angular/router';

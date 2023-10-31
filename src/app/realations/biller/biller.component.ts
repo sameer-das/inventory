@@ -4,7 +4,7 @@ import { AddRelationsComponent } from 'src/app/popups/add-relations/add-relation
 import { Subject, takeUntil, finalize } from 'rxjs';
 import { RealtionsService } from '../realtions.service';
 import { APIResponse } from 'src/app/apiresponse';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { PopupService } from 'src/app/popups/popup.service';
 @Component({
   selector: 'app-biller',

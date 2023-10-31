@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { APIResponse } from 'src/app/apiresponse';
 import { StockService } from '../stock.service';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { PopupService } from 'src/app/popups/popup.service';
 
 @Component({

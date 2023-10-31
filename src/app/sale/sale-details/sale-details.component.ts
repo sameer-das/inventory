@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Subject, finalize, switchMap, takeUntil } from 'rxjs';
 import { SaleService } from '../sale.service';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { APIResponse } from 'src/app/apiresponse';
 import { PopupService } from 'src/app/popups/popup.service';
 

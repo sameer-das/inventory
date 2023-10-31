@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StockService } from '../stock.service';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { NgForm } from '@angular/forms';
 import { APIResponse } from 'src/app/apiresponse';
 import { PopupService } from 'src/app/popups/popup.service';

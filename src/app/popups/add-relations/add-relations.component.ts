@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subject, takeUntil, finalize } from 'rxjs';
 import { APIResponse } from 'src/app/apiresponse';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { RealtionsService } from 'src/app/realations/realtions.service';
 import { PopupService } from '../popup.service';
 
@@ -68,10 +68,13 @@ export class AddRelationsComponent implements OnInit, OnDestroy {
           }
         }, error: (err) => {
           console.log(err);
-          this._popupService.openAlert({
-            header: 'Error',
-            message: `Error while adding ${this.data.name.toLowerCase()}.`
-          })
+          if(err.error.status !== 401) {
+            this._popupService.openAlert({
+              header: 'Error',
+              message: `Error while adding ${this.data.name.toLowerCase()}.`
+            })
+          }
+
         }
       })
   }

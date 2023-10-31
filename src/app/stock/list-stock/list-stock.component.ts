@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StockService } from '../stock.service';
 import { Subject, finalize, takeUntil } from 'rxjs';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { APIResponse } from 'src/app/apiresponse';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemStockDetailsComponent } from 'src/app/popups/item-stock-details/item-stock-details.component';

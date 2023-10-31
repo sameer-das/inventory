@@ -5,7 +5,7 @@ import { NewSalePopupComponent } from 'src/app/popups/new-sale-popup/new-sale-po
 import { SaleService } from '../sale.service';
 import { PopupService } from 'src/app/popups/popup.service';
 import { APIResponse } from 'src/app/apiresponse';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { SearchItemService } from 'src/app/search-item/search-item.service';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { RealtionsService } from 'src/app/realations/realtions.service';

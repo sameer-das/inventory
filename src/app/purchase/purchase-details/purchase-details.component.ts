@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PurchaseService } from '../purchase.service';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { PopupService } from 'src/app/popups/popup.service';
 import { Subject, finalize, takeUntil } from 'rxjs';
 import { APIResponse } from 'src/app/apiresponse';

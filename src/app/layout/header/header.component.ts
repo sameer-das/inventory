@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     const confirm = window.confirm('Are you sure to logout?');
     if (confirm) {
+      localStorage.removeItem('auth-token')
       this._router.navigate(['login'])
     }
   }

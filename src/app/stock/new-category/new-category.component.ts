@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoaderService } from 'src/app/loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { StockService } from '../stock.service';
 import { Subject, takeUntil } from 'rxjs';
 import { PopupService } from 'src/app/popups/popup.service';
