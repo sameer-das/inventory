@@ -9,10 +9,11 @@
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    margin-top: 0.5rem;
+    // margin-top: 0.5rem;
 
     .custom-input-container {
         width: 200px;
+
         input {
             border-width: 1px;
         }
@@ -20,17 +21,25 @@
 
     .biller-details {
         display: flex;
-        // flex: 1;
-        gap: 1rem;
+        align-items: flex-end;
+        // flex: 1 ;
+        gap: 0.5rem;
+        label {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: $grey;
+        }
 
     }
 }
+
 .date-picker {
     width: 180px;
     display: flex;
     align-items: flex-end;
     // border: 1px solid red;
     justify-content: space-between;
+
     &-input {
         // display: inline-block;
         outline: none;
@@ -67,11 +76,13 @@
     max-height: 55vh;
     overflow-y: auto;
     border: 1px solid white;
+
     table {
-        
+
         width: 100%;
         border-collapse: separate;
         border-spacing: 0;
+
         thead tr {
             position: sticky;
             top: 0;
@@ -89,15 +100,17 @@
 
         tbody tr {
             cursor: pointer;
+
             &:hover {
                 background-color: $deep-purple;
             }
 
-            
+
             &.summary-row {
                 position: sticky;
                 bottom: 0;
                 background-color: $black;
+
                 td {
                     color: $green;
                     font-size: 0.8rem;
@@ -118,15 +131,16 @@
             font-size: 0.75rem;
             color: white;
             border: 1px solid #444;
+
             &.highlight {
                 color: white;
                 font-weight: 500;
             }
-    
+
             &.td_item_name {
                 width: 200px;
             }
-    
+
             &.summary {
                 font-size: 0.8rem;
                 color: $green;
@@ -141,6 +155,7 @@
     display: flex;
     padding: 0.2rem 0;
     justify-content: space-between;
+
     p {
         padding: 0;
         margin: 0;
@@ -150,7 +165,7 @@
 .cta-container {
     display: flex;
     margin-top: 0.5rem;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 p.bill-no {
@@ -158,4 +173,28 @@ p.bill-no {
     padding: 0;
     font-weight: 500;
     text-align: right;
+}
+
+
+.customer-auto-complete {
+    width: 300px;
+    input.search-input {
+        width: 100%;
+        outline: none;
+        border: 1px solid $grey;
+        padding: 0.25rem;
+        background-color: transparent;
+        color: white;
+        font-size: 1rem;
+        border-radius: 4px;
+
+        &:focus {
+            border-color: $green;
+        }
+    }
+}
+
+.add-customer-button {
+    height: 30px;
+    font-size: 0.8rem
 }

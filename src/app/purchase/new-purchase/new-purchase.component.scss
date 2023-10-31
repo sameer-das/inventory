@@ -87,7 +87,7 @@ table {
 .cta-container {
     margin-top: 0.5rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .bill-inputs {
@@ -106,8 +106,14 @@ table {
 
     .biller-details {
         display: flex;
-        // flex: 1;
-        gap: 1rem;
+        gap: 0.5rem;
+        align-items: flex-end;
+
+        label {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: $grey;
+        }
 
     }
 }
@@ -147,4 +153,28 @@ table {
         cursor: pointer;
         border-radius: 4px;
     }
+}
+
+
+.biller-auto-complete {
+    width: 300px;
+    input.search-input {
+        width: 100%;
+        outline: none;
+        border: 1px solid $grey;
+        padding: 0.25rem;
+        background-color: transparent;
+        color: white;
+        font-size: 1rem;
+        border-radius: 4px;
+
+        &:focus {
+            border-color: $green;
+        }
+    }
+}
+
+.add-biller-button {
+    height: 30px;
+    font-size: 0.8rem
 }

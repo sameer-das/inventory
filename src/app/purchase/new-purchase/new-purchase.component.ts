@@ -1,13 +1,24 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap, takeUntil } from 'rxjs';
 import { LoaderService } from 'src/app/loader.service';
 import { NewPurchasePopupComponent } from 'src/app/popups/new-purchase-popup/new-purchase-popup.component';
 import { PopupService } from 'src/app/popups/popup.service';
 import { SearchItemService } from 'src/app/search-item/search-item.service';
 import { PurchaseService } from '../purchase.service';
+import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { RealtionsService } from 'src/app/realations/realtions.service';
+import { AddRelationsComponent } from 'src/app/popups/add-relations/add-relations.component';
 
+function autocompleteObjectValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    if (typeof control.value === 'string') {
+      return { 'invalidAutocompleteObject': { value: control.value } }
+    }
+    return null  /* valid option selected */
+  }
+}
 
 @Component({
   selector: 'app-new-purchase',
@@ -21,9 +32,10 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
     private _purchaseService: PurchaseService,
     private _searchItemService: SearchItemService,
     private _loaderService: LoaderService,
-    private _popupService: PopupService) { }
+    private _popupService: PopupService,
+    private _relationsService: RealtionsService) { }
 
-  arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
   today: Date = new Date();
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -38,16 +50,18 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
   billerName: string = '';
   billerGSTN: string = '';
 
-  item = {
-    "category_id": 1,
-    "brand_id": 1,
-    "item_name": "Kitkat Rs.20",
-    "total_quantity": 0,
-    "barcode": "12536459897556",
-    "status": 1
-  }
+  billerControl: FormControl = new FormControl('', [Validators.required, autocompleteObjectValidator()]);
+
+  filteredBillerOptions!: Observable<any[]>;
 
   ngOnInit() {
+    this.filteredBillerOptions = this.billerControl.valueChanges.pipe(
+      takeUntil(this.destroy$),
+      distinctUntilChanged(),
+      debounceTime(300),
+      map(x => x ? x : ''),
+      switchMap(search => this._relationsService.searchRelation('biller', search))
+    );
   }
 
   onItemSelection(item: any) {
@@ -145,8 +159,8 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
         return {
           ...curr,
           purchase_date: pdate,
-          biller_name: this.billerName,
-          biller_gstn: this.billerGSTN
+          biller_name: this.billerControl.value.biller_name,
+          biller_gstn: this.billerControl.value.biller_gstn
         }
       })
 
@@ -187,7 +201,9 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
   }
 
   onCancelBill() {
-
+    this.billerControl.reset();
+    this.purchaseDate = '';
+    this.purchasedItems = [];
   }
 
 
@@ -205,9 +221,33 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
     this.purchasedItems = [];
   }
 
-
-
   ngOnDestroy(): void {
     this.destroy$.next(true)
+  }
+
+  onAddBiller() {
+    this._matdialog.open(AddRelationsComponent, {
+      width: '400px',
+      height: '50vh',
+      disableClose: true,
+      data: { name: 'Biller' }
+    });
+  }
+
+  // Biller Auto Complete details
+  // Customer Search Realted Code
+  displayWith(option: any) {
+    return option ? option.biller_name : undefined;
+  }
+
+  onBillerSelection(biller: any) {
+    console.log(biller.value)
+  }
+
+  public validation_msgs = {
+    'customerControl': [
+      { type: 'invalidAutocompleteObject', message: 'Biller name not recognized. Choose one of the options' },
+      { type: 'required', message: 'Biller name is required.' }
+    ],
   }
 }

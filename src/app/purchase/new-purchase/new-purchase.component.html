@@ -20,8 +20,26 @@
     </div>
 
     <div class="biller-details">
+        <div class="biller-auto-complete">
+            <label>Biller</label>
+            <input type="text" class="search-input" placeholder="Search Biller" aria-label="Search Biller" matInput
+                [formControl]="billerControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith"
+                (optionSelected)="onBillerSelection($event)">
+                <mat-option *ngFor="let option of filteredBillerOptions | async" [value]="option"
+                    class="search-item-mat-option">
+                    {{ option.biller_name}}
+                </mat-option>
+            </mat-autocomplete>
+            <!-- <mat-error *ngFor="let validation of validation_msgs.customerControl">
+              <div *ngIf="customerControl.hasError(validation.type)">
+                {{validation.message}}
+              </div>
+            </mat-error> -->
+        </div>
+        <button mat-flat-button class="add-biller-button" color="primary" (click)="onAddBiller()">Add Biller</button>
 
-        <div class="custom-input-container">
+        <!-- <div class="custom-input-container">
             <label for="biller-name">Biller Name (Optional)</label>
             <input id="biller-name" type="text" name="biller-name" [(ngModel)]="billerName">
         </div>
@@ -29,7 +47,7 @@
         <div class="custom-input-container">
             <label for="biller-gstn">Biller GSTN (Optional)</label>
             <input id="biller-gstn" type="text" name="biller-gstn" [(ngModel)]="billerGSTN">
-        </div>
+        </div> -->
     </div>
 
 </div>
@@ -55,23 +73,6 @@
             </tr>
         </thead>
         <tbody>
-            <!-- <tr *ngFor="let i of arr">
-                <td>{{i}}</td>
-                <td>Item Name Item Name Item Name Item Name Item Name Item Name </td>
-                <td>99.</td>
-                <td>9999.</td>
-                <td>9999.</td>
-                <td>9999.</td>
-                <td>9999.</td>
-                <td>9999.</td>
-                <td>9999.</td>
-                <td>9999.</td>
-                <td>999.</td>
-                <td>99.</td>
-                <td>9999.</td>
-                <td>9999.</td>
-            </tr> -->
-         
             <tr *ngFor="let item of purchasedItems; let i = index" (contextmenu)="onContextMenu($event, item, i)"
                 (dblclick)="onEdit(item, i)">
                 <td>{{i + 1}}.</td>
@@ -104,7 +105,7 @@
 
             <tr class="summary-row">
                 <td colspan="9"></td>
-                <td colspan="1">{{totalDiscount}}</td> 
+                <td colspan="1">{{totalDiscount}}</td>
                 <td colspan="2"></td>
                 <td colspan="1">{{totalGst}}</td>
                 <td colspan="1">{{totalAmount}}</td>
@@ -113,6 +114,6 @@
     </table>
 </div>
 <div class="cta-container">
-    <!-- <button mat-flat-button color="warn" (click)="onCancelBill()">Cancel</button> -->
-    <button mat-flat-button color="accent" (click)="onSaveBill()">Submit</button>
+    <button mat-flat-button color="warn" (click)="onCancelBill()">Cancel</button>
+    <button mat-flat-button color="accent" (click)="onSaveBill()" [disabled]="billerControl.invalid || purchasedItems.length === 0" >Submit</button>
 </div>

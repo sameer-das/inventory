@@ -10,6 +10,7 @@ import { PurchaseService } from './purchase.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ListPurchasesComponent } from './list-purchases/list-purchases.component';
 import { PurchaseDetailsComponent } from './purchase-details/purchase-details.component';
+import { RelationsModule } from '../realations/relations.module';
 
 
 
@@ -27,7 +28,8 @@ import { PurchaseDetailsComponent } from './purchase-details/purchase-details.co
     ReactiveFormsModule,
     SearchItemModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RelationsModule
   ],
   providers: [PurchaseService]
 })

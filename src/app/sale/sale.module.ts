@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SaleService } from './sale.service';
 import { ListSalesComponent } from './list-sales/list-sales.component';
 import { SaleDetailsComponent } from './sale-details/sale-details.component';
+import { RelationsModule } from '../realations/relations.module';
 
 
 
@@ -27,7 +28,8 @@ import { SaleDetailsComponent } from './sale-details/sale-details.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    RelationsModule
   ],
   providers: [SaleService]
 })

@@ -11,11 +11,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 
+
 @NgModule({
   declarations: [
     CustomerComponent,
     BillerComponent,
-    AddRelationsComponent
+    AddRelationsComponent,
+
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [RealtionsService]
+  providers: [RealtionsService],
+  exports: []
 })
 export class RelationsModule { }

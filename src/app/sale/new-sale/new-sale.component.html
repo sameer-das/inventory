@@ -19,8 +19,25 @@
     </div>
 
     <div class="biller-details">
-
-        <div class="custom-input-container">
+        <div class="customer-auto-complete">
+            <label>Customer</label>
+            <input type="text" class="search-input" placeholder="Search Customer" aria-label="Search Customer" matInput
+                [formControl]="customerControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith"
+                (optionSelected)="onCustomerSelection($event)">
+                <mat-option *ngFor="let option of filteredCustomerOptions | async" [value]="option"
+                    class="search-item-mat-option">
+                    {{ option.customer_name}}
+                </mat-option>
+            </mat-autocomplete>
+            <!-- <mat-error *ngFor="let validation of validation_msgs.customerControl">
+              <div *ngIf="customerControl.hasError(validation.type)">
+                {{validation.message}}
+              </div>
+            </mat-error> -->
+        </div>
+        <button mat-flat-button class="add-customer-button" color="primary" (click)="onAddCustomer()">Add Customer</button>
+        <!-- <div class="custom-input-container">
             <label for="customer-name">Customer Name (Optional)</label>
             <input id="customer-name" type="text" name="customer-name" [(ngModel)]="customerName">
         </div>
@@ -32,7 +49,7 @@
         <div class="custom-input-container">
             <label for="customer-gstn">Customer GSTN (Optional)</label>
             <input id="customer-gstn" type="text" name="customer-gstn" [(ngModel)]="customerGSTN">
-        </div>
+        </div> -->
     </div>
 
 </div>
@@ -71,6 +88,7 @@
 </div>
 
 <div class="cta-container">
-    <!-- <button mat-flat-button color="warn">Cancel</button> -->
-    <button mat-flat-button color="accent" (click)="onSubmit()">Submit</button>
+    <button mat-flat-button color="warn" (click)="onCancelSale()">Cancel</button>
+    <button mat-flat-button color="accent" (click)="onSubmit()"
+        [disabled]="customerControl.invalid || saleItems.length === 0">Submit</button>
 </div>

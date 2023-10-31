@@ -24,4 +24,8 @@ export class RealtionsService {
   getCustomer() {
     return this._http.get<APIResponse>(`${this.API_BASE_URL}/relations/customer`);
   }
+
+  searchRelation(type: string, searchValue:string) {
+    return this._http.get<any[]>(`${this.API_BASE_URL}/relations/search?type=${type}&searchValue=${searchValue}`);
+  }
 }
