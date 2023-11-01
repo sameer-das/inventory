@@ -8,7 +8,7 @@
     <div class="date-picker">
         <div>
             <label for="bill-date">Bill Date</label>
-            <input matInput id="bill-date" [max]="today" [matDatepicker]="picker" class="date-picker-input"
+            <input matInput id="bill-date" [matDatepicker]="picker" class="date-picker-input"
                 [(ngModel)]="saleDate" disabled>
             <mat-datepicker #picker disabled="false"></mat-datepicker>
         </div>

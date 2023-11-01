@@ -43,7 +43,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   customerControl: FormControl = new FormControl('', [Validators.required, autocompleteObjectValidator()]);
 
   billNo: string = '';
-  today: Date = new Date();
+  // today: Date = new Date();
 
   saleItems: any[] = [];
 
