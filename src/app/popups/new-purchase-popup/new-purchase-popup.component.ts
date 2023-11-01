@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { debounceTime, filter } from 'rxjs';
+import { PopupService } from '../popup.service';
 
 @Component({
   selector: 'app-new-purchase-popup',
@@ -11,7 +12,9 @@ import { debounceTime, filter } from 'rxjs';
   styleUrls: ['./new-purchase-popup.component.scss']
 })
 export class NewPurchasePopupComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public item: any, private _dialogRef: MatDialogRef<NewPurchasePopupComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public item: any,
+    private _dialogRef: MatDialogRef<NewPurchasePopupComponent>,
+    private _popupService: PopupService) { }
 
 
   AllowOnlyNumbersAndTwoDecimalPoint = /^[0-9][0-9]*[.]?[0-9]{0,2}$/;
@@ -124,26 +127,87 @@ export class NewPurchasePopupComponent implements OnInit {
   onAdd(): void {
     // console.log(this.newItemPurchaseFormGroup.value);
     // console.log(this.newItemPurchaseFormGroup);
-    this._dialogRef.close({
-      isEdit: this.item.isEdit,
-      shouldAdd: true,
-      item: {
-        ...this.item.item,
-        mrp: this.newItemPurchaseFormGroup.getRawValue().mrp,
-        quantityBox: this.newItemPurchaseFormGroup.getRawValue().quantityBox,
-        piecePerCarton: this.newItemPurchaseFormGroup.getRawValue().piecePerCarton,
-        quantityPiece: this.newItemPurchaseFormGroup.getRawValue().quantityPiece,
-        quantityFree: this.newItemPurchaseFormGroup.getRawValue().quantityFree,
-        purchasePriceBeforeDiscount: this.purchasePriceBeforeDiscount,
-        discountPrice: this.newItemPurchaseFormGroup.getRawValue().discountPrice,
-        purchasePriceAfterDiscount: this.purchasePriceAfterDiscount,
-        gst: this.newItemPurchaseFormGroup.getRawValue().gst,
-        totalQuantityPiece: this.totalQuantityPiece,
-        taxAmount: this.taxAmount,
-        totalPrice: this.totalPrice,
-        purchasePricePerPiece: this.purchasePricePerPiece,
-      }
-    })
+
+    if (!this.validatePurchase()) {
+      return;
+    }
+
+    if (this.validatePurchase()) {
+      this._dialogRef.close({
+        isEdit: this.item.isEdit,
+        shouldAdd: true,
+        item: {
+          ...this.item.item,
+          mrp: this.newItemPurchaseFormGroup.getRawValue().mrp,
+          quantityBox: this.newItemPurchaseFormGroup.getRawValue().quantityBox,
+          piecePerCarton: this.newItemPurchaseFormGroup.getRawValue().piecePerCarton,
+          quantityPiece: this.newItemPurchaseFormGroup.getRawValue().quantityPiece,
+          quantityFree: this.newItemPurchaseFormGroup.getRawValue().quantityFree,
+          purchasePriceBeforeDiscount: this.purchasePriceBeforeDiscount,
+          discountPrice: this.newItemPurchaseFormGroup.getRawValue().discountPrice,
+          purchasePriceAfterDiscount: this.purchasePriceAfterDiscount,
+          gst: this.newItemPurchaseFormGroup.getRawValue().gst,
+          totalQuantityPiece: this.totalQuantityPiece,
+          taxAmount: this.taxAmount,
+          totalPrice: this.totalPrice,
+          purchasePricePerPiece: this.purchasePricePerPiece,
+        }
+      })
+    }
+
+  }
+
+  validatePurchase(): boolean {
+    if (+this.newItemPurchaseFormGroup.getRawValue().mrp === 0 &&
+      +this.newItemPurchaseFormGroup.getRawValue().quantityBox === 0 &&
+      +this.newItemPurchaseFormGroup.getRawValue().piecePerCarton === 0 &&
+      +this.newItemPurchaseFormGroup.getRawValue().quantityPiece === 0 &&
+      +this.newItemPurchaseFormGroup.getRawValue().quantityFree === 0 &&
+      +this.purchasePriceBeforeDiscount === 0 &&
+      +this.newItemPurchaseFormGroup.getRawValue().discountPrice === 0 &&
+      +this.purchasePriceAfterDiscount === 0) {
+      this._popupService.openAlert({
+        header: 'Alert',
+        message: 'All the values cannot be 0(zero).'
+      })
+      return false;
+    } else if (+this.newItemPurchaseFormGroup.getRawValue().mrp === 0) {
+      this._popupService.openAlert({
+        header: 'Alert',
+        message: 'MRP cannot be 0(zero).'
+      })
+      return false;
+    } else if (+this.purchasePriceBeforeDiscount === 0) {
+      this._popupService.openAlert({
+        header: 'Alert',
+        message: 'Purchase price before discount cannot be 0(zero).'
+      })
+      return false;
+    } else if (+this.purchasePriceAfterDiscount === 0) {
+      this._popupService.openAlert({
+        header: 'Alert',
+        message: 'Purchase price after discount cannot be 0(zero).'
+      })
+      return false;
+    }
+    else if (+this.newItemPurchaseFormGroup.getRawValue().quantityBox !== 0 && +this.newItemPurchaseFormGroup.getRawValue().piecePerCarton === 0) {
+      this._popupService.openAlert({
+        header: 'Alert',
+        message: 'Please enter piece per carton.'
+      })
+      return false;
+    }
+    else if (+this.totalQuantityPiece === 0) {
+      this._popupService.openAlert({
+        header: 'Alert',
+        message: 'Please enter box quantity and piece per box or piece quantity.'
+      })
+      return false;
+    }
+    else {
+      return true;
+    }
+
   }
 
   onCancel(): void {

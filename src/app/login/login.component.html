@@ -1,8 +1,18 @@
 <div class="full-page-container centered-content dark-bg">
   <form #loginForm="ngForm" class="form" (submit)="onSubmit(loginForm)">
     <h1 class="login_header">Login</h1>
-    
-        <mat-form-field class="input-full-width" appearance="outline">
+    <div class="custom-input-container">
+      <label>Enter Username</label>
+      <input type="text" name="quantityPiece" type="text" name="username" value="" ngModel required>
+      <!-- <small class="error-message"></small>                -->
+    </div>
+    <div class="custom-input-container">
+      <label>Enter Password</label>
+      <input type="text" name="quantityPiece" type="password" name="password"  value="" ngModel required>
+      <!-- <small class="error-message"></small>                -->
+    </div>
+
+    <!-- <mat-form-field class="input-full-width" appearance="outline">
             <mat-label>Enter User ID</mat-label>
             <input matInput type="text" name="username" value="" ngModel required >
           </mat-form-field>
@@ -10,10 +20,14 @@
           <mat-form-field class="input-full-width" appearance="outline">
             <mat-label>Enter Password</mat-label>
             <input matInput type="password" name="password"  value="" ngModel required >
-          </mat-form-field>
+          </mat-form-field> -->
 
-    <button mat-raised-button type="submit" [disabled]="loginForm.invalid" color="primary">Login Securely
+    <button mat-raised-button type="submit" [disabled]="loginForm.invalid" color="primary" class="login-cta">Login Securely
       <mat-icon>lock</mat-icon>
     </button>
   </form>
+  <span class="ball ball1"></span>
+  <span class="ball ball2"></span>
+  <span class="ball ball3"></span>
+  <span class="ball ball4"></span>
 </div>

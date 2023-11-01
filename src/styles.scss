@@ -79,7 +79,7 @@ body {
     color: $grey;
   }
 
-  input[type="text"],
+  input[type="text"],  input[type="password"],
   select {
     display: inline-block;
     outline: none;

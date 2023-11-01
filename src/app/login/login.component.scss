@@ -24,6 +24,68 @@
     }
     .custom-input-container {
         width: 100%;
+        margin-top: 1rem;
+    }
+    .login-cta {
+        margin-top: 2rem;
+    }
+}
+
+.full-page-container {
+    position: relative;
+    span.ball {
+        position: absolute;
+
+        &.ball1 {
+            height: 100px;
+            width: 100px;
+            background: $green;
+            filter: blur(50px);
+            left: 50px;
+            bottom: 50px;
+            animation: animate 5s infinite;
+            animation-delay: -1s;
+        }
+
+        &.ball2 {
+            height: 50px;
+            width: 50px;
+            background: $purple;
+            filter: blur(30px);
+            left: 250px;
+            top: 100px;
+            animation: animate 5s infinite;
+            animation-delay: -3s;
+        }
+        &.ball3 {
+            height: 80px;
+            width: 80px;
+            background: $green;
+            filter: blur(50px);
+            right: 200px;
+            top: 150px;
+            animation: animate 5s infinite;
+            animation-delay: -2s;
+        }
+        &.ball4 {
+            height: 40px;
+            width: 40px;
+            background: $purple;
+            filter: blur(30px);
+            right: 150px;
+            bottom: 100px;
+            animation: animate 5s infinite;
+            animation-delay: -4s;
+        }
+    }
+}
+
+@keyframes animate {
+    0%,100% {
+        transform: translateY(20%);
+    }
+    50% {
+        transform: translateY(50%);
     }
 }
 
