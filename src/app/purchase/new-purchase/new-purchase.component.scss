@@ -171,6 +171,11 @@ table {
         &:focus {
             border-color: $green;
         }
+
+        span.biller_phone {
+            color: $green;
+            font-size: 0.8rem;
+        }
     }
 }
 

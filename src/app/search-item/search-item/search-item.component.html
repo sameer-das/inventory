@@ -5,7 +5,10 @@
     [formControl]="control" [matAutocomplete]="auto">
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith" (optionSelected)="onSelection($event)">
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option" class="search-item-mat-option">
-      <p>{{option.item_name}}</p>
+     <div>
+       <p>{{option.item_name}} </p>
+        <span class="total_quantity">({{option.total_quantity}})</span>
+     </div>
       <div>
         <span>In: {{option.category_name}}</span>
         <span>From: {{option.brand_name}}</span>

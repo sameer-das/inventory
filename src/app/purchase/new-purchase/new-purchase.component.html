@@ -28,14 +28,12 @@
                 (optionSelected)="onBillerSelection($event)">
                 <mat-option *ngFor="let option of filteredBillerOptions | async" [value]="option"
                     class="search-item-mat-option">
-                    {{ option.biller_name}}
+                    <p>{{ option.biller_name}}</p>
+                    <div>
+                        <span>{{option.biller_phone}}</span>
+                    </div>
                 </mat-option>
             </mat-autocomplete>
-            <!-- <mat-error *ngFor="let validation of validation_msgs.customerControl">
-              <div *ngIf="customerControl.hasError(validation.type)">
-                {{validation.message}}
-              </div>
-            </mat-error> -->
         </div>
         <button mat-flat-button class="add-biller-button" color="primary" (click)="onAddBiller()">Add Biller</button>
 
@@ -115,5 +113,6 @@
 </div>
 <div class="cta-container">
     <button mat-flat-button color="warn" (click)="onCancelBill()">Cancel</button>
-    <button mat-flat-button color="accent" (click)="onSaveBill()" [disabled]="billerControl.invalid || purchasedItems.length === 0" >Submit</button>
+    <button mat-flat-button color="accent" (click)="onSaveBill()"
+        [disabled]="billerControl.invalid || purchasedItems.length === 0">Submit</button>
 </div>

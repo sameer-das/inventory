@@ -31,7 +31,7 @@ export class BillerComponent implements OnInit, OnDestroy {
   onAdd() {
     this._dialog.open(AddRelationsComponent, {
       width: '400px',
-      height: '50vh',
+      height: '350px',
       disableClose: true,
       data: { name: 'Biller' }
     });

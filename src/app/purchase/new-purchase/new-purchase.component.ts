@@ -228,7 +228,7 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
   onAddBiller() {
     this._matdialog.open(AddRelationsComponent, {
       width: '400px',
-      height: '50vh',
+      height: '350px',
       disableClose: true,
       data: { name: 'Biller' }
     });

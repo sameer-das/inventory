@@ -27,7 +27,7 @@ export class AddRelationsComponent implements OnInit, OnDestroy {
 
   relationsFormGroup: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    phone: new FormControl(''),
+    phone: new FormControl('', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]),
     gstn: new FormControl('NA'),
   });
 
@@ -38,6 +38,7 @@ export class AddRelationsComponent implements OnInit, OnDestroy {
 
   onClose() {
     this._dialogRef.close();
+    return;
   }
 
   onSubmit() {
@@ -68,7 +69,7 @@ export class AddRelationsComponent implements OnInit, OnDestroy {
           }
         }, error: (err) => {
           console.log(err);
-          if(err.error.status !== 401) {
+          if (err.error.status !== 401) {
             this._popupService.openAlert({
               header: 'Error',
               message: `Error while adding ${this.data.name.toLowerCase()}.`

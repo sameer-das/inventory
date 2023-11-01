@@ -60,6 +60,7 @@ export class SearchItemComponent implements OnInit, OnDestroy {
           "item_id": curr.item_id,
           "category_id": curr.category_id,
           "brand_id": curr.brand_id,
+          "total_quantity": curr.total_quantity,
           "stock": [curr]
         })
       } else {

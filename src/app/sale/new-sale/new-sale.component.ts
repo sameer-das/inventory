@@ -218,7 +218,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   onAddCustomer(){
     this._matdialog.open(AddRelationsComponent,{
       width: '400px',
-      height: '50vh',
+      height: '350px',
       disableClose: true,
       data: { name: 'Customer' }
     })

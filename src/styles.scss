@@ -106,7 +106,7 @@ body {
     padding: 0;
   }
 
-  input.ng-invalid {
+  input.ng-touched.ng-invalid {
     border-color: $red
   }
 
@@ -143,6 +143,10 @@ body {
     span {
       font-size: 0.7rem;
       color: $green;
+
+      &.total_quantity {
+        font-size: 0.9rem;
+      } 
     }
   }
 }

@@ -9,13 +9,14 @@
                 <div class="table-container">
                     <div class="custom-input-container">
                         <label>{{data.name}} Name</label>
-                        <input type="text" name="quantityBox" formControlName="name" required="">
-                        <!-- <small class="error-message"></small>    -->
+                        <input type="text" name="quantityBox" formControlName="name">
+                        <small *ngIf="relationsFormGroup.get('name')?.touched && relationsFormGroup.get('name')?.hasError('required')" class="error-message">Enter {{data.name}} Name</small>   
                     </div>
                     <div class="custom-input-container">
                         <label>{{data.name}} Phone</label>
                         <input type="text" name="quantityBox" formControlName="phone">
-                        <!-- <small class="error-message"></small>    -->
+                        <small *ngIf="relationsFormGroup.get('phone')?.touched && relationsFormGroup.get('phone')?.hasError('required')" class="error-message">Enter {{data.name}} Phone</small>   
+                        <small *ngIf="relationsFormGroup.get('phone')?.touched && relationsFormGroup.get('phone')?.hasError('pattern')" class="error-message">Enter valid phone number</small>   
                     </div>
                     <div class="custom-input-container">
                         <label>{{data.name}} GSTN</label>
@@ -28,7 +29,7 @@
         </div>
 
         <div class="dialog-footer">
-            <button mat-flat-button color="warn" (click)="onClose()">Close</button>
+            <button mat-flat-button color="warn" type="button" (click)="onClose()">Close</button>
             <button mat-flat-button color="accent" [disabled]="relationsFormGroup.invalid" type="submit">Add</button>
         </div>
     </form>
