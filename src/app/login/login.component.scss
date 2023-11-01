@@ -6,9 +6,12 @@
 .form {
     width: 350px;
     height: 300px;
+    padding: 1rem;
+    border: 1px solid $green;
+    border-radius: 7px;
 
     .login_header {
-        color: white;
+        color: $green;
         text-align: center;
     }
 
