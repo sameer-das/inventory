@@ -41,7 +41,7 @@
         <ul class="sub_menu">
             <li>
                 <a class="sub_menu_link" routerLink="/stock" routerLinkActive="activelink"
-                    [routerLinkActiveOptions]="{exact:true}">All Stock</a>
+                    [routerLinkActiveOptions]="{exact:true}">All Stocks</a>
             </li>
             <li>
                 <a class="sub_menu_link" routerLink="/stock/newbrand" routerLinkActive="activelink"
@@ -75,10 +75,20 @@
         </ul>
 
     </li>
-    <li>
-        <a class="main_menu_link">
+    <!-- <li>
+        <a class="main_menu_link" haveSubmenu>
             <mat-icon>receipt</mat-icon> Reports
-            <!-- <mat-icon class="carret">arrow_right</mat-icon> -->
+            <mat-icon class="carret">arrow_right</mat-icon>
         </a>
-    </li>
+        <ul class="sub_menu">
+            <li>
+                <a class="sub_menu_link" routerLink="/reports/sale-reports" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">Sale Reports</a>
+            </li>
+            <li>
+                <a class="sub_menu_link" routerLink="/reports/purchase-reports" routerLinkActive="activelink"
+                    [routerLinkActiveOptions]="{exact:true}">Purchase Reports</a>
+            </li>
+        </ul>
+    </li> -->
 </ul>

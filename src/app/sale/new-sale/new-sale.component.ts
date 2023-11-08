@@ -35,7 +35,6 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   saleDate: string = '';
-
   // customerName: string = '';
   // customerGSTN: string = '';
   // customerPhone: string = '';
@@ -79,6 +78,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
         this.saleItems.push(data.item);
         this.calculateSummary();
         this.clearSearch();
+        console.log(this.saleItems)
       }
     })
   }
@@ -113,8 +113,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
       customerName: this.customerControl.value.customer_name,
       customerPhone: this.customerControl.value.customer_phone,
       billNo: this.billNo,
-      saleDate: new Date(this.saleDate)
-        .toLocaleDateString().split('/').reverse().join('-'),
+      saleDate: this.getFormatedDate(this.saleDate),
       saleItems: this.saleItems
     }
 
@@ -215,8 +214,8 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   }
 
 
-  onAddCustomer(){
-    this._matdialog.open(AddRelationsComponent,{
+  onAddCustomer() {
+    this._matdialog.open(AddRelationsComponent, {
       width: '400px',
       height: '350px',
       disableClose: true,
@@ -241,5 +240,13 @@ export class NewSaleComponent implements OnInit, OnDestroy {
     ],
   }
 
+  onDateChange() {
+    console.log(this.saleDate)
+    console.log('Sale Date: ' +   this.getFormatedDate(this.saleDate));
+  }
+
+  getFormatedDate(date: string): string {
+    return new Date(new Date(date).getTime() + (5.5 * 3600 * 1000)).toISOString().split('T')[0]
+  }
 
 }

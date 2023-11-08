@@ -7,15 +7,16 @@
 <div class="bill-inputs">
     <div class="date-picker">
         <div>
-            <label for="bill-date">Bill Date</label>
-            <input matInput id="bill-date" [matDatepicker]="picker" class="date-picker-input"
+            <label for="bill-date">Bill Date (DD/MM/YYYY)</label>
+            <input matInput id="bill-date" [matDatepicker]="picker" (dateChange)="onDateChange()" class="date-picker-input"
                 [(ngModel)]="saleDate" disabled>
-            <mat-datepicker #picker disabled="false"></mat-datepicker>
+            <mat-datepicker #picker disabled="false" ></mat-datepicker>
         </div>
 
         <button class="date-picker-button" (click)="picker.open()">
             <mat-icon>calendar_month</mat-icon>
         </button>
+
     </div>
 
     <div class="biller-details">

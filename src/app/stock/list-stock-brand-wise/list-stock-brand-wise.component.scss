@@ -1,11 +1,8 @@
 @import '../../constant.scss';
-.halfwidth {
-    width: 50%;
-    margin: 0 auto;
-}
+
 .table-container {
     margin-top: 0.5rem;
-    max-height: 55vh;
+    max-height: 75vh;
     overflow-y: auto;
     border: 1px solid white;
     table {
@@ -26,13 +23,6 @@
                 background-color: $black;
                 text-align: left;
                 border-top: none;
-
-                &.slid {
-                    width: 50px;
-                }
-                &.worth {
-                    width: 120px;
-                }
             }
         }
 
@@ -41,8 +31,6 @@
             &:hover {
                 background-color: $deep-purple;
             }
-
-        
 
             
             &.summary-row {
@@ -56,13 +44,9 @@
                     padding: 0.2rem 0.2rem;
                     border: 1px solid white;
                     text-align: left;
-                    
+
                     &.align-center {
                         text-align: center;
-                    }
-
-                    &.worth {
-                        text-align: right;
                     }
                 }
             }
@@ -86,13 +70,29 @@
                 font-size: 0.8rem;
                 color: $green;
                 font-weight: 400;
-                text-align: right;
-            }
-
-            &.worth {
-                text-align: right;
             }
         }
 
+    }
+}
+
+.header-input-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    .filter-input-container {
+        width: 500px;
+        display: flex;
+        align-items: flex-end;
+        gap: 0.5rem;
+
+        .custom-input-container {
+            width: 100%;
+        }
+
+        .clear-filter-button {
+            height: 30px;
+        }
     }
 }

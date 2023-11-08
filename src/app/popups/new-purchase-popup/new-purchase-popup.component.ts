@@ -111,13 +111,14 @@ export class NewPurchasePopupComponent implements OnInit {
     if (!this.enable) {
       const ppad = +val.purchasePriceBeforeDiscount - +val.discountPrice;
       // this.newItemPurchaseFormGroup.get('purchasePriceAfterDiscount')?.setValue(ppad, { onlySelf: true, emitEvents:false });
-      this.purchasePriceBeforeDiscount = +val.purchasePriceBeforeDiscount;
-      this.purchasePriceAfterDiscount = +ppad.toFixed(2);
+      console.log(typeof val.purchasePriceBeforeDiscount)
+      this.purchasePriceBeforeDiscount = +Number(val.purchasePriceBeforeDiscount).toFixed(2);
+      this.purchasePriceAfterDiscount = +Number(ppad).toFixed(2);
     } else {
       const ppbd = +val.purchasePriceAfterDiscount + +val.discountPrice;
-      this.purchasePriceAfterDiscount = +val.purchasePriceAfterDiscount;
+      this.purchasePriceAfterDiscount = +Number(val.purchasePriceAfterDiscount).toFixed(2);
       // this.newItemPurchaseFormGroup.get('purchasePriceBeforeDiscount')?.setValue(ppbd, { onlySelf: true, emitEvents: false });
-      this.purchasePriceBeforeDiscount = ppbd;
+      this.purchasePriceBeforeDiscount = +Number(ppbd).toFixed(2);
     }
   }
 

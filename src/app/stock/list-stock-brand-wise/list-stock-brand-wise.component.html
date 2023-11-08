@@ -1,0 +1,37 @@
+<div class="page-container">
+
+    <div class="header-input-container">
+        <a mat-flat-button routerLink="/stock">Go Back</a>
+        <div class="filter-input-container">
+            <div class="custom-input-container">
+                <label>Filter by Item Name</label>
+                <input type="text" name="quantityBox" [formControl]="filterValue">
+                <!-- <small class="error-message"></small>    -->
+            </div>
+
+            <button class="clear-filter-button" [disabled]="!filterValue.value" mat-flat-button color="primary" (click)="onClearFilter()">Clear</button>
+        </div> 
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl Id</th>
+                    <th>Item Name</th>
+                    <th>Brand Name</th>
+                    <th>Category Name</th>
+                    <th>Stock (Pieces)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of filteredItems; let i = index" (click)="onItemClick(item.item_id)">
+                    <td>{{i+1}}</td>
+                    <td>{{item.item_name}}</td>
+                    <td>{{item.brand_name}}</td>
+                    <td>{{item.category_name}}</td>
+                    <td>{{item.total_quantity}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

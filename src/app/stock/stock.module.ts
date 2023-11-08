@@ -10,6 +10,7 @@ import { ListStockComponent } from './list-stock/list-stock.component';
 import { StockService } from './stock.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ItemStockDetailsComponent } from '../popups/item-stock-details/item-stock-details.component';
+import { ListStockBrandWiseComponent } from './list-stock-brand-wise/list-stock-brand-wise.component';
 
 
 
@@ -20,6 +21,7 @@ import { ItemStockDetailsComponent } from '../popups/item-stock-details/item-sto
     NewCategoryComponent,
     ListStockComponent,
     ItemStockDetailsComponent,
+    ListStockBrandWiseComponent,
 
   ],
   imports: [

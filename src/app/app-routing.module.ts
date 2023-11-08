@@ -42,6 +42,11 @@ const routes: Routes = [
         path: 'relations',
         loadChildren: () => import('./realations/relations.module').then((m) => m.RelationsModule),
         canActivate: [canActivateRoute]
+      },
+      {
+        path: 'reports',
+        loadChildren: () => import('./reports/reports.module').then((m) => m.ReportsModule),
+        canActivate: [canActivateRoute]
       }
     ]
   },

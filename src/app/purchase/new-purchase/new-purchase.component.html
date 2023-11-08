@@ -8,9 +8,9 @@
 <div class="bill-inputs">
     <div class="date-picker">
         <div>
-            <label for="bill-date">Bill Date</label>
+            <label for="bill-date">Bill Date (DD/MM/YYYY)</label>
             <input matInput id="bill-date" [max]="today" [matDatepicker]="picker" class="date-picker-input"
-                [(ngModel)]="purchaseDate" disabled>
+                [(ngModel)]="purchaseDate" disabled (dateChange)="onDateChange()">
             <mat-datepicker #picker disabled="false"></mat-datepicker>
         </div>
 

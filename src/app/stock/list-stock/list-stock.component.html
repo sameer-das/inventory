@@ -1,23 +1,25 @@
-<div class="page-container">
+<div class="page-container halfwidth">
 
+    <h2>Brand Wise Stock Listing</h2>
     <div class="table-container">
         <table>
             <thead>
                 <tr>
-                    <th>Item Name</th>
-                    <th>Brand</th>
-                    <th>Category</th>
-                    <th>Stock Quantity (Piece)</th>
+                    <th class="slid">Sl Id</th>
+                    <th>Brand </th>
+                    <th class="worth">Approx. Worth (₹)</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of items; let i = index" (click)="onItemClick(item.item_id)">
-                    <td>{{item.item_name}}</td>
-                    <!-- <td>{{a.mrp}}</td> -->
-                    <td>{{item.brand_name}}</td>
-                    <td>{{item.category_name}}</td>
-                    <td>{{item.total_quantity}}</td>
+                <tr *ngFor="let stock of stocks; let i = index" (click)="onStockClick(stock.brand_id)">
+                    <td>{{i+1}}</td>
+                    <td>{{stock.brand_name}}</td>
+                    <td class="worth">{{stock.total_stock}}</td>
                 </tr>    
+                <tr class="summary-row">
+                    <td colspan="2">Total Stock Worth</td>
+                    <td class="worth">{{total}}</td>
+                </tr>
             </tbody>
         </table>
     </div>

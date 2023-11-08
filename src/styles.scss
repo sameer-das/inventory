@@ -79,7 +79,8 @@ body {
     color: $grey;
   }
 
-  input[type="text"],  input[type="password"],
+  input[type="text"],
+  input[type="password"],
   select {
     display: inline-block;
     outline: none;
@@ -124,14 +125,15 @@ body {
   border-bottom: 0.7px solid $green;
 }
 
-.search-item-mat-option.mdc-list-item--selected .mdc-list-item__primary-text, 
-.search-item-mat-option.mdc-list-item--activated .mdc-list-item__primary-text{
+.search-item-mat-option.mdc-list-item--selected .mdc-list-item__primary-text,
+.search-item-mat-option.mdc-list-item--activated .mdc-list-item__primary-text {
   color: $green;
 }
 
 .search-item-mat-option.mat-mdc-option .mdc-list-item__primary-text {
   display: block;
   width: 100%;
+
   >p {
     margin: 0;
   }
@@ -146,7 +148,32 @@ body {
 
       &.total_quantity {
         font-size: 0.9rem;
-      } 
+      }
     }
   }
+}
+
+
+.report-type-dropdown {
+  border: 1px solid $grey;
+  padding: 1px 4px;
+  border-radius: 4px;
+
+  &:focus {
+    border: 2px solid $green;
+  }
+}
+
+.mdc-text-field--disabled.mdc-text-field--filled {
+  background-color: transparent;
+}
+
+
+.mat-date-range-input-container {
+  width: 100%;
+}
+
+.mat-date-range-input-wrapper {
+  max-width: unset !important;
+  width: calc(50% - 1rem);
 }

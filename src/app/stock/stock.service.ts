@@ -38,4 +38,12 @@ export class StockService {
   getItemStockDetails(itemId: any) {
     return this._http.get<APIResponse>(`${this.API_BASE_URL}/item/item-stock-details?itemId=${itemId}`);
   }
+
+  getStockWorthBrandWise() {
+    return this._http.get<APIResponse>(`${this.API_BASE_URL}/item/stocks/all-brand`);
+  }
+
+  getAllItemsOfABrand(brandId: any) {
+    return this._http.get<APIResponse>(`${this.API_BASE_URL}/item/by-brand?brandId=${brandId}`);
+  }
 }

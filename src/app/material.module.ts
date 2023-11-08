@@ -10,7 +10,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -60,5 +60,8 @@ const MATERIAL = [
   declarations: [GetRemainderPipe],
   imports: MATERIAL,
   exports: [...MATERIAL, GetRemainderPipe],
+  providers:[
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' } // to make the date dd/MM/yyyy
+  ]
 })
 export class MaterialModule { }

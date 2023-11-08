@@ -151,8 +151,7 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const pdate = new Date(this.purchaseDate)
-      .toLocaleDateString().split('/').reverse().join('-')
+    const pdate = this.getFormatedDate(this.purchaseDate);
 
     this.purchasedItems = this.purchasedItems.
       map(curr => {
@@ -242,6 +241,15 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
 
   onBillerSelection(biller: any) {
     console.log(biller.value)
+  }
+
+  getFormatedDate(date: string): string {
+    return new Date(new Date(date).getTime() + (5.5 * 3600 * 1000)).toISOString().split('T')[0]
+  }
+
+  onDateChange() {
+    console.log(this.purchaseDate)
+    console.log('Purchase Date: ' + this.getFormatedDate(this.purchaseDate));
   }
 
   public validation_msgs = {
