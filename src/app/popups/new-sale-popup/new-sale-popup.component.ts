@@ -174,16 +174,16 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
     let total_piece_qty = 0;
     val.lines.forEach((line: any) => {
       const pieceFromBox = (+line.quantityBox * +line.itemDetails.piecePerCarton);
-      const priceForBox = +line.quantityBox * +line.pricePerBox;
+      const priceForBox = +Number(+line.quantityBox * +line.pricePerBox).toFixed(2);
 
       line.itemDetails.totalSaleQuantity = pieceFromBox + +line.quantityPiece;
 
-      line.itemDetails.totalAmount = priceForBox + (+line.quantityPiece * +line.pricePerPiece)
+      line.itemDetails.totalAmount = +Number(priceForBox + (+line.quantityPiece * +line.pricePerPiece)).toFixed(2)
 
       this.totalBoxQuantity += +line.quantityBox;
       this.totalPieceQuantity += +line.quantityPiece;
       this.totalQuantity += (pieceFromBox + +line.quantityPiece);
-      this.totalAmount += line.itemDetails.totalAmount;
+      this.totalAmount = +(this.totalAmount + +line.itemDetails.totalAmount).toFixed(2);
 
       qtyBox_X_boxPrice += +line.quantityBox * +line.pricePerBox;
       total_box_qty += +line.quantityBox;

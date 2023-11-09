@@ -34,7 +34,8 @@ export class NewSaleComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  saleDate: string = '';
+  // saleDate: Date = new Date();
+  saleDate = this.getCurrentISTime();
   // customerName: string = '';
   // customerGSTN: string = '';
   // customerPhone: string = '';
@@ -136,7 +137,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
             // this.customerName = '';
             // this.customerPhone = '';
             this.customerControl.reset();
-            this.saleDate = '';
+            this.saleDate = this.getCurrentISTime();
             this.totalSaleAmount = 0;
 
           } else {
@@ -208,7 +209,7 @@ export class NewSaleComponent implements OnInit, OnDestroy {
 
 
   onCancelSale() {
-    this.saleDate = '';
+    this.saleDate = this.getCurrentISTime();
     this.customerControl.reset();
     this.saleItems = [];
   }
@@ -241,12 +242,18 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   }
 
   onDateChange() {
-    console.log(this.saleDate)
-    console.log('Sale Date: ' +   this.getFormatedDate(this.saleDate));
+    // console.log(this.saleDate)
+    console.log('Sale Date: ' + this.getFormatedDate(this.saleDate));
   }
 
-  getFormatedDate(date: string): string {
-    return new Date(new Date(date).getTime() + (5.5 * 3600 * 1000)).toISOString().split('T')[0]
+  getFormatedDate(date: Date): string {
+    const indianTime = new Date(new Date(date).getTime() + (5.5 * 3600 * 1000)).toISOString();
+    console.log(indianTime)
+    return indianTime.split('T')[0]
+  }
+
+  getCurrentISTime() {
+   return new Date(new Date().getTime() + (5.5 * 3600 * 1000))
   }
 
 }

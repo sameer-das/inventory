@@ -46,7 +46,7 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
   totalAmount: number = 0.00;
 
 
-  purchaseDate: string = '';
+  purchaseDate: Date = this.getCurrentISTime();
   billerName: string = '';
   billerGSTN: string = '';
 
@@ -201,7 +201,7 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
 
   onCancelBill() {
     this.billerControl.reset();
-    this.purchaseDate = '';
+    this.purchaseDate = this.getCurrentISTime();
     this.purchasedItems = [];
   }
 
@@ -213,7 +213,7 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
   clearBillData() {
     this.billerGSTN = '';
     this.billerName = '';
-    this.purchaseDate = '';
+    this.purchaseDate = this.getCurrentISTime();
     this.totalGst = 0.00;
     this.totalDiscount = 0.00;
     this.totalAmount = 0.00;
@@ -243,13 +243,19 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
     console.log(biller.value)
   }
 
-  getFormatedDate(date: string): string {
-    return new Date(new Date(date).getTime() + (5.5 * 3600 * 1000)).toISOString().split('T')[0]
+  getFormatedDate(date: Date): string {
+    const indianTime = new Date(new Date(date).getTime() + (5.5 * 3600 * 1000)).toISOString();
+    console.log(indianTime);
+    return indianTime.split('T')[0];
   }
 
   onDateChange() {
-    console.log(this.purchaseDate)
+    // console.log(this.purchaseDate)
     console.log('Purchase Date: ' + this.getFormatedDate(this.purchaseDate));
+  }
+
+  getCurrentISTime() {
+    return new Date(new Date().getTime() + (5.5 * 3600 * 1000))
   }
 
   public validation_msgs = {
