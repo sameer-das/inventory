@@ -177,3 +177,7 @@ body {
   max-width: unset !important;
   width: calc(50% - 1rem);
 }
+
+.mat-drawer-backdrop.mat-drawer-shown {
+  background-color:rgba(123, 31, 162,0.2);
+}

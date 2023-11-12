@@ -25,6 +25,8 @@
                     <th colspan="2">Quantity</th>
                     <th rowspan="2">Total Qty. (Piece)</th>
                     <th rowspan="2">Sale Price</th>
+                    <th rowspan="2" *ngIf="showGSTColumn">GST</th>
+                    <th rowspan="2" *ngIf="showProfitColumn">Profit</th>
                     <th rowspan="2">Amount (₹)</th>
                 </tr>
                 <tr>
@@ -40,6 +42,8 @@
                     <td>{{lineItem.sale_piece_quantity}}</td>
                     <td>{{lineItem.sale_total_piece}}</td>
                     <td>₹ {{lineItem.average_sale_price }}</td>
+                    <td *ngIf="showGSTColumn">₹ {{lineItem.gst_earned }}</td>
+                    <td *ngIf="showProfitColumn">₹ {{lineItem.profit_earned }}</td>
                     <td>₹ {{lineItem.total_amount}}</td>
                 </tr>
                 <tr class="summary-row">
@@ -47,6 +51,8 @@
                     <td colspan="1">{{totalQtyBox}}</td>
                     <td colspan="1">{{totalPieceBox}}</td>
                     <td colspan="2"></td>
+                    <td colspan="1" *ngIf="showGSTColumn">{{totalGst}}</td>
+                    <td colspan="1" *ngIf="showProfitColumn">{{totalProfit}}</td>
                     <td colspan="1">₹ {{totalAmount}}</td>
                 </tr>
             </tbody>
@@ -54,38 +60,43 @@
     </div>
 
     <div class="sale-details-footer">
-        <div class="gst-details">
-            <mat-progress-bar *ngIf="!gstDetailsFetched && showGst" mode="indeterminate"></mat-progress-bar>
-            <table *ngIf="showGst">
-                <thead>
-                    <tr>
-                        <th>GST Rate</th>
-                        <th>5 (%)</th>
-                        <th>12 (%)</th>
-                        <th>18 (%)</th>
-                        <th>28 (%)</th>
-                        <th>Total (₹)</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <th>Amount (₹)</th>
-                        <td>{{gstDetails['5']}}</td>
-                        <td>{{gstDetails['12']}}</td>
-                        <td>{{gstDetails['18']}}</td>
-                        <td>{{gstDetails['28']}}</td>
-                        <td>{{gstDetails['total']}}</td>
-                    </tr>
-                </tbody>
-
-
-            </table>
+        <div>
+            <mat-checkbox color="accent" name="showGST" (change)="toggleShowGST($event)">Show GST</mat-checkbox>
+            <mat-checkbox color="accent" name="showProfit" (change)="toggleShowProfit($event)">Show Profit</mat-checkbox>
         </div>
         <div class="cta">
             <button mat-flat-button color="primary" (click)="toggleShowGst()">{{showGst ? 'Hide' : 'Show'}} GST</button>
-            <!-- <button mat-flat-button color="primary">Print</button> -->
+            <!-- <a mat-flat-button color="primary" [routerLink]="'/sale/edit-sale/'+sale_uid">Edit</a> -->
             <a mat-flat-button color="accent" routerLink="/sale/list-sales">Go Back</a>
         </div>
+    </div>
+
+    <div class="gst-details">
+        <mat-progress-bar *ngIf="!gstDetailsFetched && showGst" mode="indeterminate"></mat-progress-bar>
+        <table *ngIf="showGst">
+            <thead>
+                <tr>
+                    <th>GST Rate</th>
+                    <th>5 (%)</th>
+                    <th>12 (%)</th>
+                    <th>18 (%)</th>
+                    <th>28 (%)</th>
+                    <th>Total (₹)</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <th>Amount (₹)</th>
+                    <td>{{gstDetails['5']}}</td>
+                    <td>{{gstDetails['12']}}</td>
+                    <td>{{gstDetails['18']}}</td>
+                    <td>{{gstDetails['28']}}</td>
+                    <td>{{gstDetails['total']}}</td>
+                </tr>
+            </tbody>
+
+
+        </table>
     </div>
 </div>

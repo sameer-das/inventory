@@ -10,7 +10,7 @@ import { Subject, filter, takeUntil } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   @Output() toggleSideBar = new EventEmitter<boolean>();
   @Input() isMenuOpened: boolean = false;
-
+  
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(private _router: Router) {
 

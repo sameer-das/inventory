@@ -50,6 +50,7 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
       }
     } else {
       // edit item
+      console.log(this.item)
 
       this.stockArray = this.item.item.stocks.lines;
 
@@ -107,7 +108,7 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
 
 
   getFormArrayElementForEdit(item: any) {
-    console.log(item)
+    // console.log(item)
     return new FormGroup({
       itemDetails: new FormControl({ ...item.itemDetails }),
       quantityBox: new FormControl(item.quantityBox, { updateOn: 'blur', validators: [Validators.required, Validators.pattern(this.AllowOnlyNumbers)] }),
@@ -205,7 +206,7 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
 
   validateQuantityAndPrice(): boolean {
     let hasQuantityError = false;
-
+    console.log(this.itemLinesGroup.value)
     this.itemLinesGroup.value.lines.forEach((curr: any) => {
       const availableBoxQuantity = Math.floor(+curr.itemDetails.totalStockQuantity / +curr.itemDetails.piecePerCarton);
       if (+curr.quantityBox > availableBoxQuantity) {
@@ -238,13 +239,18 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
           header: 'Alert',
           message: `'Price per Piece' cannot be 0 (Zero).`
         });
-      } else if (+curr.quantityBox === 0 && +curr.pricePerBox === 0 && +curr.quantityPiece === 0 && +curr.pricePerPiece === 0) {
-        hasQuantityError = true;
-        this._popupService.openAlert({
-          header: 'Alert',
-          message: `You should enter quantity and sale price.`
-        });
       }
+      // else if(+curr.pricePerPiece < +curr.itemDetails.purchasePricePerPiece) {
+      //   hasQuantityError = true;
+
+      // }
+      // else if (+curr.quantityBox === 0 && +curr.pricePerBox === 0 && +curr.quantityPiece === 0 && +curr.pricePerPiece === 0) {
+      //   hasQuantityError = true;
+      //   this._popupService.openAlert({
+      //     header: 'Alert',
+      //     message: `You should enter quantity and sale price.`
+      //   });
+      // }
     })
 
     return hasQuantityError;

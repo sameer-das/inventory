@@ -255,7 +255,7 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
   }
 
   getCurrentISTime() {
-    return new Date(new Date().getTime() + (5.5 * 3600 * 1000))
+    return new Date()
   }
 
   public validation_msgs = {

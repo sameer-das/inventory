@@ -12,4 +12,9 @@ export class LayoutComponent {
   toggleSidebar(e: boolean) {
     e ? this.sidenav.open() : this.sidenav.close()
   }
+
+  isopened: boolean = false;
+  onChange(e:boolean) {
+    this.isopened = e;
+  }
 }

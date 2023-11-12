@@ -5,6 +5,7 @@ import { SaleService } from '../sale.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { APIResponse } from 'src/app/apiresponse';
 import { PopupService } from 'src/app/popups/popup.service';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-sale-details',
@@ -22,6 +23,9 @@ export class SaleDetailsComponent implements OnInit, OnDestroy {
   totalAmount = 0;
   totalQtyBox = 0;
   totalPieceBox = 0;
+  totalGst:number = 0;
+  totalProfit:number = 0;
+
 
   showGst: boolean = false;
   gstDetailsFetched: boolean = false;
@@ -72,11 +76,14 @@ export class SaleDetailsComponent implements OnInit, OnDestroy {
       })
   }
 
+
   calculateTotal() {
     this.saleDetails.forEach((curr: any) => {
       this.totalAmount += +curr.total_amount;
       this.totalQtyBox += +curr.sale_box_quantity;
       this.totalPieceBox += +curr.sale_piece_quantity;
+      this.totalGst = +(this.totalGst + +curr.gst_earned).toFixed(2);
+      this.totalProfit = +(this.totalProfit + +curr.profit_earned).toFixed(2);
     })
   }
 
@@ -118,4 +125,14 @@ export class SaleDetailsComponent implements OnInit, OnDestroy {
       })
   }
 
+  showGSTColumn: boolean = false;
+  showProfitColumn: boolean = false;
+
+  toggleShowGST(e: MatCheckboxChange) {
+    this.showGSTColumn = e.checked;
+
+  }
+  toggleShowProfit(e: MatCheckboxChange) {
+    this.showProfitColumn = e.checked;
+  }
 }

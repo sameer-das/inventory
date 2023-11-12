@@ -166,6 +166,11 @@
     display: flex;
     margin-top: 0.5rem;
     justify-content: space-between;
+
+    & > div:nth-child(2) {
+        display: flex;
+        gap: 0.5rem;
+    }
 }
 
 p.bill-no {
@@ -197,4 +202,39 @@ p.bill-no {
 .add-customer-button {
     height: 30px;
     font-size: 0.8rem
+}
+
+
+.sale-details-footer {
+    margin-top: 1rem;
+    display: flex;
+}
+
+.gst-details {
+    width: 50%;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #444;
+        
+        tr {
+            th {
+                color: $green;
+                font-size: 0.8rem;
+                font-weight: 500;
+                padding: 0.2rem 0.2rem;
+                border: 1px solid #444;
+                background-color: $dark-black;
+                text-align: center;
+                border-top: none;
+            }
+            td {
+                padding: 0.1rem 0.2rem;
+                font-size: 0.75rem;
+                color: white;
+                border: 1px solid #444;
+                text-align: center;
+            }
+        }
+    }
 }

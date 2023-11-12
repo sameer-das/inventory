@@ -26,6 +26,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { GetRemainderPipe } from './pipes/get-remainder.pipe';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const MATERIAL = [
   MatDialogModule,
@@ -52,7 +53,8 @@ const MATERIAL = [
   MatRadioModule,
   MatSlideToggleModule,
   MatProgressBarModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatCheckboxModule
 
 ];
 
@@ -60,7 +62,7 @@ const MATERIAL = [
   declarations: [GetRemainderPipe],
   imports: MATERIAL,
   exports: [...MATERIAL, GetRemainderPipe],
-  providers:[
+  providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' } // to make the date dd/MM/yyyy
   ]
 })

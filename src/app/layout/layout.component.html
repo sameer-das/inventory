@@ -1,7 +1,7 @@
-<app-header (toggleSideBar)="toggleSidebar($event)"></app-header>
+<app-header (toggleSideBar)="toggleSidebar($event)" [isMenuOpened]="isopened"></app-header>
 
 <mat-sidenav-container class="layout">
-    <mat-sidenav #sidenav mode="side" class="layout-sidebar">
+    <mat-sidenav #sidenav mode="over" class="layout-sidebar" (openedChange)="onChange($event)">
         <app-sidebar></app-sidebar>
     </mat-sidenav>
 

@@ -10,6 +10,7 @@ import { SearchItemService } from 'src/app/search-item/search-item.service';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { RealtionsService } from 'src/app/realations/realtions.service';
 import { AddRelationsComponent } from 'src/app/popups/add-relations/add-relations.component';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 function autocompleteObjectValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -48,9 +49,14 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   saleItems: any[] = [];
 
   totalSaleAmount: number = 0;
+  totalGstAmount: number = 0;
+  totalProfitAmount: number = 0;
 
   customer!: any;
   filteredCustomerOptions!: Observable<any[]>;
+
+  showGstDetails: boolean = false;
+
   ngOnInit(): void {
     this.getNextBillNo();
 
@@ -77,8 +83,9 @@ export class NewSaleComponent implements OnInit, OnDestroy {
     }).afterClosed().subscribe((data: any) => {
       if (data && !data.isEdit) {
         this.saleItems.push(data.item);
-        this.calculateSummary();
         this.clearSearch();
+        this.calculateTaxAndProfit();
+        this.calculateSummary();
         console.log(this.saleItems)
       }
     })
@@ -86,8 +93,45 @@ export class NewSaleComponent implements OnInit, OnDestroy {
 
   calculateSummary() {
     this.totalSaleAmount = 0;
+    this.totalGstAmount = 0;
+    this.totalProfitAmount = 0;
+
     this.saleItems.forEach((item: any) => {
-      this.totalSaleAmount += item.totalAmount;
+      this.totalSaleAmount = +(this.totalSaleAmount + +item.totalAmount).toFixed(2);
+      this.totalGstAmount = +(this.totalGstAmount + +item.totalGSTEarned).toFixed(2);
+      this.totalProfitAmount = +(this.totalProfitAmount + +item.totalProfitEarned).toFixed(2);
+    })
+  }
+
+  gstDetails: { [key: string]: number } = {
+    '5': 0,
+    '12': 0,
+    '18': 0,
+    '28': 0,
+    'total': 0
+  }
+
+  calculateTaxAndProfit() {
+    this.gstDetails = { '5': 0, '12': 0, '18': 0, '28': 0, 'total': 0 };
+
+    this.saleItems.forEach((item: any) => {
+      item.totalProfitEarned = 0;
+      item.totalGSTEarned = 0;
+      item.totalGSTPaid = 0;
+
+
+      item.stocks.lines.forEach((line: any) => {
+        item.totalGSTEarned = +(item.totalGSTEarned + +line.itemDetails.gstEarned).toFixed(2);
+        item.totalProfitEarned = +(item.totalProfitEarned + +line.itemDetails.profitEarned).toFixed(2);
+
+        line.itemDetails.gstPaidPerPiece = +(+line.itemDetails.purchasePricePerPiece - (+line.itemDetails.purchasePricePerPiece / (1 + (+line.itemDetails.gst * 0.01)))).toFixed(2)
+        line.itemDetails.gstPaidTotal = +(line.itemDetails.gstPaidPerPiece * line.itemDetails.totalSaleQuantity).toFixed(2);
+
+        item.totalGSTPaid = item.totalGSTPaid + line.itemDetails.gstPaidTotal;
+
+        this.gstDetails[line.itemDetails.gst] = +(this.gstDetails[line.itemDetails.gst] + +line.itemDetails.gstEarned).toFixed(2);
+        this.gstDetails['total'] = +(this.gstDetails['total'] + +line.itemDetails.gstEarned).toFixed(2);
+      })
     })
   }
 
@@ -172,7 +216,8 @@ export class NewSaleComponent implements OnInit, OnDestroy {
 
       if (data.isEdit) {
         this.saleItems[i] = data.item;
-        this.calculateSummary()
+        this.calculateTaxAndProfit();
+        this.calculateSummary();
       }
 
     })
@@ -253,7 +298,17 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   }
 
   getCurrentISTime() {
-   return new Date(new Date().getTime() + (5.5 * 3600 * 1000))
+    return new Date()
   }
 
+  showGSTColumn: boolean = false;
+  showProfitColumn: boolean = false;
+
+  toggleShowGST(e: MatCheckboxChange) {
+    this.showGSTColumn = e.checked;
+
+  }
+  toggleShowProfit(e: MatCheckboxChange) {
+    this.showProfitColumn = e.checked;
+  }
 }

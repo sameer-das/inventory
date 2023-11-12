@@ -65,6 +65,8 @@
                 <th>Piece</th>
                 <th>Total Piece</th>
                 <th>S. Price per Piece(₹)</th>
+                <th *ngIf="showGSTColumn">GST</th>
+                <th *ngIf="showProfitColumn">Profit</th>
                 <th>Total Amount(₹)</th>
             </tr>
         </thead>
@@ -77,10 +79,14 @@
                 <td>{{a.qtyPiece}}</td>
                 <td>{{a.qtyTotalPiece}}</td>
                 <td>{{(a.totalAmount / a.qtyTotalPiece).toFixed(2)}}</td>
+                <td *ngIf="showGSTColumn">{{a.totalGSTEarned}}</td>
+                <td *ngIf="showProfitColumn">{{a.totalProfitEarned}}</td>
                 <td>{{a.totalAmount}}</td>
             </tr>
             <tr class="summary-row">
-                <td colspan="6"></td>
+                <td colspan="6">Total</td>
+                <td colspan="1" *ngIf="showGSTColumn">₹ {{totalGstAmount}}</td>
+                <td colspan="1" *ngIf="showProfitColumn">₹ {{totalProfitAmount}}</td>
                 <td colspan="1">₹ {{totalSaleAmount}}</td>
             </tr>
         </tbody>
@@ -88,7 +94,48 @@
 </div>
 
 <div class="cta-container">
-    <button mat-flat-button color="warn" (click)="onCancelSale()">Cancel</button>
-    <button mat-flat-button color="accent" (click)="onSubmit()"
-        [disabled]="customerControl.invalid || saleItems.length === 0">Submit</button>
+    <div>
+        <button mat-flat-button color="warn" (click)="onCancelSale()">Cancel</button>
+        <mat-checkbox color="accent" name="showGST" (change)="toggleShowGST($event)">Show GST</mat-checkbox>
+        <mat-checkbox color="accent" name="showProfit" (change)="toggleShowProfit($event)">Show Profit</mat-checkbox>
+    </div>
+    <div>
+        <button mat-flat-button color="accent" (click)="showGstDetails = !showGstDetails">
+            <mat-icon>{{showGstDetails ? "arrow_drop_up" : "arrow_drop_down" }}</mat-icon> 
+            {{showGstDetails ? 'Hide' : 'Show'}} GST Details
+        </button>
+        <button mat-flat-button color="accent" (click)="onSubmit()"
+            [disabled]="customerControl.invalid || saleItems.length === 0">Submit</button>
+    </div>
+
+</div>
+
+<div class="sale-details-footer">
+    <div class="gst-details" *ngIf="showGstDetails">
+        <table >
+            <thead>
+                <tr>
+                    <th>GST Rate</th>
+                    <th>5 (%)</th>
+                    <th>12 (%)</th>
+                    <th>18 (%)</th>
+                    <th>28 (%)</th>
+                    <th>Total (₹)</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <th>Amount (₹)</th>
+                    <td>{{gstDetails['5']}}</td>
+                    <td>{{gstDetails['12']}}</td>
+                    <td>{{gstDetails['18']}}</td>
+                    <td>{{gstDetails['28']}}</td>
+                    <td>{{gstDetails['total']}}</td>
+                </tr>
+            </tbody>
+
+
+        </table>
+    </div>
 </div>
