@@ -206,7 +206,7 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
 
   validateQuantityAndPrice(): boolean {
     let hasQuantityError = false;
-    console.log(this.itemLinesGroup.value)
+    // console.log(this.itemLinesGroup.value)
     this.itemLinesGroup.value.lines.forEach((curr: any) => {
       const availableBoxQuantity = Math.floor(+curr.itemDetails.totalStockQuantity / +curr.itemDetails.piecePerCarton);
       if (+curr.quantityBox > availableBoxQuantity) {
@@ -240,10 +240,23 @@ export class NewSalePopupComponent implements OnInit, OnDestroy {
           message: `'Price per Piece' cannot be 0 (Zero).`
         });
       }
-      // else if(+curr.pricePerPiece < +curr.itemDetails.purchasePricePerPiece) {
-      //   hasQuantityError = true;
-
-      // }
+      else if (+curr.quantityBox !== 0 && +curr.pricePerBox < +(+curr.itemDetails.purchasePricePerPiece *
+        +curr.itemDetails.piecePerCarton).toFixed(2)) {
+        // quantity box filled but price is less than the purchase price
+        hasQuantityError = true;
+        this._popupService.openAlert({
+          header: 'Alert',
+          message: `'Price per Box' is less than purchase price.`
+        });
+      }
+      else if (+curr.quantityPiece !== 0 && +curr.pricePerPiece < +curr.itemDetails.purchasePricePerPiece) {
+        // quantity box filled but price is less than the purchase price
+        hasQuantityError = true;
+        this._popupService.openAlert({
+          header: 'Alert',
+          message: `'Price per Piece' is less than purchase price.`
+        });
+      }
       // else if (+curr.quantityBox === 0 && +curr.pricePerBox === 0 && +curr.quantityPiece === 0 && +curr.pricePerPiece === 0) {
       //   hasQuantityError = true;
       //   this._popupService.openAlert({

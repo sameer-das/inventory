@@ -16,11 +16,19 @@
         <table>
             <thead>
                 <tr>
-                    <th>Sl Id</th>
-                    <th>Item Name</th>
-                    <th>Brand Name</th>
-                    <th>Category Name</th>
-                    <th>Stock (Pieces)</th>
+                    <th rowspan="2">Sl Id</th>
+                    <th rowspan="2">Item Name</th>
+                    <th rowspan="2">Brand Name</th>
+                    <th rowspan="2">Category Name</th>
+                    <th rowspan="2">MRP</th>
+                    <th rowspan="2">Piece per Carton</th>
+                    <th colspan="2">Quantity</th>
+
+                    <th  rowspan="2">Total Stock (Pieces)</th>
+                </tr>
+                <tr>
+                    <th>Box/Carton</th>
+                    <th>Loose Pieces</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +37,11 @@
                     <td>{{item.item_name}}</td>
                     <td>{{item.brand_name}}</td>
                     <td>{{item.category_name}}</td>
-                    <td>{{item.total_quantity}}</td>
+                    <td>{{item.mrp}}</td>
+                    <td>{{item.piece_per_carton	}}</td>
+                    <td>{{item.box	}}</td>
+                    <td>{{item.loose_piece}}</td>
+                    <td>{{item.total_quantity_piece}}</td>
                 </tr>
             </tbody>
         </table>

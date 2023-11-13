@@ -71,7 +71,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let a of saleItems; let i =index" (dblclick)="onDoubleClick(a,i)">
+            <tr *ngFor="let a of saleItems; let i =index" (dblclick)="onDoubleClick(a,i)" (contextmenu)="onContextMenu($event, a, i)">
                 <td>{{i + 1}}.</td>
                 <td>{{a.item_name}}</td>
                 <!-- <td>{{a.mrp}}</td> -->
@@ -82,6 +82,17 @@
                 <td *ngIf="showGSTColumn">{{a.totalGSTEarned}}</td>
                 <td *ngIf="showProfitColumn">{{a.totalProfitEarned}}</td>
                 <td>{{a.totalAmount}}</td>
+
+                <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+                    [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+                </div>
+
+                <mat-menu #contextMenu="matMenu">
+                    <ng-template matMenuContent let-item="a" let-i="i">
+                        <!-- <button mat-menu-item (click)="onEdit(item, i)">Edit</button> -->
+                        <button mat-menu-item (click)="onDelete(totalProfitAmount, i)">Delete</button>
+                    </ng-template>
+                </mat-menu>
             </tr>
             <tr class="summary-row">
                 <td colspan="6">Total</td>

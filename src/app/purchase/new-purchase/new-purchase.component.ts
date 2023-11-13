@@ -103,7 +103,7 @@ export class NewPurchaseComponent implements OnInit, OnDestroy {
   contextMenuPosition = { x: '0px', y: '0px' };
   onContextMenu(e: MouseEvent, item: any, i: number) {
     e.preventDefault();
-    console.log(item)
+    // console.log(item)
     this.contextMenuPosition.x = e.clientX + 'px';
     this.contextMenuPosition.y = e.clientY + 'px';
     this.contextMenu.menuData = { 'item': item, i: i };

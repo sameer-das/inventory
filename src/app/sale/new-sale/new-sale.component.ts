@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject, debounceTime, distinctUntilChanged, finalize, map, switchMap, takeUntil } from 'rxjs';
 import { NewSalePopupComponent } from 'src/app/popups/new-sale-popup/new-sale-popup.component';
@@ -11,6 +11,7 @@ import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/
 import { RealtionsService } from 'src/app/realations/realtions.service';
 import { AddRelationsComponent } from 'src/app/popups/add-relations/add-relations.component';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 function autocompleteObjectValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -183,6 +184,9 @@ export class NewSaleComponent implements OnInit, OnDestroy {
             this.customerControl.reset();
             this.saleDate = this.getCurrentISTime();
             this.totalSaleAmount = 0;
+            this.totalGstAmount = 0;
+            this.totalProfitAmount = 0;
+          
 
           } else {
             this._popupService.openAlert({
@@ -310,5 +314,25 @@ export class NewSaleComponent implements OnInit, OnDestroy {
   }
   toggleShowProfit(e: MatCheckboxChange) {
     this.showProfitColumn = e.checked;
+  }
+
+  @ViewChild(MatMenuTrigger) contextMenu!: MatMenuTrigger;
+  contextMenuPosition = { x: '0px', y: '0px' };
+  onContextMenu(e: MouseEvent, item: any, i: number) {
+    e.preventDefault();
+    // console.log(item)
+    this.contextMenuPosition.x = e.clientX + 'px';
+    this.contextMenuPosition.y = e.clientY + 'px';
+    this.contextMenu.menuData = { 'item': item, i: i };
+    // this.contextMenu.menu.focusFirstItem('mouse');
+    this.contextMenu.openMenu();
+  }
+
+
+  onDelete(item: any, i: number) {
+    // console.log(item);
+    this.saleItems.splice(i, 1);
+    this.calculateTaxAndProfit();
+    this.calculateSummary();
   }
 }
