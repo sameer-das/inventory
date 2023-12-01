@@ -12,6 +12,7 @@ import { ListSalesComponent } from './list-sales/list-sales.component';
 import { SaleDetailsComponent } from './sale-details/sale-details.component';
 import { RelationsModule } from '../realations/relations.module';
 import { EditSaleComponent } from './edit-sale/edit-sale.component';
+import { EditSalePopupComponent } from '../popups/edit-sale-popup/edit-sale-popup.component';
 
 
 
@@ -21,7 +22,8 @@ import { EditSaleComponent } from './edit-sale/edit-sale.component';
     NewSalePopupComponent,
     ListSalesComponent,
     SaleDetailsComponent,
-    EditSaleComponent
+    EditSaleComponent,
+    EditSalePopupComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,44 @@
+<div class="page-container">
+    <div class="top-menu">
+        <h1>Current Stock</h1>
+        <div class="controlls">
+            <div class="custom-input-container ml-32">
+                <label>Choose Brand</label>
+                <mat-select class="report-type-dropdown" name="GST" [(ngModel)]="selectedBrand">
+                    <mat-option *ngFor="let brand of brands" [value]="brand">{{brand.name}}</mat-option>
+                </mat-select>
+                <!-- <small class="error-message">{{getErrorMessage('gst')}}</small> -->
+            </div>
+            <button class="h30" type="button" (click)="onGenerate()" [disabled]="!selectedBrand" mat-flat-button color="primary">Generate</button>
+            <button class="h30" type="button" (click)="onClear()" *ngIf="reportData.length > 0" mat-flat-button color="accent">Clear</button>
+        </div>
+    </div>
+    <div *ngIf="reportData.length > 0" class="report-header">
+        <h2 class="header_title">Current {{selectedBrand.name}} Stock<span>as of {{now | date:'dd-MMM-yyyy HH:mm:ss'}}</span></h2>
+    </div>
+    <div *ngIf="reportData.length > 0" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl Id</th>
+                    <th>Item Name</th>
+                    <th>Piece Per Carton</th>
+                    <th>Carton/Box</th>
+                    <th>Piece</th>
+                    <th>Total (Pieces)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of reportData; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{data.item_name}}</td>
+                    <td>{{data.piece_per_carton}}</td>
+                    <td>{{ data.boxQty }}</td>
+                    <td>{{ data.pieceQty }}</td>
+                    <td>{{data.sum}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

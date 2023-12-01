@@ -1,8 +1,16 @@
 @import '../../constant.scss';
 
+.header_title {
+    color: white;
+
+    @media print {
+        color: black;
+    }
+}
+
 .table-container {
     margin-top: 0.5rem;
-    max-height: 75vh;
+    // max-height: 55vh;
     overflow-y: auto;
     border: 1px solid white;
 
@@ -12,14 +20,14 @@
         border-collapse: separate;
         border-spacing: 0;
 
+        @media print {
+            color: black;
+            border-collapse: collapse;
+        }
+
         thead tr {
             position: sticky;
             top: 0;
-
-            &:nth-child(2) {
-                top: 27px;
-            }
-
             th {
                 color: $green;
                 font-size: 0.8rem;
@@ -29,6 +37,7 @@
                 background-color: $black;
                 text-align: left;
                 border-top: none;
+
 
                 @media print {
                     color: black;
@@ -40,9 +49,9 @@
         tbody tr {
             cursor: pointer;
 
-            &:hover {
-                background-color: $deep-purple;
-            }
+            // &:hover {
+            //     background-color: $deep-purple;
+            // }
 
 
             &.summary-row {
@@ -61,11 +70,6 @@
                     &.align-center {
                         text-align: center;
                     }
-
-                    @media print {
-                        color: black;
-                        border: 1px solid black;
-                    }
                 }
             }
         }
@@ -75,6 +79,11 @@
             font-size: 0.75rem;
             color: white;
             border: 1px solid #444;
+
+            @media print {
+                color: black;
+                border: 1px solid black;
+            }
 
             &.highlight {
                 color: white;
@@ -90,35 +99,49 @@
                 color: $green;
                 font-weight: 400;
             }
-            @media print {
-                color: black;
-            }
         }
 
     }
 }
 
-.header-input-container {
+.top-menu {
     display: flex;
-    align-items: flex-end;
     justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid $grey;
+    padding-bottom: 1rem;
 
     @media print {
         display: none;
     }
 
-    .filter-input-container {
-        width: 500px;
+    h1 {
+        margin: 0;
+        padding: 0;
+    }
+    .controlls {
         display: flex;
-        align-items: flex-end;
         gap: 0.5rem;
+        align-items: flex-end;
 
         .custom-input-container {
-            width: 100%;
+            width: 300px;
         }
 
-        .clear-filter-button {
+        button.h30 {
             height: 30px;
         }
     }
+}
+
+.report-header {
+    h2 {
+        margin: 0;
+        padding: 0;
+        span {
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+    }
+
 }

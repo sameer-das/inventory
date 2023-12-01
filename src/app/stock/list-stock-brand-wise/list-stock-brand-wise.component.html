@@ -20,16 +20,16 @@
                     <th rowspan="2">Item Name</th>
                     <th rowspan="2">Brand Name</th>
                     <th rowspan="2">Category Name</th>
-                    <th rowspan="2">MRP</th>
+                    <!-- <th rowspan="2">MRP</th>
                     <th rowspan="2">Piece per Carton</th>
-                    <th colspan="2">Quantity</th>
+                    <th colspan="2">Quantity</th> -->
 
                     <th  rowspan="2">Total Stock (Pieces)</th>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <th>Box/Carton</th>
                     <th>Loose Pieces</th>
-                </tr>
+                </tr> -->
             </thead>
             <tbody>
                 <tr *ngFor="let item of filteredItems; let i = index" (click)="onItemClick(item.item_id)">
@@ -37,11 +37,11 @@
                     <td>{{item.item_name}}</td>
                     <td>{{item.brand_name}}</td>
                     <td>{{item.category_name}}</td>
-                    <td>{{item.mrp}}</td>
+                    <!-- <td>{{item.mrp}}</td>
                     <td>{{item.piece_per_carton	}}</td>
                     <td>{{item.box	}}</td>
-                    <td>{{item.loose_piece}}</td>
-                    <td>{{item.total_quantity_piece}}</td>
+                    <td>{{item.loose_piece}}</td> -->
+                    <td>{{item.total_quantity}}</td>
                 </tr>
             </tbody>
         </table>
