@@ -1,0 +1,180 @@
+@import '../../constant.scss';
+
+
+.custom-input-container {
+    width: 300px;
+}
+
+.report-page-header {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid $grey;
+    padding-bottom: 1rem;
+    align-items: flex-end;
+
+    @media print {
+        display: none;
+    }
+}
+
+
+.date-range-picker {
+    label {
+        font-size: 0.8rem;
+        color: $grey;
+    }
+
+    .custom-date-range-picker {
+        display: flex;
+        width: 220px;
+    }
+
+}
+
+
+.custom-date-range-picker-container {
+    display: flex;
+    width: 100%;
+}
+
+.mat-date-range-input-container {
+    border: 1px solid #ccc;
+    padding: 0 0.2rem;
+    border-radius: 4px;
+    flex: 1;
+}
+
+.date-picker-button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    font-size: 1rem;
+    background-color: $green;
+    color: $purple;
+    cursor: pointer;
+    margin-left: 0.2rem;
+    border-radius: 4px;
+}
+
+.button-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+
+.table-container {
+    margin-top: 0.5rem;
+    // max-height: 55vh;
+    overflow-y: auto;
+    border: 1px solid white;
+
+    table {
+
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+
+        @media print {
+            color: black;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            position: sticky;
+            top: 0;
+            th {
+                color: $green;
+                font-size: 0.8rem;
+                font-weight: 500;
+                padding: 0.2rem 0.2rem;
+                border: 1px solid white;
+                background-color: $black;
+                text-align: left;
+                border-top: none;
+
+
+                @media print {
+                    color: black;
+                    border: 1px solid black;
+                }
+            }
+        }
+
+        tbody tr {
+            cursor: pointer;
+
+            // &:hover {
+            //     background-color: $deep-purple;
+            // }
+
+
+            &.summary-row {
+                position: sticky;
+                bottom: 0;
+                background-color: $black;
+
+                td {
+                    color: $green;
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                    padding: 0.2rem 0.2rem;
+                    border: 1px solid white;
+                    text-align: left;
+
+                    &.align-center {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        td {
+            padding: 0.1rem 0.2rem;
+            font-size: 0.75rem;
+            color: white;
+            border: 1px solid #444;
+
+            @media print {
+                color: black;
+                border: 1px solid black;
+            }
+
+            &.highlight {
+                color: white;
+                font-weight: 500;
+            }
+
+            &.td_item_name {
+                width: 200px;
+            }
+
+            &.summary {
+                font-size: 0.8rem;
+                color: $green;
+                font-weight: 400;
+            }
+        }
+
+    }
+}
+
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    h2 {
+        margin: 0;
+        padding: 0;
+        flex: 1;
+    }
+
+    p{
+        flex: 1;
+        font-size: 1rem;
+        padding: 0;
+        margin: 0;
+        text-align: end;
+    }
+}

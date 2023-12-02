@@ -3,6 +3,9 @@
 .searchbar {
     display: flex;
     justify-content: center;
+    .w450 {
+        width: 450px;
+    }
 }
 
 .bill-inputs {

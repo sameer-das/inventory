@@ -1,0 +1,86 @@
+<div class="page-container">
+    <div class="report-page-header">
+        <div class="custom-input-container ml-32">
+            <label>Choose Report Type</label>
+            <mat-select class="report-type-dropdown" name="GST" [(ngModel)]="reportType"
+                (selectionChange)="onSelectionChange()">
+                <mat-option value="1">Date wise sale report</mat-option>
+                <mat-option value="2">Customer wise sale report</mat-option>
+                <!-- <mat-option value="3">Item wise sale report</mat-option> -->
+            </mat-select>
+        </div>
+
+
+        <div class="date-range-picker">
+            <label>Choose Date Range</label>
+            <div class="custom-date-range-picker">
+                <div class="custom-date-range-picker-container">
+                    <mat-date-range-input [rangePicker]="picker" [max]="today" class="mat-date-range-input-container">
+                        <input matStartDate placeholder="Start date" disabled [(ngModel)]="startDate">
+                        <input matEndDate placeholder="End date" disabled [(ngModel)]="endDate">
+                    </mat-date-range-input>
+                    <mat-date-range-picker disabled="false" #picker></mat-date-range-picker>
+                </div>
+                <button class="date-picker-button" (click)="picker.open()">
+                    <mat-icon>calendar_month</mat-icon>
+                </button>
+
+            </div>
+        </div>
+        <div *ngIf="showItemSearch">
+            <app-search-item (onItemSelection)="onItemSelection($event)"></app-search-item>
+        </div>
+
+        <div *ngIf="showCustomerSearch">
+            <div class="customer-auto-complete">
+                <label>Customer</label>
+                <input type="text" class="search-input" placeholder="Search Customer" aria-label="Search Customer"
+                    matInput [formControl]="customerControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith"
+                    (optionSelected)="onCustomerSelection($event)">
+                    <mat-option *ngFor="let option of filteredCustomerOptions | async" [value]="option"
+                        class="search-item-mat-option">
+                        <p>{{ option.customer_name}}</p>
+                        <div>
+                            <span>{{option.customer_phone}}</span>
+                        </div>
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button mat-flat-button type="button" color="primary" (click)="onGenerate()">Generate</button>
+            <button *ngIf="reportData.length > 0" mat-flat-button type="button" color="accent" (click)="onClear()">Clear</button>
+        </div>
+    </div>
+
+    <div *ngIf="reportData.length > 0" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl Id</th>
+                    <th>Bill No</th>
+                    <th>Sale Date</th>
+                    <th>Customer Name</th>
+                    <th>Customer Phone</th>
+                    <th>Customer GSTN</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of reportData; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ data.bill_no }}</td>
+                    <td>{{ data.sale_date | date:'dd-MMM-yyyy' }}</td>
+                    <td>{{ data.sale_customer }}</td>
+                    <td>{{ data.sale_customer_phone }}</td>
+                    <td>{{ data.sale_gstn }}</td>
+                    <td>{{ data.total_amount }}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

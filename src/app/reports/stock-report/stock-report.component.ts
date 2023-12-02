@@ -33,6 +33,7 @@ export class StockReportComponent implements OnInit, OnDestroy {
   }
   onClear() {
     this.reportData = [];
+    this.selectedBrand = undefined;
   }
   getCurrentStockReport(brandId: number) {
     this._loaderService.showLoader();

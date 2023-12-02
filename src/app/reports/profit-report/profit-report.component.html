@@ -1,0 +1,71 @@
+<div class="page-container">
+    <div class="report-page-header">
+        <div class="custom-input-container ml-32">
+            <label>Choose Report Type</label>
+            <mat-select class="report-type-dropdown" name="reportType" [(ngModel)]="reportType"
+                (selectionChange)="onSelectionChange()">
+                <mat-option value="1">Date wise profit report</mat-option>
+                <mat-option value="2">Brand wise profit report</mat-option>
+                <mat-option value="3">Profit for All Brands</mat-option>
+            </mat-select>
+        </div>
+
+
+        <div class="date-range-picker">
+            <label>Choose Date Range</label>
+            <div class="custom-date-range-picker">
+                <div class="custom-date-range-picker-container">
+                    <mat-date-range-input [rangePicker]="picker" [max]="today" class="mat-date-range-input-container">
+                        <input matStartDate placeholder="Start date" disabled [(ngModel)]="startDate">
+                        <input matEndDate placeholder="End date" disabled [(ngModel)]="endDate">
+                    </mat-date-range-input>
+                    <mat-date-range-picker disabled="false" #picker></mat-date-range-picker>
+                </div>
+                <button class="date-picker-button" (click)="picker.open()">
+                    <mat-icon>calendar_month</mat-icon>
+                </button>
+
+            </div>
+        </div>
+
+        <div *ngIf="showBrandDropdown">
+            <div class="custom-input-container ">
+                <label>Choose Brand</label>
+                <mat-select class="brand-dropdown" name="brand" [(ngModel)]="selectedBrand">
+                    <mat-option *ngFor="let brand of brands" [value]="brand.brand_id">{{brand.name}}</mat-option>
+                </mat-select>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button mat-flat-button type="button" color="primary" (click)="onGenerate()">Generate</button>
+            <button *ngIf="reportData.length > 0" mat-flat-button type="button" color="accent"
+                (click)="onClear()">Clear</button>
+        </div>
+    </div>
+
+    <div *ngIf="reportData.length > 0" class="report-header">
+        <h2 class="header_title">Profit</h2>
+        <p>Total Profit: {{totalProfit}}</p>
+    </div>
+
+    <div *ngIf="reportData.length > 0" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl Id</th>
+                    <th *ngIf="+reportType !== 3">Date</th>
+                    <th *ngIf="+reportType === 3">Brand Name</th>
+                    <th>Profit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of reportData; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{data.sale_date | date:'dd-MMM-yyyy'}}</td>
+                    <td>{{data.profit}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -28,6 +28,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     '/purchase/list-purchases': 'Purchase History',
     '/reports/sale-reports': 'Sale Reports',
     '/reports/purchase-reports': 'Purchase Reports',
+    '/reports/stock-reports': 'Current Stock Report',
+    '/reports/profit-reports': 'Profit Reports',
   }
 
   ngOnInit(): void {

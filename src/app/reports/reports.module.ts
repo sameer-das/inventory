@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StockReportComponent } from './stock-report/stock-report.component';
 import { ReportsService } from './reports.service';
+import { SearchItemModule } from '../search-item/search-item.module';
+import { ProfitReportComponent } from './profit-report/profit-report.component';
 
 
 
@@ -15,7 +17,8 @@ import { ReportsService } from './reports.service';
   declarations: [
     SaleReportsComponent,
     PurchaseReportsComponent,
-    StockReportComponent
+    StockReportComponent,
+    ProfitReportComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +26,8 @@ import { ReportsService } from './reports.service';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SearchItemModule
   ],
   providers: [ReportsService]
 })

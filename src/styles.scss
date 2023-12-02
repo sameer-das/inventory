@@ -154,13 +154,13 @@ body {
 }
 
 
-.report-type-dropdown {
+.report-type-dropdown, .brand-dropdown {
   border: 1px solid $grey;
   padding: 1px 4px;
   border-radius: 4px;
 
   &:focus {
-    border: 2px solid $green;
+    border: 1px solid $green;
   }
 }
 
@@ -182,3 +182,13 @@ body {
   background-color: rgba(123, 31, 162, 0.2);
 }
 
+
+
+
+
+
+
+
+.mdc-list-item--selected .mdc-list-item__primary-text, .mdc-list-item--activated .mdc-list-item__primary-text {
+  color: $green;
+}
