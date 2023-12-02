@@ -62,7 +62,8 @@
             <tbody>
                 <tr *ngFor="let data of reportData; let i = index">
                     <td>{{i + 1}}</td>
-                    <td>{{data.sale_date | date:'dd-MMM-yyyy'}}</td>
+                    <td *ngIf="+reportType !== 3">{{data.sale_date | date:'dd-MMM-yyyy'}}</td>
+                    <td *ngIf="+reportType === 3">{{data.brand_name}}</td>
                     <td>{{data.profit}}</td>
                 </tr>
             </tbody>
