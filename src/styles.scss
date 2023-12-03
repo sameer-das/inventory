@@ -192,3 +192,8 @@ body {
 .mdc-list-item--selected .mdc-list-item__primary-text, .mdc-list-item--activated .mdc-list-item__primary-text {
   color: $green;
 }
+
+.mat-calendar-body-selected {
+  background: $green;
+  color: black;
+}

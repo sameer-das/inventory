@@ -24,6 +24,7 @@ export class ProfitReportComponent implements OnInit, OnDestroy {
   today = new Date();
   reportData: any[] = [];
   totalProfit: number = 0;
+  totalSale: number = 0;
   showBrandDropdown: boolean = false;
   selectedBrand!: any;
 
@@ -41,6 +42,7 @@ export class ProfitReportComponent implements OnInit, OnDestroy {
   onSelectionChange() {
     this.reportData = [];
     this.totalProfit = 0;
+    this.totalSale = 0;
     
     this.showBrandDropdown = +this.reportType === 2;
     if (!this.brandsFetched && +this.reportType === 2) {
@@ -106,12 +108,20 @@ export class ProfitReportComponent implements OnInit, OnDestroy {
     this.endDate = undefined;
     this.reportData = [];
     this.totalProfit = 0;
+    this.totalSale = 0;
   }
 
   calculateTotal() {
     this.totalProfit = this.reportData.reduce((acc, curr) => {
       return acc + +curr.profit
-    }, 0)
+    }, 0);
+    this.totalSale = this.reportData.reduce((acc, curr) => {
+      return acc + +curr.sale
+    }, 0);
+
+    this.totalProfit = +this.totalProfit.toFixed(2)
+    this.totalSale = +this.totalSale.toFixed(2)
+
   }
 
 
