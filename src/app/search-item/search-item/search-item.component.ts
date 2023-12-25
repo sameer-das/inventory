@@ -88,4 +88,8 @@ export class SearchItemComponent implements OnInit, OnDestroy {
     this.control.setValue('');
   }
 
+  onSubmit(e:any) {
+    e.preventDefaut();
+  }
+
 }
