@@ -6,7 +6,7 @@
                 (selectionChange)="onSelectionChange()">
                 <mat-option value="1">Date wise sale report</mat-option>
                 <mat-option value="2">Customer wise sale report</mat-option>
-                <!-- <mat-option value="3">Item wise sale report</mat-option> -->
+                <mat-option value="3">Item wise sale report</mat-option>
             </mat-select>
         </div>
 
@@ -27,7 +27,7 @@
 
             </div>
         </div>
-        <div *ngIf="showItemSearch">
+        <div *ngIf="showItemSearch" class="w450">
             <app-search-item (onItemSelection)="onItemSelection($event)"></app-search-item>
         </div>
 
@@ -65,6 +65,16 @@
                     <th>Customer Name</th>
                     <th>Customer Phone</th>
                     <th>Customer GSTN</th>
+                    <ng-container *ngIf="reportType === '3'">
+                        <th>Item Name</th>
+                        <th>Brand</th>
+                        <th>Box Qty</th>
+                        <th>Piece Qty</th>
+                        <th>total Qty</th>
+                        <th>Avg. Sale Price</th>
+                        <th>GST Earned</th>
+                        <th>Profit Earned</th>
+                    </ng-container>
                     <th>Total</th>
                 </tr>
             </thead>
@@ -76,6 +86,16 @@
                     <td>{{ data.sale_customer }}</td>
                     <td>{{ data.sale_customer_phone }}</td>
                     <td>{{ data.sale_gstn }}</td>
+                    <ng-container *ngIf="reportType === '3'">
+                        <td>{{data.item_name}}</td>
+                        <td>{{data.brand_name}}</td>
+                        <td>{{data.sale_box_quantity}}</td>
+                        <td>{{data.sale_piece_quantity}}</td>
+                        <td>{{data.sale_total_piece}}</td>
+                        <td>{{data.average_sale_price}}</td>
+                        <td>{{data.gst_earned}}</td>
+                        <td>{{data.profit_earned}}</td>
+                    </ng-container>
                     <td>{{ data.total_amount }}</td>
 
                 </tr>

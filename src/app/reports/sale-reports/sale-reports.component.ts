@@ -6,6 +6,7 @@ import { RealtionsService } from 'src/app/realations/realtions.service';
 import { ReportsService } from '../reports.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { APIResponse } from 'src/app/apiresponse';
+import { SearchItemService } from 'src/app/search-item/search-item.service';
 
 
 function autocompleteObjectValidator(): ValidatorFn {
@@ -28,7 +29,8 @@ export class SaleReportsComponent implements OnInit, OnDestroy {
   constructor(private _relationsService: RealtionsService,
     private _popupService: PopupService,
     private _reportService: ReportsService,
-    private _loaderService: LoaderService) { }
+    private _loaderService: LoaderService,
+    private _searchItemService: SearchItemService) { }
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   reportType = '1';
@@ -149,6 +151,7 @@ export class SaleReportsComponent implements OnInit, OnDestroy {
     this.startDate = undefined;
     this.endDate = undefined;
     this.reportData = [];
+    this._searchItemService.clearItemSearch();
   }
 
 
