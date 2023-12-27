@@ -146,3 +146,10 @@
         font-weight: 400;
     }
 }
+
+
+button.add-button:focus {
+    outline: 2px solid yellow;
+    outline-offset: 4px;
+    color: $deep-purple;    
+}
