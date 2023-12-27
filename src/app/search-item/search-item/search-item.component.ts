@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable, Subject, debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged, filter, map, of, switchMap, takeUntil, tap } from 'rxjs';
 import { SearchItemService } from '../search-item.service';
 @Component({
   selector: 'app-search-item',
@@ -34,9 +34,8 @@ export class SearchItemComponent implements OnInit, OnDestroy {
           return this._searchItemService.searchItem(search)
         else
           return this._searchItemService.searchItemWithStock(search).pipe(
-            filter(items => items.length > 0),
-            map(curr => this.formatItemsForWithStockSearch(curr)),
-            tap(item => console.log(item)))
+            map(curr => this.formatItemsForWithStockSearch(curr))
+          )
       })
     );
 
@@ -88,7 +87,7 @@ export class SearchItemComponent implements OnInit, OnDestroy {
     this.control.setValue('');
   }
 
-  onSubmit(e:any) {
+  onSubmit(e: any) {
     e.preventDefaut();
   }
 
