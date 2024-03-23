@@ -107,13 +107,12 @@
                                 </ng-container>
 
                             </div>
-                            <div class="custom-input-container ml-32">
+                            <div class="custom-input-container gst ml-32">
                                 <label>Rate of GST</label>
                                 <mat-select class="gst-dropdown" name="GST" formControlName="gst" tabindex="">
-                                    <mat-option value="5">5</mat-option>
-                                    <mat-option value="12">12</mat-option>
-                                    <mat-option value="18">18</mat-option>
-                                    <mat-option value="28">28</mat-option>
+                                    <mat-optgroup *ngFor="let grp of GST_RATES" [label]="grp.groupname">
+                                        <mat-option *ngFor="let opt of grp.rates" [value]="opt.value">{{opt.viewValue}}</mat-option>
+                                    </mat-optgroup>
                                 </mat-select>
                                 <small class="error-message">{{getErrorMessage('gst')}}</small>
                             </div>

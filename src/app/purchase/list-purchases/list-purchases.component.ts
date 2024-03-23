@@ -4,7 +4,7 @@ import { PurchaseService } from '../purchase.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { MatDialog } from '@angular/material/dialog';
 import { APIResponse } from 'src/app/apiresponse';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-purchases',
@@ -13,18 +13,25 @@ import { Router } from '@angular/router';
 })
 export class ListPurchasesComponent implements OnInit, OnDestroy {
   constructor(private _purchaseService: PurchaseService, private _loaderService: LoaderService,
-    private _dialog: MatDialog, private _router: Router) { }
+    private _dialog: MatDialog, private _router: Router,
+    private route:ActivatedRoute) { }
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  pageSize = 10;
+  pageSize = 15;
   total = 0;
   pageNo = 1;
 
   purchases: any[] = [];
 
   ngOnInit(): void {
-    this.getAllPurchase(this.pageNo, this.pageSize);
+    // this.getAllPurchase(this.pageNo, this.pageSize);
+    this.route.queryParams.subscribe({
+      next: (queryParams: any) => {
+        // console.log(queryParams)
+        this.getAllPurchase(queryParams.pageno || this.pageNo, queryParams.pagesize || this.pageSize)
+      }
+    })
   }
   ngOnDestroy(): void {
     this.destroy$.next(true);
@@ -40,6 +47,7 @@ export class ListPurchasesComponent implements OnInit, OnDestroy {
           // console.log(resp)
           if (resp.status === 200) {
             this.purchases = resp.result;
+            this.total = resp.result[0]['total_count'];
           }
         },
         error: (err) => {
@@ -51,11 +59,12 @@ export class ListPurchasesComponent implements OnInit, OnDestroy {
   }
 
   handlePageEvent(e:any) {
-    console.log(e)
+    // console.log(e)
+    this._router.navigate(['/purchase/list-purchases'], {queryParams: {pageno: e.pageIndex + 1, pagesize: e.pageSize}})
   }
 
   onPurchaseClick(purchase_uid: string) {
-    console.log(purchase_uid)
+    // console.log(purchase_uid)
     this._router.navigate([`purchase/purchase-details/${purchase_uid}`]);
   }
 

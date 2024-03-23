@@ -100,6 +100,8 @@ export class SaleDetailsComponent implements OnInit, OnDestroy {
     '12': 0,
     '18': 0,
     '28': 0,
+    '24': 0,
+    '40': 0,
     'total': 0
   }
 

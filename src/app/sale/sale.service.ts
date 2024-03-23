@@ -18,8 +18,8 @@ export class SaleService {
   }
 
 
-  getAllSales() {
-    return this._http.get<APIResponse>(environment.API_BASE_URL + '/sale/all')
+  getAllSales(pageNo: number, pageSize: number) {
+    return this._http.get<APIResponse>(environment.API_BASE_URL + `/sale/all?page=${pageNo}&pageSize=${pageSize}`)
   }
 
   getSaleDetails(saleUid:string) {

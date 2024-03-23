@@ -16,6 +16,24 @@ export class NewPurchasePopupComponent implements OnInit {
     private _dialogRef: MatDialogRef<NewPurchasePopupComponent>,
     private _popupService: PopupService) { }
 
+  GST_RATES = [
+    {
+      groupname: 'GST Only',
+      rates: [
+        { viewValue: '5 %', value: '5' },
+        { viewValue: '12 %', value: '12' },
+        { viewValue: '18 %', value: '18' },
+        { viewValue: '28 %', value: '28' },
+      ]
+    },
+    {
+      groupname: 'GST With CESS',
+      rates: [
+        { viewValue: '12% + 12%', value: '24' },
+        { viewValue: '28% + 12%', value: '40' },
+      ]
+    },
+  ]
 
   AllowOnlyNumbersAndTwoDecimalPoint = /^[0-9][0-9]*[.]?[0-9]{0,2}$/;
   AllowOnlyNumbers = /^[0-9]+$/;

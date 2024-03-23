@@ -109,11 +109,13 @@ export class NewSaleComponent implements OnInit, OnDestroy {
     '12': 0,
     '18': 0,
     '28': 0,
+    '24':0, 
+    '40': 0,
     'total': 0
   }
 
   calculateTaxAndProfit() {
-    this.gstDetails = { '5': 0, '12': 0, '18': 0, '28': 0, 'total': 0 };
+    this.gstDetails = { '5': 0, '12': 0, '18': 0, '28': 0, '24':0, '40': 0, 'total': 0 };
 
     this.saleItems.forEach((item: any) => {
       item.totalProfitEarned = 0;

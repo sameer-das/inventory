@@ -27,8 +27,8 @@
                     [routerLinkActiveOptions]="{exact:true}">Purchase Entry</a>
             </li>
             <li>
-                <a class="sub_menu_link" routerLink="/purchase/list-purchases" routerLinkActive="activelink"
-                    [routerLinkActiveOptions]="{exact:true}">Purchase History</a>
+                <a class="sub_menu_link" routerLink="/purchase/list-purchases" [queryParams]="{pagesize: 15, pageno:1 }"
+                    routerLinkActive="activelink" [routerLinkActiveOptions]="{exact:true}">Purchase History</a>
             </li>
         </ul>
 

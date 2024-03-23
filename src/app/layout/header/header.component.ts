@@ -34,12 +34,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentUrl = this._router.url;
-    this.currentMenuName = this.urlMenuMapping[this.currentUrl];
+    console.log(this.currentUrl)
+    this.currentMenuName = this.urlMenuMapping[this.currentUrl.slice(0,this.currentUrl.indexOf('?'))];
     this._router.events.pipe(takeUntil(this.destroy$), filter(x => x instanceof NavigationEnd)).subscribe({
       next: (resp: any) => {
         // console.log(resp)
         this.currentUrl = resp.url || this.currentUrl;
-        this.currentMenuName = this.urlMenuMapping[this.currentUrl];
+        this.currentMenuName = this.urlMenuMapping[this.currentUrl.slice(0,this.currentUrl.indexOf('?'))];
       }
     })
 
